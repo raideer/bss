@@ -19,7 +19,9 @@ module.exports = {
       util: path.resolve(__dirname, './src/util/'),
       css: path.resolve(__dirname, './src/css/'),
       module: path.resolve(__dirname, './src/module/'),
-      core: path.resolve(__dirname, './src/core/')
+      core: path.resolve(__dirname, './src/core/'),
+      react: 'preact-compat',
+      'react-dom': 'preact-compat'
     }
   },
   plugins: [
@@ -28,7 +30,7 @@ module.exports = {
       __version_minor__: VERSION.minor,
       __version_patch__: VERSION.patch,
       __version_prerelease__: VERSION.prerelease,
-      __git_commit__: commitHash
+      __git_commit__: JSON.stringify(commitHash)
     })
   ],
   module: {
@@ -47,7 +49,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.(s[ac]ss|css)$/i,
         use: [
           // Creates `style` nodes from JS strings
           'style-loader',

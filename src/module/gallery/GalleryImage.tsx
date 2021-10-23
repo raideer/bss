@@ -13,14 +13,12 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
 
   const hideGhostImage = (event: any) => {
-    const img = new Image();
+    const img = new Image(0, 0);
     img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
     event.dataTransfer.setDragImage(img, 0, 0);
   }
 
   const onDragStart = (e: any) => {
-    hideGhostImage(e)
-
     setImageSize({
       width: e.target.clientWidth,
       height: e.target.clientHeight
@@ -31,10 +29,13 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
       x: e.pageX,
       y: e.pageY
     })
+
+    hideGhostImage(e)
   }
 
   const onDragEnd = (e: any) => {
     setDragging(false)
+    setImageContainerHeight(e.target)
   }
 
   const setImageContainerHeight = (el: any) => {
@@ -50,8 +51,6 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
     const xDif = e.pageX - dragStartPos.x
 
     e.target.style.width = `${imageSize.width + xDif}px`
-
-    setImageContainerHeight(e.target)
   }
 
   const rotate = (deg: number) => {

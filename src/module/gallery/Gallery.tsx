@@ -1,4 +1,5 @@
 import classnames from "classnames"
+import SimpleBar from "core/components/Simplebar"
 import { useEffect, useState } from "preact/hooks"
 import fetchHtml from "util/fetch-html"
 import { GalleryImage } from "./GalleryImage"
@@ -43,20 +44,22 @@ export const Gallery = ({ row }: Props) => {
   return (
     <div className="ssplus-gallery">
       <div class="ssplus-gallery__images">
-        { images.map((image, key) => {
-          return (
-            <button
-              onClick={() => setActiveImage(image)}
-              type="button"
-              key={key}
-              className={classnames({
-                'ssplus-gallery__image': true,
-                'ssplus-gallery__image--active': activeImage === image
-              })}>
-              <img src={image} />
-            </button>
-          )
-        })}
+        <SimpleBar style={{ maxHeight: 600 }} autoHide={false}>
+          { images.map((image, key) => {
+            return (
+              <button
+                onClick={() => setActiveImage(image)}
+                type="button"
+                key={key}
+                className={classnames({
+                  'ssplus-gallery__image': true,
+                  'ssplus-gallery__image--active': activeImage === image
+                })}>
+                <img src={image} />
+              </button>
+            )
+          })}
+        </SimpleBar>
       </div>
       <div class="ssplus-gallery__preview" style={previewStyle}>
         {activeImage && (

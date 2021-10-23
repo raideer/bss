@@ -1,6 +1,11 @@
 /* eslint-disable camelcase */
 declare module 'hyperactiv';
 declare module 'winbox/*';
+declare module 'simplebar/*';
+
+declare let SSPlus: {
+  version: any
+}
 
 declare let __webpack_hash__: string;
 declare let __git_commit__: string;

@@ -29,8 +29,15 @@ export const Settings = () => {
           })
         }
         <div className="ssplus-settings__version">
-          <div>Versija: { SSPlusVersion.major }.{ SSPlusVersion.minor }.{ SSPlusVersion.patch }</div>
-          <div>{ SSPlusVersion.commit }</div>
+          <div>Versija: { SSPlus.version.toString() }</div>
+          <div>
+            <a
+              target="_blank"
+              href={`https://github.com/raideer/ssplus/commit/${SSPlus.version.commit}`}
+              rel="noreferrer">
+                { SSPlus.version.commit.substring(0, 7) }
+            </a>
+          </div>
         </div>
       </div>
       <div className="ssplus-settings__settings">
@@ -38,7 +45,7 @@ export const Settings = () => {
         { activeSetting && (
           activeSetting.items.map(item => {
             return (
-              <div key={item.id}>
+              <div className="ssplus-settings__settings-item" key={item.id}>
                 {
                   item.type === SettingValueType.Checkbox && (
                     <Checkbox setting={item} />

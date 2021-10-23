@@ -22,7 +22,7 @@
 		"__version_minor__": false,
 		"__version_patch__": false,
 		"__version_prerelease__": false,
-    "SSPlusVersion": true
+    "SSPlus": false
 	},
   "rules": {
     "no-unused-vars": "off"

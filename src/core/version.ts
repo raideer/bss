@@ -3,8 +3,11 @@ const SSPlusVersion = {
   minor: __version_minor__,
   patch: __version_patch__,
   prerelease: __version_prerelease__,
-  hash: __webpack_hash__,
-  commit: __git_commit__
+  hash: '__webpack_hash__',
+  commit: __git_commit__,
+  toString: () => {
+    return `${SSPlusVersion.major}.${SSPlusVersion.minor}.${SSPlusVersion.patch}`
+  }
 };
 
-(window as any).SSPlusVersion = SSPlusVersion
+(window as any).SSPlus.version = SSPlusVersion
