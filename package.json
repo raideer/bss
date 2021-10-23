@@ -7,7 +7,7 @@
     "watch": "webpack --watch --config webpack.config.js",
     "build": "webpack --config webpack.config.js"
   },
-  "author": "",
+  "author": "Raideer",
   "license": "ISC",
   "dependencies": {
     "@cycle/dom": "^22.8.0",
