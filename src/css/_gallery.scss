@@ -1,0 +1,148 @@
+.msg2 {
+  position: relative;
+}
+
+.ssplus-gallery {
+  padding: 10px 0;
+  display: flex;
+  background-color: color(background);
+  margin-bottom: 30px;
+
+  &__images {
+    flex-shrink: 0;
+    width: 112px;
+    padding-left: 23px;
+    padding-top: 10px;
+
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  &__image {
+    width: 92px;
+    height: 84px;
+    overflow: hidden;
+    border: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    img {
+      width: 92px;
+      height: 84px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &--active {
+      background-color: color(primary);
+      
+      img {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__preview {
+    padding: 10px;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    border: 0 none;
+    background-color: color(background-darker);
+    border-radius: 5px;
+    padding: 2px 5px;
+    z-index: 999;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    i {
+      color: color(gray);
+    }
+
+    .fa-image {
+      margin-right: 5px;
+    }
+
+    .fa-chevron-down {
+      font-size: 10px;
+    }
+  }
+
+  &__container {
+    width: 100%;
+  }
+}
+
+.ssplus-gallery-image {
+  position: absolute;
+  z-index: 999;
+
+  &__controls {
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    position: absolute;
+    border-radius: 5px;
+    top: 5px;
+    left: 5px;
+    z-index: 10;
+
+    button, a {
+      padding: 5px 10px;
+      border: 0;
+      background-color: transparent;
+      opacity: 0.6;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &-rr {
+      .fa-undo {
+        transform: scaleX(-1);
+      }
+    }
+  }
+
+  &__image {
+    cursor: pointer;
+    user-select: none;
+    max-width: none;
+    max-height: none;
+
+    &[data-rotation] {
+      transform-origin: left top;
+    }
+
+    &[data-rotation="0"] {
+      transform: initial;
+    }
+
+    &[data-rotation="1"] {
+      transform: rotate(90deg) translateY(-100%);
+    }
+
+    &[data-rotation="2"] {
+      transform: rotate(180deg) translate(-100%, -100%);
+    }
+
+    &[data-rotation="3"] {
+      transform: rotate(270deg) translateX(-100%);
+    }
+  }
+}
