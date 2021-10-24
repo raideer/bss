@@ -8,10 +8,10 @@ const commitHash = require('child_process').execSync('git rev-parse HEAD').toStr
 
 module.exports = {
   mode: 'development',
-  entry: './src/ssplus.user.ts',
+  entry: './src/ssplus.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'ssplus.user.js'
+    filename: 'ssplus.js'
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
