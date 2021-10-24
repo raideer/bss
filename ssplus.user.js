@@ -6,6 +6,7 @@
 // @grant none
 // @run-at document-start
 // @version 1.0.2
+// @updateURL https://ssplus.kristofers.dev/ssplus.user.js
 // @require https://ssplus.kristofers.dev/ssplus-1.0.2.js
 // @noframes
 // ==/UserScript==
