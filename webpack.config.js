@@ -5,13 +5,16 @@ const semver = require('semver')
 const VERSION = semver.parse(require('./package.json').version)
 
 const commitHash = require('child_process').execSync('git rev-parse HEAD').toString().trim();
+const PROD = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  mode: 'development',
-  entry: './src/ssplus.ts',
+  mode: PROD ? 'production' : 'development',
+  entry: {
+    [PROD ? `ssplus-${VERSION.major}.${VERSION.minor}.${VERSION.patch}` : `ssplus`]: './src/ssplus.ts'
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'ssplus.js'
+    filename: '[name].js'
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],

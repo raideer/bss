@@ -4,8 +4,8 @@
 // @match https://*.ss.com/*
 // @match https://*.ss.lv/*
 // @grant none
+// @version __SSPLUS_VERSION__
 // @run-at document-start
-// @version 1.0.1
-// @require https://ssplus.kristofers.dev/ssplus-1.0.1.js
+// @require https://ssplus.kristofers.dev/ssplus-__SSPLUS_VERSION__.js
 // @noframes
 // ==/UserScript==
