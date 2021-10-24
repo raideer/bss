@@ -36,9 +36,12 @@ const SettingsButton = () => {
     render(<Settings />, wb.body)
   }
 
-  return (<button className="ssplus-settings__button" onClick={onClick}>SSPlus</button>)
+  return (<button className="ssplus-settings__button" onClick={onClick}>SS+</button>)
 }
 
 whenLoaded(() => {
-  render(<SettingsButton />, document.body)
+  const insertPoint = document.querySelector('.menu_lang')
+  if (insertPoint) {
+    render(<SettingsButton />, insertPoint)
+  }
 })
