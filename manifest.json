@@ -1,0 +1,21 @@
+{
+  "name": "SSPlus",
+  "version": "1.1.0",
+  "description": "SS.com un SS.lv atvieglojumi un uzlabojumi",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.ss.com/*",
+        "https://*.ss.lv/*"
+      ],
+      "run_at": "document_start",
+      "js": [
+        "dist/ssplus.js"
+      ],
+      "css": [
+        "dist/ssplus.css"
+      ]
+    }
+  ],
+  "manifest_version": 2
+}

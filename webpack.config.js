@@ -1,7 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const semver = require('semver')
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const VERSION = semver.parse(require('./package.json').version)
 
 const commitHash = require('child_process').execSync('git rev-parse HEAD').toString().trim();
@@ -10,11 +11,12 @@ const PROD = process.env.NODE_ENV === 'production'
 module.exports = {
   mode: PROD ? 'production' : 'development',
   entry: {
-    [PROD ? `ssplus-${VERSION.major}.${VERSION.minor}.${VERSION.patch}` : `ssplus`]: './src/ssplus.ts'
+    'ssplus.js': './src/ssplus.ts',
+    styles: './src/css/main.scss'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name]'
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
@@ -28,6 +30,10 @@ module.exports = {
     }
   },
   plugins: [
+    new RemoveEmptyScriptsPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "ssplus.css"
+    }),
     new webpack.DefinePlugin({
       __version_major__: VERSION.major,
       __version_minor__: VERSION.minor,
@@ -54,9 +60,7 @@ module.exports = {
       {
         test: /\.(s[ac]ss|css)$/i,
         use: [
-          // Creates `style` nodes from JS strings
-          'style-loader',
-          // Translates CSS into CommonJS
+          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -70,7 +74,6 @@ module.exports = {
               }
             }
           },
-          // Compiles Sass to CSS
           'sass-loader'
         ]
       }

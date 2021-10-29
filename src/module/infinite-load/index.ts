@@ -2,8 +2,8 @@ import { CallbackFunction, whenLoaded } from 'util/lifecycle'
 import fetchHtml from 'util/fetch-html'
 
 import { dom, isElementInViewport } from 'util/dom'
-import { getCachedItem, registerSetting, SettingCategory, SettingValueType } from 'module/settings/storage'
-import { timeout } from 'util/timeout'
+import { getItem, registerSetting, SettingCategory, SettingValueType } from 'module/settings/storage'
+import { timeout } from 'util/async'
 
 let loading = false
 
@@ -69,7 +69,7 @@ async function loadNextPage () {
 }
 
 whenLoaded(() => {
-  if (getCachedItem('infinite-load-enabled') === 'false') return
+  if (getItem('infinite-load-enabled') !== 'true') return
 
   window.addEventListener('scroll', () => {
     const menuButtonEl = document.querySelector('button.navia')

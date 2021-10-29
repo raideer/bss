@@ -1,5 +1,5 @@
 import { whenLoaded } from 'util/lifecycle'
-import { getCachedItem, registerSetting, SettingCategory, SettingValueType } from 'module/settings/storage'
+import { getItem, registerSetting, SettingCategory, SettingValueType } from 'module/settings/storage'
 import { render } from 'preact'
 import { GalleryButton } from './GalleryButton'
 import { whenNextPageLoaded } from 'module/infinite-load'
@@ -14,7 +14,9 @@ registerSetting({
 })
 
 function addGalleryButtons () {
-  if (getCachedItem('gallery-enabled') === 'false') return
+  if (getItem('gallery-enabled') !== 'true') return
+
+  document.body.classList.add('ssplus-gallery-enabled');
 
   document.querySelectorAll('tr[id^="tr_"]').forEach(row => {
     // Remove all event listeners

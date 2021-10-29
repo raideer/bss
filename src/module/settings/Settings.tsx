@@ -16,6 +16,7 @@ export const Settings = () => {
   return (
     <div className="ssplus-settings">
       <div className="ssplus-settings__menu">
+        <div className="ssplus-settings__menu-items">
         {
           menu.map(item => {
             return (
@@ -28,6 +29,7 @@ export const Settings = () => {
             )
           })
         }
+        </div>
         <div className="ssplus-settings__version">
           <div>Versija: { SSPlus.version.toString() }</div>
           <div>

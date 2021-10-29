@@ -1,4 +1,3 @@
-import localforage from 'localforage'
 import { log } from 'util/logger'
 
 const settingCache: { [key: string]: string } = {}
@@ -8,7 +7,8 @@ export enum SettingValueType {
 }
 
 export const SettingCategory = {
-  AdList: 'ad-list'
+  AdList: 'ad-list',
+  Appearance: 'appearance'
 }
 
 export interface Setting {
@@ -35,6 +35,11 @@ const settings: SettingsCategory[] = [
     id: SettingCategory.AdList,
     title: 'Sludinājumu saraksts',
     items: []
+  },
+  {
+    id: SettingCategory.Appearance,
+    title: 'Izskats',
+    items: []
   }
 ]
 
@@ -53,12 +58,12 @@ export const registerSetting = (
   const setting = settings.find(setting => setting.id === menu)
 
   if (setting) {
-    getItem(id).then(hasValue => {
-      if (!hasValue) {
-        setItem(id, defaultValue)
-        log(`Registered default value '${defaultValue}' for setting '${id}'`)
-      }
-    })
+    const hasValue = getItem(id)
+
+    if (!hasValue) {
+      setItem(id, defaultValue)
+      log(`Registered default value '${defaultValue}' for setting '${id}'`)
+    }
 
     setting.items.push({
       id,
@@ -75,10 +80,10 @@ export const registerSetting = (
  * @param value
  * @returns
  */
-export async function setItem(id: string, value: string) {
+export function setItem(id: string, value: string) {
   settingCache[id] = value
   log(`Updated setting '${id}' to '${value}'`)
-  return localforage.setItem(`ssplus_${id}`, value)
+  return localStorage.setItem(`ssplus_${id}`, value)
 }
 
 /**
@@ -87,12 +92,12 @@ export async function setItem(id: string, value: string) {
  * @param force Bypass cache
  * @returns
  */
-export async function getItem(id: string, force = false) {
+export function getItem(id: string, force = false) {
   if (!force && settingCache[id]) {
     return settingCache[id]
   }
 
-  const value = await localforage.getItem(`ssplus_${id}`)
+  const value = localStorage.getItem(`ssplus_${id}`)
   settingCache[id] = value as string
   return value
 }
@@ -103,8 +108,4 @@ export function updateCache() {
       getItem(item.id, true)
     })
   })
-}
-
-export function getCachedItem(id: string) {
-  return settingCache[id]
 }

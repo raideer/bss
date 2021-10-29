@@ -2,7 +2,14 @@ $color: (
   primary: #5516C2,
   background: #F6F6F6,
   background-darker: #E9E9E9,
-  gray: #707070
+  gray: #707070,
+
+  dark-text: #c3c3c3,
+  dark-text-darker: #828282,
+  dark-background: #262626,
+  dark-background-lighter: #373737,
+  dark-line: #585858,
+  dark-green: #4b8159
 );
 
 @function color($key) {

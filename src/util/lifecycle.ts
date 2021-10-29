@@ -1,17 +1,30 @@
+import { waitFor } from "./async"
+import { waitForChild } from "./dom"
+
 export enum Lifecycle {
   End,
+  BeforeStart,
   Start,
   Idle
 }
 
 export const lifecycleState = {
-  status: Lifecycle.Start
+  status: Lifecycle.BeforeStart
 }
 
 export type CallbackFunction<A = void> = (...args: any[]) => A
 
+const startListeners: CallbackFunction[] = []
 const loadedListeners: CallbackFunction[] = []
 const idleListeners: CallbackFunction[] = []
+
+export function whenStarting (callback: CallbackFunction) {
+  if (lifecycleState.status === Lifecycle.Start || lifecycleState.status === Lifecycle.End || lifecycleState.status === Lifecycle.Idle) {
+    return callback()
+  }
+
+  startListeners.push(callback)
+}
 
 export function whenLoaded (callback: CallbackFunction) {
   if (lifecycleState.status === Lifecycle.End || lifecycleState.status === Lifecycle.Idle) {
@@ -28,6 +41,12 @@ export function whenIdle (callback: CallbackFunction) {
 
   idleListeners.push(callback)
 }
+
+waitForChild(document.documentElement, 'body').then(() => waitFor(() => document.body, 10)).then(() => {
+  lifecycleState.status = Lifecycle.Start
+
+  startListeners.forEach(callback => callback())
+})
 
 document.addEventListener('DOMContentLoaded', () => {
   lifecycleState.status = Lifecycle.End
