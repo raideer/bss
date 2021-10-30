@@ -46,7 +46,7 @@ async function loadNextPage () {
 
     await timeout(1000);
 
-    const html = await fetchHtml((nextLink as HTMLAnchorElement).href)
+    const html = await fetchHtml((nextLink as HTMLAnchorElement).href) as Document
     // Select and place ads
     const items = html.querySelectorAll('tr[id^=tr_]')
 

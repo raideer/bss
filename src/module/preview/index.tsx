@@ -1,22 +1,24 @@
 import { whenLoaded } from 'util/lifecycle'
 import { getItem, registerSetting, SettingCategory, SettingValueType } from 'module/settings/storage'
 import { render } from 'preact'
-import { GalleryButton } from './GalleryButton'
+import { PreviewButton } from './PreviewButton'
 import { whenNextPageLoaded } from 'module/infinite-load'
 
+export const SETTING_ENABLED = 'preview-enabled'
+
 registerSetting({
-  id: 'gallery-enabled',
+  id: SETTING_ENABLED,
   type: SettingValueType.Checkbox,
   defaultValue: 'true',
   menu: SettingCategory.AdList,
-  title: 'Galerija',
+  title: 'Sludinājuma priekšskats',
   description: 'Apskati sludinājuma galeriju no sludinājumu saraksta'
 })
 
-function addGalleryButtons () {
-  if (getItem('gallery-enabled') !== 'true') return
+function addPreviewButtons () {
+  if (getItem(SETTING_ENABLED) !== 'true') return
 
-  document.body.classList.add('ssplus-gallery-enabled');
+  document.body.classList.add('ssplus-preview-enabled');
 
   document.querySelectorAll('tr[id^="tr_"]').forEach(row => {
     // Remove all event listeners
@@ -26,15 +28,15 @@ function addGalleryButtons () {
     const rowTitle = row.querySelector('td.msg2')
 
     if (rowTitle) {
-      render(<GalleryButton row={row} />, rowTitle)
+      render(<PreviewButton row={row} />, rowTitle)
     }
   })
 }
 
 whenLoaded(() => {
-  addGalleryButtons()
+  addPreviewButtons()
 })
 
 whenNextPageLoaded(() => {
-  addGalleryButtons()
+  addPreviewButtons()
 })

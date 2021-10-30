@@ -1,13 +1,13 @@
 import { render } from "preact";
 import { useState } from "preact/hooks";
 import { dom } from "util/dom";
-import { Gallery } from "./Gallery";
+import { Preview } from "./Preview";
 
 interface Props {
   row: any;
 }
 
-export const GalleryButton = ({ row }: Props) => {
+export const PreviewButton = ({ row }: Props) => {
   const [container, setContainer] = useState<HTMLElement | null>(null)
 
   const onClick = (e: any) => {
@@ -28,7 +28,7 @@ export const GalleryButton = ({ row }: Props) => {
 
       const col = container.querySelector('td')
       if (col) {
-        render(<Gallery row={row} />, col)
+        render(<Preview row={row} />, col)
       }
     }
   }

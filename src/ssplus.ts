@@ -6,6 +6,6 @@ import 'core/ssplus'
 import 'module/settings'
 import 'module/dark-mode'
 import 'module/infinite-load'
-import 'module/gallery'
+import 'module/preview'
 
 log('Modules loaded')
