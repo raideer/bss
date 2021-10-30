@@ -35,8 +35,8 @@ export const GalleryButton = ({ row }: Props) => {
 
   return (
     <button type="button" onClick={onClick} className="ssplus-gallery__button">
-      <i className="fas fa-image" />
-      <i className="fas fa-chevron-down" />
+      <span class="icon-image" />
+      <span class="icon-chevron-down" />
     </button>
   )
 }

@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-declare module 'hyperactiv';
 declare module 'winbox/*';
 declare module 'simplebar/*';
 

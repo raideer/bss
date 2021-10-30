@@ -83,16 +83,16 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
     <div className="ssplus-gallery-image">
       <div className="ssplus-gallery-image__controls">
         <button title="Pagriezt pa kreisi" onClick={() => rotate(-1)} type="button">
-          <i className="fas fa-undo" />
+          <span class="icon-rotate-left" />
         </button>
         <button title="Pagriezt pa labi" onClick={() => rotate(1)} className="ssplus-gallery-image__controls-rr" type="button">
-          <i className="fas fa-undo" />
+          <span class="icon-rotate-left" />
         </button>
         <a href={src} download={src}>
-          <i className="fas fa-download" />
+          <span class="icon-download" />
         </a>
         <a title="Reverse image search" href={`https://images.google.com/searchbyimage?image_url=${encodeURIComponent(src)}`} target="_blank" rel="noreferrer">
-          <i className="fas fa-search" />
+          <span class="icon-search" />
         </a>
       </div>
       <div>

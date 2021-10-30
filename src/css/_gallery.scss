@@ -78,11 +78,11 @@
       color: color(gray);
     }
 
-    .fa-image {
+    .icon-image {
       margin-right: 5px;
     }
 
-    .fa-chevron-down {
+    .icon-chevron-down {
       font-size: 10px;
     }
   }
@@ -115,8 +115,12 @@
       }
     }
 
+    span {
+      color: color(dark-gray);
+    }
+
     &-rr {
-      .fa-undo {
+      .icon-rotate-left {
         transform: scaleX(-1);
       }
     }

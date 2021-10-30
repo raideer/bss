@@ -1,0 +1,32 @@
+{
+  "name": "SSPlus",
+  "version": "__VERSION__",
+  "description": "SS.com enhancements",
+  "icons": {
+    "16": "assets/icons/ssplus16.png",
+    "48": "assets/icons/ssplus48.png",
+    "128": "assets/icons/ssplus128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.ss.com/*",
+        "https://*.ss.lv/*"
+      ],
+      "run_at": "document_start",
+      "js": [
+        "ssplus.js"
+      ],
+      "css": [
+        "ssplus.css",
+        "assets/fonticons.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "assets/fonts/ssplus.svg",
+    "assets/fonts/ssplus.ttf",
+    "assets/fonts/ssplus.woff"
+  ],
+  "manifest_version": 2
+}

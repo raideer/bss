@@ -24,7 +24,7 @@
     color: color(dark-text);
     background-color: color(dark-background-lighter);
     outline: none;
-    border-color: lighten(color(dark-background-lighter), 10%);
+    border: 1px solid lighten(color(dark-background-lighter), 10%);
   }
 
   .category_cnt, .category_head, .ads_opt, .auto_c {
@@ -87,12 +87,12 @@
     background-color: color(dark-background);
   }
 
-  .ssplus-settings__button, .ssplus-gallery__button {
+  .ssplus-settings__button  {
     background-color: color(dark-background);
     border-color: color(dark-background);
   }
 
-  .ssplus-gallery, .top_head_msg, .wb-body, .wb-header, .alert_dv, .auto_c_head {
+  .ssplus-gallery, .top_head_msg, .wb-body, .wb-header, .alert_dv, .auto_c_head, .ssplus-gallery__button {
     background-color: color(dark-background-lighter);
   }
 }

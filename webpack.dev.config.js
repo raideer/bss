@@ -4,14 +4,14 @@ const semver = require('semver')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const VERSION = semver.parse(require('./package.json').version)
-const ZipPlugin = require('zip-webpack-plugin');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const version = `${VERSION.major}.${VERSION.minor}.${VERSION.patch}`;
 const commitHash = require('child_process').execSync('git rev-parse HEAD').toString().trim();
+const PROD = process.env.NODE_ENV === 'production'
+const version = `${VERSION.major}.${VERSION.minor}.${VERSION.patch}`;
 
 module.exports = {
-  mode: 'production',
+  mode: PROD ? 'production' : 'development',
   entry: {
     'ssplus.js': './src/ssplus.ts',
     styles: './src/css/main.scss'
@@ -35,9 +35,6 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'assets', to: 'assets'
-        },
-        {
           from: "./src/manifest.json",
           to: "./manifest.json",
           transform: {
@@ -50,22 +47,16 @@ module.exports = {
         }
       ]
     }),
+    new RemoveEmptyScriptsPlugin(),
     new MiniCssExtractPlugin({
       filename: "ssplus.css"
     }),
-    new RemoveEmptyScriptsPlugin(),
     new webpack.DefinePlugin({
       __version_major__: VERSION.major,
       __version_minor__: VERSION.minor,
       __version_patch__: VERSION.patch,
       __version_prerelease__: VERSION.prerelease,
       __git_commit__: JSON.stringify(commitHash)
-    }),
-    new ZipPlugin({
-      filename: `ssplus-v${version}.zip`,
-      exclude: [
-        'node_modules'
-      ]
     })
   ],
   module: {
