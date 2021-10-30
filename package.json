@@ -42,6 +42,7 @@
     "postcss-modules": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "preact-compat": "^3.19.0",
+    "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
