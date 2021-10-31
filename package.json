@@ -11,15 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.3.1",
+    "lodash-es": "^4.17.21",
     "preact": "^10.5.15",
     "preact-html-converter": "^0.4.2",
     "simplebar": "^5.3.6",
+    "unique-selector": "^0.5.0",
     "urlcat": "^2.0.4",
     "winbox": "^0.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
+    "@types/lodash-es": "^4.17.5",
     "@types/react": "^17.0.31",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",

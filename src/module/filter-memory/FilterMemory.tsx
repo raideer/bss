@@ -2,24 +2,28 @@ import { Button } from "core/components/Button"
 import { useEffect, useState } from "preact/hooks"
 import { getPageInfo } from "util/page-info"
 import { saveFilters, getSavedFilters } from "."
+import take from 'lodash-es/take'
+import unique from 'unique-selector'
 
 export const FilterMemory = () => {
-  const [presets, setPresets] = useState([])
+  const [presets, setPresets] = useState<any[]>([])
   const savedFilters = getSavedFilters()
-  const pageInfo = getPageInfo().filter((part: string) => !['filter'].includes(part))
+  const pageInfo = take(getPageInfo().filter((part: string) => !['filter'].includes(part)), 3)
   const saveKey = pageInfo.join('_')
 
   const saveCurrentFilters = () => {
     const form = document.querySelector('#filter_frm') as HTMLFormElement
 
     if (form) {
-      const formData = new FormData(form)
       const data: any = {}
-      formData.forEach((value, key) => {
-        data[key] = value
+
+      form.querySelectorAll('select, input:not([type="checkbox"]):not([type="submit"]):not([type="button"])').forEach((input: any) => {
+        data[unique(input)] = input.value
       })
 
-      const name = prompt('Ievadi nosaukumu:')
+      console.log(data, saveKey, savedFilters[saveKey])
+
+      const name = prompt('Ievadi iestatījuma nosaukumu:')
 
       if (!name) return;
 
@@ -32,6 +36,7 @@ export const FilterMemory = () => {
       }
 
       saveFilters(savedFilters)
+      renderPresets()
     }
   }
 
@@ -40,9 +45,15 @@ export const FilterMemory = () => {
 
     if (form) {
       for (const key in data) {
-        const input = form.querySelector(`[name="${key}"]`) as HTMLInputElement
+        const input = form.querySelector(key) as HTMLInputElement
 
         if (input) {
+          if (input.getAttribute('name') === 'sid' && data[key] !== document.location.pathname) {
+            localStorage.setItem('ssplus-mem', JSON.stringify(data))
+            window.location.href = data[key]
+            return
+          }
+
           input.value = data[key]
         }
       }
@@ -55,10 +66,18 @@ export const FilterMemory = () => {
     if (savedFilters[saveKey]) {
       delete savedFilters[saveKey][key]
       saveFilters(savedFilters)
+      renderPresets()
     }
   }
 
   const renderPresets = () => {
+    const toApply = localStorage.getItem('ssplus-mem')
+    if (toApply) {
+      const data = JSON.parse(toApply)
+      localStorage.removeItem('ssplus-mem')
+      // return applyFilter(data)
+    }
+
     const items: any[] = []
 
     if (savedFilters[saveKey]) {
@@ -72,15 +91,19 @@ export const FilterMemory = () => {
       }
     }
 
-    return items
+    setPresets(items)
   }
 
+  useEffect(() => {
+    renderPresets()
+  }, [])
+
   return (
-    <div>
-      <div>
-        {renderPresets()}
+    <div className="ssplus-filter-mem__container">
+      <div className="ssplus-filter-presets">
+        {presets}
       </div>
-      <Button onClick={saveCurrentFilters} text="Saglabāt pašreizējos filtrus" />
+      <Button className="ssplus-filter-mem__savebtn" onClick={saveCurrentFilters} text="Saglabāt pašreizējos filtrus" />
     </div>
   )
 }

@@ -50,3 +50,16 @@ export function waitForChild(ele: Element, selector: string): Promise<HTMLElemen
     observer.observe(ele, { childList: true });
   });
 }
+
+export const generateQuerySelector = (el: any): string => {
+  if (el.tagName.toLowerCase() === "html") { return "HTML"; }
+  let str = el.tagName;
+  str += (el.id !== "") ? `#${el.id}` : "";
+  if (el.className) {
+    const classes = el.className.split(/\s/);
+    for (let i = 0; i < classes.length; i++) {
+      str += `.${classes[i]}`
+    }
+  }
+  return `${generateQuerySelector(el.parentNode)} > ${str}`;
+}

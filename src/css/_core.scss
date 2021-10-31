@@ -4,4 +4,9 @@
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 12px;
+  transition: background 0.3s;
+
+  &:hover {
+    background: color(background-darker);
+  }
 }
