@@ -9,3 +9,4 @@
 - [ ] Filter preset save/loading
 - [ ] Keyboard shortcuts
 - [ ] Ad browser notifications
+- [ ] Quick save/open categories
