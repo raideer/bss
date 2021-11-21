@@ -6,6 +6,7 @@
 3. Load `dist` directory as unpacked extension
 
 #### TODO
+- [ ] Add Preview to album view and fix dark mode
 - [ ] Filter preset save/loading
 - [ ] Keyboard shortcuts
 - [ ] Ad browser notifications
