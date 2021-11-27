@@ -4,6 +4,7 @@ import fetchHtml from 'util/fetch-html'
 import { dom, isElementInViewport } from 'util/dom'
 import { getItem, registerSetting, SettingCategory, SettingValueType } from 'module/settings/storage'
 import { timeout } from 'util/async'
+import { AdType, getPageInfo } from 'util/page-info'
 
 let loading = false
 
@@ -34,6 +35,7 @@ function hideLoader () {
 }
 
 async function loadNextPage () {
+  const pageInfo = getPageInfo()
   const lastLink = document.querySelector('a[rel="next"].navi:last-child') as HTMLAnchorElement
   const activeLink = document.querySelector('button.navia') as HTMLButtonElement
 
@@ -48,11 +50,22 @@ async function loadNextPage () {
 
     const html = await fetchHtml((nextLink as HTMLAnchorElement).href) as Document
     // Select and place ads
-    const items = html.querySelectorAll('tr[id^=tr_]')
 
-    items.forEach(item => {
-      document.querySelector('tr[id^=tr_]:last-of-type')?.insertAdjacentElement('afterend', item)
-    })
+    if (pageInfo.adType === AdType.AD_TYPE_GALLERY) {
+      const items = html.querySelector('.ads_album_td')?.closest('tbody')?.querySelectorAll(':scope > tr')
+      const tbody = document.querySelector('.ads_album_td')?.closest('tbody')
+
+      if (tbody && items) {
+        items.forEach(item => {
+          tbody.appendChild(item)
+        })
+      }
+    } else {
+      const items = html.querySelectorAll('[id^=tr_]')
+      items.forEach(item => {
+        document.querySelector('[id^=tr_]:last-of-type')?.insertAdjacentElement('afterend', item)
+      })
+    }
 
     // Update pagination
     const newPagination = html.querySelector('button.navia')?.closest('table')

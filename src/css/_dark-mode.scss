@@ -8,7 +8,11 @@
   }
 
   &, a, .main_category, #page_footer, h1, h2, #err_w_td, .ads_contacts_bold,
-  .ads_contacts, button, .b, .wb-header, .td6, .alert_dv, .auto_c_head {
+  .ads_contacts, button, .b, .wb-header, .td6, .alert_dv, .auto_c_head, .d7 {
+    color: color(dark-text);
+  }
+
+  .am4:hover {
     color: color(dark-text);
   }
 
@@ -27,23 +31,27 @@
     border: 1px solid lighten(color(dark-background-lighter), 10%);
   }
 
+  .d8p {
+    border-color: color(dark-green);
+  }
+
   .category_cnt, .category_head, .ads_opt, .auto_c {
     color: color(dark-green);
   }
 
-  .msg2, .msga2-o, .msga2, .msga2-r, .msg_column_td, .ssplus-settings__window, .ssplus-settings__version {
-    border-color: color(dark-background-lighter);
+  .msg2, .msga2-o, .msga2, .msga2-r, .msg_column, .msg_column_td, .ssplus-settings__window, .ssplus-settings__version {
+    border-color: color(dark-background-lighter) !important;
   }
 
-  .msg_column, .msg_column_td {
-    background-color: color(dark-green);
+  .msg_column, .msg_column_td, .d7p {
+    background: color(dark-green);
   }
 
-  table[bgcolor], .filter_second_line_dv {
+  table[bgcolor], td[bgcolor], .filter_second_line_dv, .d5, .d7 {
     background-color: color(dark-background-lighter) !important;
   }
 
-  tr[id^="tr_"], #page_right {
+  tr[id^="tr_"], div[id^="tr_"], #page_right {
     background-color: color(dark-background) !important;
   }
 
