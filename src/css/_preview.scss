@@ -1,8 +1,12 @@
-.msg2 {
-  position: relative;
-}
-
 .ssplus-preview-enabled {
+  .msg2, .d7, .d7p {
+    position: relative;
+  }
+
+  .d7, .d7p {
+    margin-bottom: 30px;
+  }
+
   .ads_region {
     padding-left: 45px;
   }
@@ -114,6 +118,14 @@
 
   &__container {
     width: 100%;
+  }
+}
+
+.d7, .d7p {
+  .ssplus-gallery__button {
+    left: auto;
+    right: 5px;
+    bottom: -25px;
   }
 }
 
