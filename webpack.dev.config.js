@@ -26,9 +26,7 @@ module.exports = {
       util: path.resolve(__dirname, './src/util/'),
       css: path.resolve(__dirname, './src/css/'),
       module: path.resolve(__dirname, './src/module/'),
-      core: path.resolve(__dirname, './src/core/'),
-      react: 'preact-compat',
-      'react-dom': 'preact-compat'
+      core: path.resolve(__dirname, './src/core/')
     }
   },
   plugins: [

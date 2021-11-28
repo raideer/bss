@@ -3,6 +3,7 @@ import { getItem, registerSetting, SettingCategory, SettingValueType } from 'mod
 import { render } from 'preact'
 import { PreviewButton } from './PreviewButton'
 import { whenNextPageLoaded } from 'module/infinite-load'
+import { AdType, getPageInfo } from 'util/page-info'
 
 export const SETTING_ENABLED = 'preview-enabled'
 
@@ -17,15 +18,14 @@ registerSetting({
 
 function addPreviewButtons () {
   if (getItem(SETTING_ENABLED) !== 'true') return
+  const pageInfo = getPageInfo()
 
   document.body.classList.add('ssplus-preview-enabled');
 
-  document.querySelectorAll('tr[id^="tr_"]').forEach(row => {
-    // Remove all event listeners
-    // eslint-disable-next-line no-self-assign
-    // row.outerHTML = row.outerHTML
-
-    const rowTitle = row.querySelector('td.msg2')
+  document.querySelectorAll('[id^="tr_"]').forEach(row => {
+    const rowTitle = pageInfo.adType !== AdType.AD_TYPE_GALLERY
+      ? row.querySelector('td.msg2')
+      : row.querySelector('.d7, .d7p')
 
     if (rowTitle) {
       render(<PreviewButton row={row} />, rowTitle)

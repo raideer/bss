@@ -36,7 +36,7 @@ const getOptions: any = function(obj: any) {
 };
 
 const SimpleBar: any = forwardRef(
-  ({ children, scrollableNodeProps = {}, ...otherProps }: any, ref) => {
+  ({ children, scrollableNodeProps = {}, ...otherProps }: any, ref: any) => {
     let instance: any;
     let scrollableNodeRef = useRef<any>();
     const elRef = useRef<any>();
