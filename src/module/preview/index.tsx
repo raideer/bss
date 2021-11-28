@@ -27,7 +27,6 @@ function addPreviewButtons () {
       ? row.querySelector('td.msg2')
       : row.querySelector('.d7, .d7p')
 
-    console.log('aa')
     if (rowTitle) {
       render(<PreviewButton row={row} />, rowTitle)
     }
