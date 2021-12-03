@@ -1,0 +1,32 @@
+.ssplus-filter-mem {
+  margin-top: 10px;
+  background-color: #eee;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+
+  &__savebtn {
+    max-width: 200px;
+  }
+}
+
+.ssplus-filter-preset {
+  display: flex;
+  margin-right: 5px;
+
+  &--active {
+    border: 1px solid color(gray);
+    border-radius: 5px;
+  }
+}
+
+.ssplus-filter-presets {
+  display: flex;
+}

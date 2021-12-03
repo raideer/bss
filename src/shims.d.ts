@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
-declare module 'winbox/*';
-declare module 'simplebar/*';
+declare module '*';
 
 declare let SSPlus: {
   version: any
