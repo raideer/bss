@@ -1,6 +1,6 @@
 {
   "name": "ssplus",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,11 @@
   "dependencies": {
     "classnames": "^2.3.1",
     "lodash-es": "^4.17.21",
-    "preact": "^10.5.15",
+    "preact": "^10.6.1",
     "preact-html-converter": "^0.4.2",
+    "preact-render-to-string": "^5.1.19",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat",
     "simplebar": "^5.3.6",
     "unique-selector": "^0.5.0",
     "urlcat": "^2.0.4",
@@ -44,8 +47,6 @@
     "postcss-loader": "^6.1.0",
     "postcss-modules": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
-    "preact-compat": "^3.19.0",
-    "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
