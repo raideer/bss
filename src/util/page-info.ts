@@ -35,7 +35,6 @@ export function getLocationPath() {
   const path = match.groups?.path
   if (path) {
     const currentPath = path.split('/').filter(p => p)
-
     return currentPath
   }
 

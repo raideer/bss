@@ -24,7 +24,7 @@
     display: none;
   }
 
-  select, input {
+  select, input, .ssplus-core-button {
     color: color(dark-text);
     background-color: color(dark-background-lighter);
     outline: none;
@@ -47,7 +47,7 @@
     background: color(dark-green);
   }
 
-  table[bgcolor], td[bgcolor], .filter_second_line_dv, .d5, .d7 {
+  table[bgcolor], td[bgcolor], .filter_second_line_dv, .d5, .d7, .ssplus-filter-mem {
     background-color: color(dark-background-lighter) !important;
   }
 
