@@ -16,6 +16,12 @@
   font-weight: 500;
 }
 
+@font-face {
+  font-family: "Roboto";
+  src: url("chrome-extension://__MSG_@@extension_id__/assets/fonts/Roboto-Medium.ttf");
+  font-weight: 600;
+}
+
 $font-family: 'Roboto', sans-serif;
 
 body, td, font, p, input, select, textarea, ul, li, h4 {
