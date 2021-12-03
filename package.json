@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.3.1",
+    "js-md5": "^0.7.3",
     "lodash-es": "^4.17.21",
     "preact": "^10.6.1",
     "preact-html-converter": "^0.4.2",

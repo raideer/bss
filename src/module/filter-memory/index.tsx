@@ -4,10 +4,10 @@ import { dom } from "util/dom";
 import { whenLoaded } from "util/lifecycle";
 import { FilterMemory } from "./FilterMemory";
 
-export const STORAGE_KEY = 'ssplus-filter-mem'
+export const STORAGE_MEMORY = 'ssplus-filter-mem'
 
 export function getSavedFilters() {
-  const data = getItem(STORAGE_KEY)
+  const data = getItem(STORAGE_MEMORY)
 
   if (data) {
     return JSON.parse(data)
@@ -16,8 +16,8 @@ export function getSavedFilters() {
   return {}
 }
 
-export function saveFilters(filters: {[key: string]: string}) {
-  setItem(STORAGE_KEY, JSON.stringify(filters))
+export function saveFilters(filters: {[key: string]: any}) {
+  setItem(STORAGE_MEMORY, JSON.stringify(filters))
 }
 
 whenLoaded(() => {

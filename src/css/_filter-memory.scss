@@ -20,6 +20,11 @@
 .ssplus-filter-preset {
   display: flex;
   margin-right: 5px;
+
+  &--active {
+    border: 1px solid color(gray);
+    border-radius: 5px;
+  }
 }
 
 .ssplus-filter-presets {

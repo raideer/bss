@@ -1,37 +1,56 @@
 import { Button } from "core/components/Button"
 import { useEffect, useState } from "preact/hooks"
-import { getPageInfo } from "util/page-info"
+import { getLocationPath } from "util/page-info"
 import { saveFilters, getSavedFilters } from "."
 import take from 'lodash-es/take'
 import unique from 'unique-selector'
+import md5 from 'js-md5'
+import classnames from "classnames"
 
 export const FilterMemory = () => {
   const [presets, setPresets] = useState<any[]>([])
   const savedFilters = getSavedFilters()
-  const pageInfo = take(getPageInfo().filter((part: string) => !['filter'].includes(part)), 3)
+  const pageInfo = take(getLocationPath().filter((part: string) => !['filter'].includes(part)), 2)
   const saveKey = pageInfo.join('_')
+
+  const getCurrentFilterData = (form: HTMLFormElement) => {
+    const data: any = {}
+
+    form.querySelectorAll('select, input:not([type="checkbox"]):not([type="submit"]):not([type="button"])').forEach((input: any) => {
+      data[unique(input)] = input.value
+    })
+
+    return data
+  }
+
+  const getDataHash = (data: any) => {
+    return md5(JSON.stringify(data))
+  }
 
   const saveCurrentFilters = () => {
     const form = document.querySelector('#filter_frm') as HTMLFormElement
 
     if (form) {
-      const data: any = {}
-
-      form.querySelectorAll('select, input:not([type="checkbox"]):not([type="submit"]):not([type="button"])').forEach((input: any) => {
-        data[unique(input)] = input.value
-      })
-
-      console.log(data, saveKey, savedFilters[saveKey])
+      const path = document.location.pathname
+      const data = getCurrentFilterData(form)
 
       const name = prompt('Ievadi iestatījuma nosaukumu:')
 
       if (!name) return;
 
       if (savedFilters[saveKey]) {
-        savedFilters[saveKey][name] = data
+        savedFilters[saveKey][name] = {
+          data,
+          path,
+          id: getDataHash(data)
+        }
       } else {
         savedFilters[saveKey] = {
-          [name]: data
+          [name]: {
+            data,
+            path,
+            id: getDataHash(data)
+          }
         }
       }
 
@@ -40,21 +59,21 @@ export const FilterMemory = () => {
     }
   }
 
-  const applyFilter = (data: any) => {
+  const applyFilter = (filter: any, noRedirect = false) => {
+    if (!noRedirect && filter.path !== document.location.pathname) {
+      localStorage.setItem('ssplus-mem', JSON.stringify(filter))
+      window.location.href = filter.path;
+      return
+    }
+
     const form = document.querySelector('#filter_frm') as HTMLFormElement
 
     if (form) {
-      for (const key in data) {
+      for (const key in filter.data) {
         const input = form.querySelector(key) as HTMLInputElement
 
         if (input) {
-          if (input.getAttribute('name') === 'sid' && data[key] !== document.location.pathname) {
-            localStorage.setItem('ssplus-mem', JSON.stringify(data))
-            window.location.href = data[key]
-            return
-          }
-
-          input.value = data[key]
+          input.value = filter.data[key]
         }
       }
 
@@ -75,15 +94,21 @@ export const FilterMemory = () => {
     if (toApply) {
       const data = JSON.parse(toApply)
       localStorage.removeItem('ssplus-mem')
-      // return applyFilter(data)
+      return applyFilter(data, true)
     }
+
+    const form = document.querySelector('#filter_frm') as HTMLFormElement
+    const currentHash = getDataHash(getCurrentFilterData(form))
 
     const items: any[] = []
 
     if (savedFilters[saveKey]) {
       for (const name in savedFilters[saveKey]) {
         items.push((
-          <div className="ssplus-filter-preset">
+          <div className={classnames({
+            'ssplus-filter-preset': true,
+            'ssplus-filter-preset--active': currentHash === savedFilters[saveKey][name].id
+          })}>
             <Button text={name} onClick={() => { applyFilter(savedFilters[saveKey][name]) }} />
             <Button className="ssplus-filter-preset__remove" text={'x'} onClick={() => { deleteFilter(name) }} />
           </div>
