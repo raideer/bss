@@ -1,3 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@font-face {
+  font-family: "Roboto";
+  src: url("chrome-extension://__MSG_@@extension_id__/assets/fonts/Roboto-Light.ttf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("chrome-extension://__MSG_@@extension_id__/assets/fonts/Roboto-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("chrome-extension://__MSG_@@extension_id__/assets/fonts/Roboto-Medium.ttf");
+  font-weight: 500;
+}
 
 $font-family: 'Roboto', sans-serif;
+
+body, td, font, p, input, select, textarea, ul, li, h4 {
+  font-family: $font-family !important;
+}

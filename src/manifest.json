@@ -26,7 +26,10 @@
   "web_accessible_resources": [
     "assets/fonts/ssplus.svg",
     "assets/fonts/ssplus.ttf",
-    "assets/fonts/ssplus.woff"
+    "assets/fonts/ssplus.woff",
+    "assets/fonts/Roboto-Light.ttf",
+    "assets/fonts/Roboto-Medium.ttf",
+    "assets/fonts/Roboto-Regular.ttf"
   ],
   "manifest_version": 2
 }
