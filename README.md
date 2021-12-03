@@ -1,8 +1,8 @@
 # SSPlus
 
 ## Install
-Chrome: https://chrome.google.com/webstore/detail/ssplus/kdbfigcfjmcioeepohmfenkddijmball
-Firefox: https://addons.mozilla.org/af/firefox/addon/ssplus/
+- Chrome: https://chrome.google.com/webstore/detail/ssplus/kdbfigcfjmcioeepohmfenkddijmball
+- Firefox: https://addons.mozilla.org/af/firefox/addon/ssplus/
 
 ## Development
 ### Setup
