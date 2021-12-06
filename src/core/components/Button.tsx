@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const Button = ({ onClick, text, className }: Props) => {
-  return <button className={`ssplus-core-button ${className || ''}`} type="button" onClick={onClick}>
+  return <button className={`bss-core-button ${className || ''}`} type="button" onClick={onClick}>
     { text }
   </button>
 }

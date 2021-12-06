@@ -1,10 +1,10 @@
 import { getPageInfo } from "util/page-info";
 
-const SSPLUS: any = {};
+const BetterSS: any = {};
 
-(window as any).SSPlus = SSPLUS
+(window as any).BSS = BetterSS
 
-SSPLUS.version = {
+BetterSS.version = {
   major: __version_major__,
   minor: __version_minor__,
   patch: __version_patch__,
@@ -12,6 +12,6 @@ SSPLUS.version = {
   hash: '__webpack_hash__',
   commit: __git_commit__,
   toString: () => {
-    return `${SSPLUS.version.major}.${SSPLUS.version.minor}.${SSPLUS.version.patch}`
+    return `${BetterSS.version.major}.${BetterSS.version.minor}.${BetterSS.version.patch}`
   }
 }

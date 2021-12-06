@@ -80,12 +80,12 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
   }, [src])
 
   return (
-    <div className="ssplus-gallery-image">
-      <div className="ssplus-gallery-image__controls">
+    <div className="bss-gallery-image">
+      <div className="bss-gallery-image__controls">
         <button title="Pagriezt pa kreisi" onClick={() => rotate(-1)} type="button">
           <span class="icon-rotate-left" />
         </button>
-        <button title="Pagriezt pa labi" onClick={() => rotate(1)} className="ssplus-gallery-image__controls-rr" type="button">
+        <button title="Pagriezt pa labi" onClick={() => rotate(1)} className="bss-gallery-image__controls-rr" type="button">
           <span class="icon-rotate-left" />
         </button>
         <a href={src} download={src}>
@@ -102,7 +102,7 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
           onDragStart={onDragStart}
           onDragEnd={onDragEnd}
           onDrag={onDrag}
-          className="ssplus-gallery-image__image"
+          className="bss-gallery-image__image"
           style={{ width: '600px', willChange: 'width' }}
           src={src} />
       </div>

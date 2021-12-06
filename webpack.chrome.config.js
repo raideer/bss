@@ -13,7 +13,7 @@ const commitHash = require('child_process').execSync('git rev-parse HEAD').toStr
 module.exports = {
   mode: 'production',
   entry: {
-    'ssplus.js': './src/ssplus.ts',
+    'bss.js': './src/bss.ts',
     styles: './src/css/main.scss'
   },
   output: {
@@ -49,7 +49,7 @@ module.exports = {
       ]
     }),
     new MiniCssExtractPlugin({
-      filename: "ssplus.css"
+      filename: "bss.css"
     }),
     new RemoveEmptyScriptsPlugin(),
     new webpack.DefinePlugin({
@@ -60,7 +60,7 @@ module.exports = {
       __git_commit__: JSON.stringify(commitHash)
     }),
     new ZipPlugin({
-      filename: `ssplus-v${version}.zip`,
+      filename: `bss-chrome-v${version}.zip`,
       exclude: [
         'node_modules'
       ]
@@ -86,6 +86,14 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
+          {
+            loader: 'string-replace-loader',
+            options: {
+              search: "~@resource",
+              replace: 'chrome-extension://__MSG_@@extension_id__',
+              flags: 'g'
+            }
+          },
           {
             loader: 'postcss-loader',
             options: {

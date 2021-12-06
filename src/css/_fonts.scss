@@ -1,24 +1,24 @@
 @font-face {
   font-family: "Roboto";
-  src: url("chrome-extension://__MSG_@@extension_id__/assets/fonts/Roboto-Light.ttf");
+  src: url("~@resource/assets/fonts/Roboto-Light.ttf");
   font-weight: 300;
 }
 
 @font-face {
   font-family: "Roboto";
-  src: url("chrome-extension://__MSG_@@extension_id__/assets/fonts/Roboto-Regular.ttf");
+  src: url("~@resource/assets/fonts/Roboto-Regular.ttf");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Roboto";
-  src: url("chrome-extension://__MSG_@@extension_id__/assets/fonts/Roboto-Medium.ttf");
+  src: url("~@resource/assets/fonts/Roboto-Medium.ttf");
   font-weight: 500;
 }
 
 @font-face {
   font-family: "Roboto";
-  src: url("chrome-extension://__MSG_@@extension_id__/assets/fonts/Roboto-Medium.ttf");
+  src: url("~@resource/assets/fonts/Roboto-Medium.ttf");
   font-weight: 600;
 }
 

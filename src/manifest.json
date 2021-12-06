@@ -1,11 +1,11 @@
 {
-  "name": "SSPlus",
+  "name": "BSS - Better SS.com",
   "version": "__VERSION__",
   "description": "SS.com enhancements",
   "icons": {
-    "16": "assets/icons/ssplus16.png",
-    "48": "assets/icons/ssplus48.png",
-    "128": "assets/icons/ssplus128.png"
+    "16": "assets/icons/bss16.png",
+    "48": "assets/icons/bss48.png",
+    "128": "assets/icons/bss128.png"
   },
   "content_scripts": [
     {
@@ -15,18 +15,17 @@
       ],
       "run_at": "document_start",
       "js": [
-        "ssplus.js"
+        "bss.js"
       ],
       "css": [
-        "ssplus.css",
+        "bss.css",
         "assets/fonticons.css"
       ]
     }
   ],
   "web_accessible_resources": [
-    "assets/fonts/ssplus.svg",
-    "assets/fonts/ssplus.ttf",
-    "assets/fonts/ssplus.woff",
+    "assets/fonts/bss.ttf",
+    "assets/fonts/bss.woff",
     "assets/fonts/Roboto-Light.ttf",
     "assets/fonts/Roboto-Medium.ttf",
     "assets/fonts/Roboto-Regular.ttf"

@@ -25,13 +25,13 @@ export function whenNextPageLoaded (callback: CallbackFunction) {
 
 function showLoader () {
   loading = true
-  const loader = dom('div', { class: 'ssp-loader', 'data-loader': 'infiniteload' }, dom('div'), dom('div'), dom('div'))
+  const loader = dom('div', { class: 'bss-loader', 'data-loader': 'infiniteload' }, dom('div'), dom('div'), dom('div'))
   document.querySelector('button.navia')?.closest('table')?.insertAdjacentElement('beforebegin', loader)
 }
 
 function hideLoader () {
   loading = false
-  document.querySelector('.ssp-loader[data-loader="infiniteload"]')?.remove()
+  document.querySelector('.bss-loader[data-loader="infiniteload"]')?.remove()
 }
 
 async function loadNextPage () {

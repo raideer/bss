@@ -20,12 +20,12 @@ export const PreviewButton = ({ row }: Props) => {
       setContainer(null)
     } else {
       if (isGallery) {
-        document.querySelectorAll('.ssplus-gallery__container').forEach(el => el.remove())
+        document.querySelectorAll('.bss-gallery__container').forEach(el => el.remove())
       }
 
       const container = dom(
         'tr',
-        { class: 'ssplus-gallery__container' },
+        { class: 'bss-gallery__container' },
         dom('td', { colspan: 100 })
       )
 
@@ -44,7 +44,7 @@ export const PreviewButton = ({ row }: Props) => {
   }
 
   return (
-    <button type="button" onClick={onClick} className="ssplus-gallery__button">
+    <button type="button" onClick={onClick} className="bss-gallery__button">
       <span class="icon-image" />
       <span class="icon-chevron-down" />
     </button>

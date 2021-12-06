@@ -14,15 +14,15 @@ export const Settings = () => {
   }, [activeSetting, menu])
 
   return (
-    <div className="ssplus-settings">
-      <div className="ssplus-settings__menu">
-        <div className="ssplus-settings__menu-items">
+    <div className="bss-settings">
+      <div className="bss-settings__menu">
+        <div className="bss-settings__menu-items">
         {
           menu.map(item => {
             return (
               <button key={item.id} onClick={() => setActiveSetting(item)} className={classnames({
-                'ssplus-settings__menu-item': true,
-                'ssplus-settings__menu-item--active': activeSetting && activeSetting.id === item.id
+                'bss-settings__menu-item': true,
+                'bss-settings__menu-item--active': activeSetting && activeSetting.id === item.id
               })}>
                 { item.title }
               </button>
@@ -30,24 +30,24 @@ export const Settings = () => {
           })
         }
         </div>
-        <div className="ssplus-settings__version">
-          <div>Versija: { SSPlus.version.toString() }</div>
+        <div className="bss-settings__version">
+          <div>Versija: { BSS.version.toString() }</div>
           <div>
             <a
               target="_blank"
-              href={`https://github.com/raideer/ssplus/commit/${SSPlus.version.commit}`}
+              href={`https://github.com/raideer/bss/commit/${BSS.version.commit}`}
               rel="noreferrer">
-                { SSPlus.version.commit.substring(0, 7) }
+                { BSS.version.commit.substring(0, 7) }
             </a>
           </div>
         </div>
       </div>
-      <div className="ssplus-settings__settings">
-        <div className="ssplus-settings__settings-title">{ activeSetting && activeSetting.title }</div>
+      <div className="bss-settings__settings">
+        <div className="bss-settings__settings-title">{ activeSetting && activeSetting.title }</div>
         { activeSetting && (
           activeSetting.items.map(item => {
             return (
-              <div className="ssplus-settings__settings-item" key={item.id}>
+              <div className="bss-settings__settings-item" key={item.id}>
                 {
                   item.type === SettingValueType.Checkbox && (
                     <Checkbox setting={item} />

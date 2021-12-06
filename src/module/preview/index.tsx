@@ -20,7 +20,7 @@ function addPreviewButtons () {
   if (getItem(SETTING_ENABLED) !== 'true') return
   const pageInfo = getPageInfo()
 
-  document.body.classList.add('ssplus-preview-enabled');
+  document.body.classList.add('bss-preview-enabled');
 
   document.querySelectorAll('[id^="tr_"]').forEach(row => {
     const rowTitle = pageInfo.adType !== AdType.AD_TYPE_GALLERY

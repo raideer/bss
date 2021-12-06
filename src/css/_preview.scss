@@ -1,4 +1,4 @@
-.ssplus-preview-enabled {
+.bss-preview-enabled {
   .msg2, .d7, .d7p {
     position: relative;
   }
@@ -12,7 +12,7 @@
   }
 }
 
-.ssplus-preview {
+.bss-preview {
   display: flex;
   flex-direction: column;
   padding: 10px 0;
@@ -29,7 +29,7 @@
       font-weight: 500;
       padding-bottom: 10px;
 
-      &.ssplus-preview__menu--active {
+      &.bss-preview__menu--active {
         border-bottom: 2px solid color(primary);
       }
     }
@@ -40,7 +40,7 @@
   }
 }
 
-.ssplus-gallery {
+.bss-gallery {
   display: flex;
   margin-bottom: 30px;
 
@@ -123,14 +123,14 @@
 }
 
 .d7, .d7p {
-  .ssplus-gallery__button {
+  .bss-gallery__button {
     left: auto;
     right: 5px;
     bottom: -25px;
   }
 }
 
-.ssplus-gallery-image {
+.bss-gallery-image {
   position: absolute;
   z-index: 999;
 

@@ -83,7 +83,7 @@ export const registerSetting = (
 export function setItem(id: string, value: string) {
   settingCache[id] = value
   log(`Updated setting '${id}' to '${value}'`)
-  return localStorage.setItem(`ssplus_${id}`, value)
+  return localStorage.setItem(`bss_${id}`, value)
 }
 
 /**
@@ -97,7 +97,7 @@ export function getItem(id: string, force = false) {
     return settingCache[id]
   }
 
-  const value = localStorage.getItem(`ssplus_${id}`)
+  const value = localStorage.getItem(`bss_${id}`)
   settingCache[id] = value as string
   return value
 }
