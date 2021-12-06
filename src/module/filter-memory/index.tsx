@@ -5,7 +5,7 @@ import { whenLoaded } from "util/lifecycle";
 import { FilterMemory } from "./FilterMemory";
 
 export const SETTING_ENABLED = 'preview-enabled'
-export const STORAGE_MEMORY = 'ssplus-filter-mem'
+export const STORAGE_MEMORY = 'bss-filter-mem'
 
 registerSetting({
   id: SETTING_ENABLED,
@@ -39,7 +39,7 @@ whenLoaded(() => {
     return;
   }
 
-  const container = dom('div', { class: 'ssplus-filter-mem' })
+  const container = dom('div', { class: 'bss-filter-mem' })
 
   filterForm.prepend(container)
 

@@ -12,5 +12,5 @@ registerSetting({
 whenStarting(() => {
   if (getItem('dark-mode-enabled') !== 'true') return
 
-  document.body.classList.add('ssplus-dark');
+  document.body.classList.add('bss-dark');
 })

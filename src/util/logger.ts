@@ -1,7 +1,7 @@
 export function log (message: string) {
-  console.log(`%c[SS Plus ${SSPlus.version.toString()}]`, 'color: green;', message)
+  console.log(`%c[BSS ${BSS.version.toString()}]`, 'color: green;', message)
 }
 
 export function error (message: string) {
-  console.error(`%c[SS Plus ${SSPlus.version.toString()}]`, 'color: red;', message)
+  console.error(`%c[BSS ${BSS.version.toString()}]`, 'color: red;', message)
 }

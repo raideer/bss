@@ -86,7 +86,7 @@ export const PreviewDetails = ({ html }: Props) => {
   }, [html])
 
   return (
-    <div ref={ref} className="ssplus-preview__details">
+    <div ref={ref} className="bss-preview__details">
       {Component}
     </div>
   )

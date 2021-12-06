@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 declare module '*';
 
-declare let SSPlus: {
+declare let BSS: {
   version: any
 }
 

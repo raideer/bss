@@ -18,14 +18,14 @@ const SettingsButton = () => {
     if (settingsWindow) return
 
     const wb = WinBox.new({
-      title: 'SS+',
+      title: 'BSS',
       background: '#E9E9E9',
       width: '800px',
       height: '470px',
       x: "center",
       top: "50px",
       class: [
-        'ssplus-settings__window'
+        'bss-settings__window'
       ],
       onclose: () => {
         setWindow(null)
@@ -36,7 +36,7 @@ const SettingsButton = () => {
     render(<Settings />, wb.body)
   }
 
-  return (<button className="ssplus-settings__button" onClick={onClick}>SS+</button>)
+  return (<button className="bss-settings__button" onClick={onClick}>BSS</button>)
 }
 
 whenLoaded(() => {

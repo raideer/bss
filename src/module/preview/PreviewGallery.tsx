@@ -35,10 +35,10 @@ export const PreviewGallery = ({ html }: Props) => {
   }, [])
 
   return (
-    <div className="ssplus-preview">
+    <div className="bss-preview">
 
-      <div className="ssplus-gallery">
-        <div class="ssplus-gallery__images">
+      <div className="bss-gallery">
+        <div class="bss-gallery__images">
           <SimpleBar style={{ maxHeight: 600 }} autoHide={false}>
             { images.map((image, key) => {
               return (
@@ -47,8 +47,8 @@ export const PreviewGallery = ({ html }: Props) => {
                   type="button"
                   key={key}
                   className={classnames({
-                    'ssplus-gallery__image': true,
-                    'ssplus-gallery__image--active': activeImage === image
+                    'bss-gallery__image': true,
+                    'bss-gallery__image--active': activeImage === image
                   })}>
                   <img src={image} />
                 </button>
@@ -56,7 +56,7 @@ export const PreviewGallery = ({ html }: Props) => {
             })}
           </SimpleBar>
         </div>
-        <div class="ssplus-gallery__preview" style={previewStyle}>
+        <div class="bss-gallery__preview" style={previewStyle}>
           {activeImage && (
             <GalleryImage setContainerHeight={setActiveImageHeight} src={activeImage} />
           )}

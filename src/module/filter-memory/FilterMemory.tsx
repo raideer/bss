@@ -61,7 +61,7 @@ export const FilterMemory = () => {
 
   const applyFilter = (filter: any, noRedirect = false) => {
     if (!noRedirect && filter.path !== document.location.pathname) {
-      localStorage.setItem('ssplus-mem', JSON.stringify(filter))
+      localStorage.setItem('bss-mem', JSON.stringify(filter))
       window.location.href = filter.path;
       return
     }
@@ -90,10 +90,10 @@ export const FilterMemory = () => {
   }
 
   const renderPresets = () => {
-    const toApply = localStorage.getItem('ssplus-mem')
+    const toApply = localStorage.getItem('bss-mem')
     if (toApply) {
       const data = JSON.parse(toApply)
-      localStorage.removeItem('ssplus-mem')
+      localStorage.removeItem('bss-mem')
       return applyFilter(data, true)
     }
 
@@ -106,11 +106,11 @@ export const FilterMemory = () => {
       for (const name in savedFilters[saveKey]) {
         items.push((
           <div className={classnames({
-            'ssplus-filter-preset': true,
-            'ssplus-filter-preset--active': currentHash === savedFilters[saveKey][name].id
+            'bss-filter-preset': true,
+            'bss-filter-preset--active': currentHash === savedFilters[saveKey][name].id
           })}>
             <Button text={name} onClick={() => { applyFilter(savedFilters[saveKey][name]) }} />
-            <Button className="ssplus-filter-preset__remove" text={'x'} onClick={() => { deleteFilter(name) }} />
+            <Button className="bss-filter-preset__remove" text={'x'} onClick={() => { deleteFilter(name) }} />
           </div>
         ))
       }
@@ -124,11 +124,11 @@ export const FilterMemory = () => {
   }, [])
 
   return (
-    <div className="ssplus-filter-mem__container">
-      <div className="ssplus-filter-presets">
+    <div className="bss-filter-mem__container">
+      <div className="bss-filter-presets">
         {presets}
       </div>
-      <Button className="ssplus-filter-mem__savebtn" onClick={saveCurrentFilters} text="Saglabāt pašreizējos filtrus" />
+      <Button className="bss-filter-mem__savebtn" onClick={saveCurrentFilters} text="Saglabāt pašreizējos filtrus" />
     </div>
   )
 }

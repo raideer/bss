@@ -41,12 +41,12 @@ export const Preview = ({ row }: Props) => {
   }
 
   return (
-    <div class="ssplus-preview">
-      <div className="ssplus-preview__menu">
+    <div class="bss-preview">
+      <div className="bss-preview__menu">
         <button
           type="button"
           className={classnames({
-            'ssplus-preview__menu--active': activeTab === Tabs.Gallery
+            'bss-preview__menu--active': activeTab === Tabs.Gallery
           })}
           onClick={() => setActiveTab(Tabs.Gallery)}>
             Galerija
@@ -54,7 +54,7 @@ export const Preview = ({ row }: Props) => {
         <button
           type="button"
           className={classnames({
-            'ssplus-preview__menu--active': activeTab === Tabs.Details
+            'bss-preview__menu--active': activeTab === Tabs.Details
           })}
           onClick={() => setActiveTab(Tabs.Details)}>
             Sludinājums

@@ -1,4 +1,4 @@
-# SSPlus
+# Better SS.com
 
 ## Install
 - Chrome: https://chrome.google.com/webstore/detail/ssplus/kdbfigcfjmcioeepohmfenkddijmball

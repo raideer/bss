@@ -18,12 +18,12 @@ export const Checkbox = ({ setting }: Props) => {
   }, [setting])
 
   return (
-    <div className="ssplus-settings__checkbox">
+    <div className="bss-settings__checkbox">
       <label>
         <input onChange={updateValue} checked={settingValue} type="checkbox" />
         { setting.title }
       </label>
-      { setting.description && <span class="ssplus-settings__checkbox-description">{ setting.description }</span>}
+      { setting.description && <span class="bss-settings__checkbox-description">{ setting.description }</span>}
     </div>
   )
 }

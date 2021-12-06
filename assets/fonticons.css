@@ -1,9 +1,8 @@
 @font-face {
-  font-family: 'ssplus';
+  font-family: 'bss';
   src:
-    url('chrome-extension://__MSG_@@extension_id__/assets/fonts/ssplus.ttf?5kb0yv') format('truetype'),
-    url('chrome-extension://__MSG_@@extension_id__/assets/fonts/ssplus.woff?5kb0yv') format('woff'),
-    url('chrome-extension://__MSG_@@extension_id__/assets/fonts/ssplus.svg?5kb0yv#ssplus') format('svg');
+    url('~@resource/assets/fonts/bss.ttf') format('truetype'),
+    url('~@resource/assets/fonts/bss.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -11,7 +10,7 @@
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'ssplus' !important;
+  font-family: 'bss' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;

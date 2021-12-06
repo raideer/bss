@@ -1,4 +1,4 @@
-.ssplus-dark {
+.bss-dark {
   .page_bg {
     background-image: url('https://ssplus.kristofers.dev/sscom-sm.png');
 
@@ -24,7 +24,7 @@
     display: none;
   }
 
-  select, input, .ssplus-core-button {
+  select, input, .bss-core-button {
     color: color(dark-text);
     background-color: color(dark-background-lighter);
     outline: none;
@@ -39,7 +39,7 @@
     color: color(dark-green);
   }
 
-  .msg2, .msga2-o, .msga2, .msga2-r, .msg_column, .msg_column_td, .ssplus-settings__window, .ssplus-settings__version {
+  .msg2, .msga2-o, .msga2, .msga2-r, .msg_column, .msg_column_td, .bss-settings__window, .bss-settings__version {
     border-color: color(dark-background-lighter) !important;
   }
 
@@ -47,7 +47,7 @@
     background: color(dark-green);
   }
 
-  table[bgcolor], td[bgcolor], .filter_second_line_dv, .d5, .d7, .ssplus-filter-mem {
+  table[bgcolor], td[bgcolor], .filter_second_line_dv, .d5, .d7, .bss-filter-mem {
     background-color: color(dark-background-lighter) !important;
   }
 
@@ -91,16 +91,16 @@
     }
   }
 
-  &, .page_header, .ssplus-settings__menu, .alert_body {
+  &, .page_header, .bss-settings__menu, .alert_body {
     background-color: color(dark-background);
   }
 
-  .ssplus-settings__button  {
+  .bss-settings__button  {
     background-color: color(dark-background);
     border-color: color(dark-background);
   }
 
-  .ssplus-preview, .top_head_msg, .wb-body, .wb-header, .alert_dv, .auto_c_head, .ssplus-gallery__button {
+  .bss-preview, .top_head_msg, .wb-body, .wb-header, .alert_dv, .auto_c_head, .bss-gallery__button {
     background-color: color(dark-background-lighter);
   }
 }
