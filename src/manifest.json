@@ -18,8 +18,7 @@
         "bss.js"
       ],
       "css": [
-        "bss.css",
-        "assets/fonticons.css"
+        "bss.css"
       ]
     }
   ],
