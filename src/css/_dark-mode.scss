@@ -24,7 +24,7 @@
     display: none;
   }
 
-  select, input, .bss-core-button {
+  select, input, .bss-core-button, textarea {
     color: color(dark-text);
     background-color: color(dark-background-lighter);
     outline: none;
@@ -47,7 +47,7 @@
     background: color(dark-green);
   }
 
-  table[bgcolor], td[bgcolor], .filter_second_line_dv, .d5, .d7, .bss-filter-mem {
+  table[bgcolor], td[bgcolor], tr[bgcolor], .filter_second_line_dv, .d5, .d7, .bss-filter-mem {
     background-color: color(dark-background-lighter) !important;
   }
 
@@ -98,6 +98,12 @@
   .bss-settings__button  {
     background-color: color(dark-background);
     border-color: color(dark-background);
+  }
+
+  .wb-close {
+    &:before, &:after {
+      background-color: color(dark-text);
+    }
   }
 
   .bss-preview, .top_head_msg, .wb-body, .wb-header, .alert_dv, .auto_c_head, .bss-gallery__button {
