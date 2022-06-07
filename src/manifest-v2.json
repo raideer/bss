@@ -1,0 +1,33 @@
+{
+  "name": "BSS - Better SS.com",
+  "version": "__VERSION__",
+  "description": "SS.com enhancements",
+  "icons": {
+    "16": "assets/icons/bss16.png",
+    "48": "assets/icons/bss48.png",
+    "128": "assets/icons/bss128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.ss.com/*",
+        "https://*.ss.lv/*"
+      ],
+      "run_at": "document_start",
+      "js": [
+        "bss.js"
+      ],
+      "css": [
+        "bss.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "assets/fonts/bss.ttf",
+    "assets/fonts/bss.woff",
+    "assets/fonts/Roboto-Light.ttf",
+    "assets/fonts/Roboto-Medium.ttf",
+    "assets/fonts/Roboto-Regular.ttf"
+  ],
+  "manifest_version": 2
+}

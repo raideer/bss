@@ -36,7 +36,7 @@ module.exports = {
           from: 'assets', to: 'assets'
         },
         {
-          from: "./src/manifest.json",
+          from: "./src/manifest-v2.json",
           to: "./manifest.json",
           transform: {
             transformer(content, path) {
