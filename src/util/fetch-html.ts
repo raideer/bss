@@ -1,6 +1,4 @@
-import { PreactHTMLConverter } from 'preact-html-converter';
-
-const converter = PreactHTMLConverter();
+const htmlCache: Record<string, Document> = {}
 
 export const fetchString = async (link: string) => {
   const response = await fetch(link)
@@ -9,9 +7,13 @@ export const fetchString = async (link: string) => {
   return htmlString
 }
 
-export default async function (link: string) {
-  const htmlString = await fetchString(link)
+export default async function (link: string, skipCache = false) {
+  if (skipCache || !htmlCache[link]) {
+    const htmlString = await fetchString(link)
 
-  const parser = new DOMParser()
-  return parser.parseFromString(htmlString, 'text/html')
+    const parser = new DOMParser()
+    htmlCache[link] = parser.parseFromString(htmlString, 'text/html')
+  }
+
+  return htmlCache[link]
 }

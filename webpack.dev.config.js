@@ -16,6 +16,7 @@ module.exports = {
     'bss.js': './src/bss.ts',
     styles: './src/css/main.scss'
   },
+  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name]'
@@ -82,7 +83,7 @@ module.exports = {
             loader: 'string-replace-loader',
             options: {
               search: "~@resource",
-              replace: 'moz-extension://__MSG_@@extension_id__',
+              replace: 'chrome-extension://__MSG_@@extension_id__',
               flags: 'g'
             }
           },

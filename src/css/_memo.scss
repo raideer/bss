@@ -1,0 +1,26 @@
+.bss-memo {
+  &__button {
+    &--active {
+      background-color: color(primary);
+    }
+
+    display: flex;
+    align-items: center;
+    border: 0 none;
+    background-color: color(background-darker);
+    border-radius: 5px;
+    padding: 2px 5px;
+    z-index: 999;
+    transition: opacity 0.3s;
+    font-size: 12px;
+    height: 20px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    i {
+      color: color(gray);
+    }
+  }
+}

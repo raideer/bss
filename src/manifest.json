@@ -23,11 +23,19 @@
     }
   ],
   "web_accessible_resources": [
-    "assets/fonts/bss.ttf",
-    "assets/fonts/bss.woff",
-    "assets/fonts/Roboto-Light.ttf",
-    "assets/fonts/Roboto-Medium.ttf",
-    "assets/fonts/Roboto-Regular.ttf"
+    {
+      "resources": [
+        "assets/fonts/bss.ttf",
+        "assets/fonts/bss.woff",
+        "assets/fonts/Roboto-Light.ttf",
+        "assets/fonts/Roboto-Medium.ttf",
+        "assets/fonts/Roboto-Regular.ttf"
+      ],
+      "matches": [
+        "https://*.ss.com/*",
+        "https://*.ss.lv/*"
+      ]
+    }
   ],
-  "manifest_version": 2
+  "manifest_version": 3
 }

@@ -1,9 +1,6 @@
-import { whenLoaded } from 'util/lifecycle'
 import { getItem, registerSetting, SettingCategory, SettingValueType } from 'module/settings/storage'
-import { render } from 'preact'
 import { PreviewButton } from './PreviewButton'
-import { whenNextPageLoaded } from 'module/infinite-load'
-import { AdType, getPageInfo } from 'util/page-info'
+import { addButton } from 'core/module/button-container'
 
 export const SETTING_ENABLED = 'preview-enabled'
 
@@ -16,27 +13,9 @@ registerSetting({
   description: 'Apskati sludinājuma galeriju no sludinājumu saraksta'
 })
 
-function addPreviewButtons () {
+addButton((row: Element) => {
   if (getItem(SETTING_ENABLED) !== 'true') return
-  const pageInfo = getPageInfo()
-
   document.body.classList.add('bss-preview-enabled');
 
-  document.querySelectorAll('[id^="tr_"]').forEach(row => {
-    const rowTitle = pageInfo.adType !== AdType.AD_TYPE_GALLERY
-      ? row.querySelector('td.msg2')
-      : row.querySelector('.d7, .d7p')
-
-    if (rowTitle) {
-      render(<PreviewButton row={row} />, rowTitle)
-    }
-  })
-}
-
-whenLoaded(() => {
-  addPreviewButtons()
-})
-
-whenNextPageLoaded(() => {
-  addPreviewButtons()
+  return <PreviewButton row={row} />
 })
