@@ -100,7 +100,11 @@
     border-color: color(dark-background);
   }
 
-  .bss-preview, .top_head_msg, .wb-body, .wb-header, .alert_dv, .auto_c_head, .bss-gallery__button {
+  .bss-preview, .top_head_msg, .wb-body, .wb-header, .alert_dv, .auto_c_head, .bss-gallery__button, .bss-memo__button {
     background-color: color(dark-background-lighter);
+  }
+
+  .bss-memo__button--active {
+    background-color: color(primary);
   }
 }

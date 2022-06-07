@@ -1,17 +1,3 @@
-.bss-preview-enabled {
-  .msg2, .d7, .d7p {
-    position: relative;
-  }
-
-  .d7, .d7p {
-    margin-bottom: 30px;
-  }
-
-  .ads_region {
-    padding-left: 45px;
-  }
-}
-
 .bss-preview {
   display: flex;
   flex-direction: column;
@@ -90,9 +76,6 @@
   &__button {
     display: flex;
     align-items: center;
-    position: absolute;
-    left: 5px;
-    bottom: 5px;
     border: 0 none;
     background-color: color(background-darker);
     border-radius: 5px;
