@@ -5,7 +5,6 @@
   border-radius: 5px;
   overflow: hidden;
   background: color(background-darker);
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.2);
   transition: width 0.3s, height 0.3s, transform 0.3s;
   transition-timing-function: cubic-bezier(0.3, 1, 0.3, 1);
   will-change: transform, width, height;
