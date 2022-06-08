@@ -19,7 +19,6 @@ const SettingsButton = () => {
 
     const wb = WinBox.new({
       title: 'BSS',
-      background: '#E9E9E9',
       width: '800px',
       height: '470px',
       x: "center",

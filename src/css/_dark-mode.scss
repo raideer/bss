@@ -8,7 +8,7 @@
   }
 
   &, a, .main_category, #page_footer, h1, h2, #err_w_td, .ads_contacts_bold,
-  .ads_contacts, button, .b, .wb-header, .td6, .alert_dv, .auto_c_head, .d7 {
+  .ads_contacts, button, .b, .wb-header, .td6, .alert_dv, .auto_c_head, .d7, .td7, .td11 {
     color: color(dark-text);
   }
 
@@ -100,11 +100,17 @@
     border-color: color(dark-background);
   }
 
-  .bss-preview, .top_head_msg, .wb-body, .wb-header, .alert_dv, .auto_c_head, .bss-gallery__button, .bss-memo__button {
+  .bss-preview, .top_head_msg, .winbox, .wb-body, .wb-header, .alert_dv, .auto_c_head, .bss-gallery__button, .bss-memo__button {
     background-color: color(dark-background-lighter);
   }
 
   .bss-memo__button--active {
     background-color: color(primary);
+  }
+
+  .wb-close {
+    &::before, &::after {
+      background-color: color(dark-text);
+    }
   }
 }
