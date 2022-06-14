@@ -48,7 +48,8 @@ async function loadNextPage () {
 
     await timeout(1000);
 
-    const html = await fetchHtml((nextLink as HTMLAnchorElement).href) as Document
+    const nextLinkHref = (nextLink as HTMLAnchorElement).href;
+    const html = await fetchHtml(nextLinkHref) as Document
     // Select and place ads
 
     if (pageInfo.adType === AdType.AD_TYPE_GALLERY) {
@@ -71,6 +72,11 @@ async function loadNextPage () {
     const newPagination = html.querySelector('button.navia')?.closest('table')
     if (newPagination) {
       document.querySelector('button.navia')?.closest('table')?.replaceWith(newPagination)
+    }
+
+    // Update url
+    if (window.history) {
+      window.history.pushState(null, '', nextLinkHref);
     }
 
     loadedListeners.forEach(listener => listener())
