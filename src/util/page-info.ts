@@ -1,8 +1,8 @@
 import { error } from "./logger"
 
 export enum AdType {
-  AD_TYPE_TABLE,
-  AD_TYPE_GALLERY
+  AD_TYPE_TABLE = 'table',
+  AD_TYPE_GALLERY = 'gallery'
 }
 
 export interface PageInfo {
