@@ -51,7 +51,6 @@ async function loadNextPage () {
     const nextLinkHref = (nextLink as HTMLAnchorElement).href;
     const html = await fetchHtml(nextLinkHref) as Document
     // Select and place ads
-
     if (pageInfo.adType === AdType.AD_TYPE_GALLERY) {
       const items = html.querySelector('.ads_album_td')?.closest('tbody')?.querySelectorAll(':scope > tr')
       const tbody = document.querySelector('.ads_album_td')?.closest('tbody')
@@ -69,9 +68,9 @@ async function loadNextPage () {
     }
 
     // Update pagination
-    const newPagination = html.querySelector('button.navia')?.closest('table')
+    const newPagination = html.querySelector('button.navia')?.closest('div')
     if (newPagination) {
-      document.querySelector('button.navia')?.closest('table')?.replaceWith(newPagination)
+      document.querySelector('button.navia')?.closest('div')?.replaceWith(newPagination)
     }
 
     // Update url
