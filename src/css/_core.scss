@@ -14,7 +14,7 @@
 .bss-button-container {
   position: absolute;
   left: 5px;
-  bottom: 5px;
+  bottom: 7px;
   display: flex;
   align-items: flex-end;
   gap: 10px;
@@ -32,8 +32,8 @@
       bottom: -25px;
     }
   }
+}
 
-  .ads_region {
-    padding-left: 45px;
-  }
+.ads_region {
+  padding-left: var(--bss-adsRegion-paddingLeft);
 }

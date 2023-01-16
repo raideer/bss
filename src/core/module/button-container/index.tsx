@@ -23,6 +23,7 @@ function addButtonContainer () {
 
       if (rowTitle) {
         const buttons = elements.map(element => element(row)).filter(e => e)
+
         if (buttons.length > 0) {
           document.body.classList.add('bss-button-container--has-buttons');
         }

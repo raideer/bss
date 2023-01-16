@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "preact/hooks"
+import { useCallback, useEffect, useRef, useState } from "preact/hooks"
 
 interface Props {
   src: string;
@@ -38,7 +38,7 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
     setImageContainerHeight(e.target)
   }
 
-  const setImageContainerHeight = (el: any) => {
+  const setImageContainerHeight = (el: HTMLImageElement) => {
     if (rotation % 2) {
       setContainerHeight(el.clientWidth)
     } else {
@@ -52,6 +52,12 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
 
     e.target.style.width = `${imageSize.width + xDif}px`
   }
+
+  const onImageLoad = useCallback(() => {
+    if (image.current) {
+      setImageContainerHeight(image.current)
+    }
+  }, [image.current])
 
   const rotate = (deg: number) => {
     if (image.current) {
@@ -72,10 +78,6 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
   }, [rotation])
 
   useEffect(() => {
-    if (image.current) {
-      setImageContainerHeight(image.current)
-    }
-
     setRotation(0)
   }, [src])
 
@@ -99,6 +101,7 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
         <img
           data-rotation={rotation}
           ref={image}
+          onLoad={onImageLoad}
           onDragStart={onDragStart}
           onDragEnd={onDragEnd}
           onDrag={onDrag}
