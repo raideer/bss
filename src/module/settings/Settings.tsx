@@ -1,4 +1,4 @@
-import classnames from "classnames";
+import clsx from "clsx";
 import { useEffect, useState } from "preact/hooks"
 import { Checkbox } from "./components/checkbox";
 import { getSettings, SettingsCategory, SettingValueType } from "./storage";
@@ -20,7 +20,7 @@ export const Settings = () => {
         {
           menu.map(item => {
             return (
-              <button key={item.id} onClick={() => setActiveSetting(item)} className={classnames({
+              <button key={item.id} onClick={() => setActiveSetting(item)} className={clsx({
                 'bss-settings__menu-item': true,
                 'bss-settings__menu-item--active': activeSetting && activeSetting.id === item.id
               })}>

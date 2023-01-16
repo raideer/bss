@@ -1,23 +1,35 @@
-import classnames from "classnames";
-import { useEffect, useState } from "preact/hooks";
+import clsx from "clsx";
+import { useCallback, useEffect, useState } from "preact/hooks";
 import fetchHtml from "util/fetch-html";
 import { PreviewDetails } from "./PreviewDetails";
 import { PreviewGallery } from "./PreviewGallery"
+import { Loader } from "core/components/Loader";
+import { FC } from "preact/compat";
+import first from "lodash-es/first";
+import { PreviewMap } from "./PreviewMap";
 
 interface Props {
   row: Element;
 }
 
-const Tabs = {
-  Gallery: 'gallery',
-  Details: 'details'
+enum Tab {
+  Gallery = 'gallery',
+  Details = 'details',
+  Map = 'map'
 }
 
-export const Preview = ({ row }: Props) => {
-  const [html, setHtml] = useState<Document|null>(null);
-  const [activeTab, setActiveTab] = useState(Tabs.Gallery);
+const TABS = [
+  { key: Tab.Gallery, label: 'Galerija', component: PreviewGallery },
+  { key: Tab.Details, label: 'Sludinājums', component: PreviewDetails },
+  { key: Tab.Map, label: 'Karte', component: PreviewMap }
+]
 
-  async function loadAdPage() {
+export const Preview: FC<Props> = ({ row }) => {
+  const [html, setHtml] = useState<Document|null>(null);
+  const [showMap, setShowMap] = useState(false);
+  const [activeTab, setActiveTab] = useState(first(TABS));
+
+  const loadAdPage = async () => {
     const adLink = row.querySelector('a')
 
     if (adLink) {
@@ -26,42 +38,49 @@ export const Preview = ({ row }: Props) => {
     }
   }
 
+  const handleSwitchTab = useCallback((tab: string) => {
+    const newTab = TABS.find((t) => t.key === tab)
+    if (newTab) {
+      setActiveTab(newTab)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (html) {
+      const map = html.querySelector('#google_map')
+      setShowMap(!!map)
+    }
+  }, [html])
+
   useEffect(() => {
     loadAdPage()
   }, [row])
 
   if (!html) {
-    return (
-      <div className="ssp-loader">
-        <div />
-        <div />
-        <div />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
-    <div class="bss-preview">
+    <div className="bss-preview">
       <div className="bss-preview__menu">
-        <button
-          type="button"
-          className={classnames({
-            'bss-preview__menu--active': activeTab === Tabs.Gallery
-          })}
-          onClick={() => setActiveTab(Tabs.Gallery)}>
-            Galerija
-        </button>
-        <button
-          type="button"
-          className={classnames({
-            'bss-preview__menu--active': activeTab === Tabs.Details
-          })}
-          onClick={() => setActiveTab(Tabs.Details)}>
-            Sludinājums
-        </button>
+        {TABS.map((tab) => {
+          if (tab.key === Tab.Map && !showMap) {
+            return null
+          }
+
+          return <button
+            type="button"
+            className={clsx({
+              'bss-preview__menu--active': activeTab && activeTab.key === tab.key
+            })}
+            key={tab.key}
+            onClick={() => setActiveTab(tab)}>
+              {tab.label}
+          </button>
+        })}
+
       </div>
-      { activeTab === Tabs.Details && <PreviewDetails html={html} />}
-      { activeTab === Tabs.Gallery && <PreviewGallery html={html} />}
+      {activeTab && activeTab.component && <activeTab.component switchTab={handleSwitchTab} html={html} />}
     </div>
   )
 }

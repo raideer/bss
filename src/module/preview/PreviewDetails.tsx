@@ -2,9 +2,11 @@ import { PreactHTMLConverter } from "preact-html-converter";
 import { useEffect, useRef, useState } from "preact/hooks";
 import trim from 'lodash-es/trim'
 import { urlArgs } from "util/url";
+import { FC } from "preact/compat";
 
 interface Props {
   html: Document;
+  switchTab?: (tab: string) => void;
 }
 
 const ENDPOINT = '/w_inc/ajax.php?action=show_special_js_data&version=1&lg={{lang}}&data={{hash}}'
@@ -39,42 +41,50 @@ function loadSpecialData(hash: string, lang: string) {
     })
 }
 
-export const PreviewDetails = ({ html }: Props) => {
+export const PreviewDetails: FC<Props> = ({ html, switchTab }) => {
   const ref = useRef<any>();
   const [Component, setComponent] = useState<any>(null);
 
   useEffect(() => {
-    if (ref.current) {
-      const specialLinks = html.querySelectorAll('[id^="tdo_"]')
+    if (!ref.current) return;
 
-      specialLinks.forEach((link) => {
-        const id = link.getAttribute('id')
-        const onclick = link.querySelector('a')?.getAttribute('onclick')
-        const args = getOnClickArgs(onclick)
+    const specialLinks = html.querySelectorAll('[id^="tdo_"]')
 
-        const currentLink = ref.current.querySelector(`#${id}`)?.querySelector('a')
-        if (args && currentLink) {
-          currentLink.addEventListener('click', (e: MouseEvent) => {
-            const [hash, lang] = args
+    specialLinks.forEach((link) => {
+      const id = link.getAttribute('id')
+      const onclick = link.querySelector('a')?.getAttribute('onclick')
+      const args = getOnClickArgs(onclick)
 
-            loadSpecialData(hash, lang).then(body => {
-              for (const key in body[1]) {
-                ref.current.querySelector(`#tdo_${key}`).innerHTML = body[1][key]
-              }
-            })
-          })
+      const currentLink = ref.current.querySelector(`#${id}`)?.querySelector('a')
+
+      if (!args || !currentLink) return
+
+      currentLink.addEventListener('click', (e: MouseEvent) => {
+        const targetId = (e.target as HTMLAnchorElement).getAttribute('id')
+
+        if (switchTab && targetId === 'mnu_map') {
+          switchTab('map')
+          return
         }
+
+        const [hash, lang] = args
+
+        loadSpecialData(hash, lang).then(body => {
+          for (const key in body[1]) {
+            ref.current.querySelector(`#tdo_${key}`).innerHTML = body[1][key]
+          }
+        })
       })
-    }
+    })
 
     return () => {
-      if (ref.current) {
-        const specialLinks = ref.current.querySelectorAll('[id^="tdo_"] a')
-        // Remove event listeners
-        specialLinks.forEach((link: HTMLAnchorElement) => {
-          link.parentNode?.replaceChild(link.cloneNode(true), link)
-        })
-      }
+      if (!ref.current) return;
+
+      const specialLinks = ref.current.querySelectorAll('[id^="tdo_"] a')
+      // Remove event listeners
+      specialLinks.forEach((link: HTMLAnchorElement) => {
+        link.parentNode?.replaceChild(link.cloneNode(true), link)
+      })
     }
   })
 

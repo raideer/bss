@@ -1,4 +1,4 @@
-import classnames from "classnames"
+import clsx from "clsx"
 import SimpleBar from "core/components/Simplebar"
 import { useEffect, useState } from "preact/hooks"
 import { GalleryImage } from "./GalleryImage"
@@ -46,7 +46,7 @@ export const PreviewGallery = ({ html }: Props) => {
                   onClick={() => setActiveImage(image)}
                   type="button"
                   key={key}
-                  className={classnames({
+                  className={clsx({
                     'bss-gallery__image': true,
                     'bss-gallery__image--active': activeImage === image
                   })}>

@@ -5,7 +5,7 @@ import { saveFilters, getSavedFilters } from "."
 import take from 'lodash-es/take'
 import unique from 'unique-selector'
 import md5 from 'js-md5'
-import classnames from "classnames"
+import clsx from "clsx"
 
 export const FilterMemory = () => {
   const [presets, setPresets] = useState<any[]>([])
@@ -105,7 +105,7 @@ export const FilterMemory = () => {
     if (savedFilters[saveKey]) {
       for (const name in savedFilters[saveKey]) {
         items.push((
-          <div className={classnames({
+          <div className={clsx({
             'bss-filter-preset': true,
             'bss-filter-preset--active': currentHash === savedFilters[saveKey][name].id
           })}>
