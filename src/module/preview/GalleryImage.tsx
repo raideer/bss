@@ -93,7 +93,7 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
         <a href={src} download={src}>
           <span class="icon-download" />
         </a>
-        <a title="Reverse image search" href={`https://images.google.com/searchbyimage?image_url=${encodeURIComponent(src)}`} target="_blank" rel="noreferrer">
+        <a title="Reverse image search" href={`https://www.google.com/searchbyimage?sbisrc=4chanx&image_url=${encodeURIComponent(src)}&safe=off`} target="_blank" rel="noreferrer">
           <span class="icon-search" />
         </a>
       </div>
