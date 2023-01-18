@@ -13,9 +13,12 @@ registerSetting({
   description: 'Apskati sludinājuma galeriju no sludinājumu saraksta'
 })
 
-addButton((row: Element) => {
-  if (getItem(SETTING_ENABLED) !== 'true') return
-  document.body.classList.add('bss-preview-enabled');
+getItem(SETTING_ENABLED).then(enabled => {
+  if (enabled === 'true') {
+    addButton((row: Element) => {
+      document.body.classList.add('bss-preview-enabled');
 
-  return <PreviewButton row={row} />
+      return <PreviewButton row={row} />
+    })
+  }
 })

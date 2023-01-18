@@ -16,8 +16,8 @@ registerSetting({
   description: 'Saglabā un uzstādi filtrus ar 1 klikšķi'
 })
 
-export function getSavedFilters() {
-  const data = getItem(STORAGE_MEMORY)
+export async function getSavedFilters() {
+  const data = await getItem(STORAGE_MEMORY)
 
   if (data) {
     return JSON.parse(data)
@@ -30,8 +30,8 @@ export function saveFilters(filters: {[key: string]: any}) {
   setItem(STORAGE_MEMORY, JSON.stringify(filters))
 }
 
-whenLoaded(() => {
-  if (getItem(SETTING_ENABLED) !== 'true') return
+whenLoaded(async () => {
+  if (await getItem(SETTING_ENABLED) !== 'true') return
 
   const filterForm = document.querySelector('#filter_frm')
 

@@ -1,5 +1,7 @@
 import { log } from 'util/logger'
 
+import browser from 'webextension-polyfill'
+
 const settingCache: { [key: string]: string } = {}
 
 export enum SettingValueType {
@@ -52,18 +54,18 @@ export const getSettings = () => {
   return settings
 }
 
-export const registerSetting = (
+export const registerSetting = async (
   { id, title, description, type, menu, defaultValue }: Setting & { menu: string, defaultValue: string }
 ) => {
   const setting = settings.find(setting => setting.id === menu)
 
   if (setting) {
-    const hasValue = getItem(id)
-
-    if (!hasValue) {
-      setItem(id, defaultValue)
-      log(`Registered default value '${defaultValue}' for setting '${id}'`)
-    }
+    getItem(id).then(hasValue => {
+      if (!hasValue) {
+        setItem(id, defaultValue)
+        log(`Registered default value '${defaultValue}' for setting '${id}'`)
+      }
+    })
 
     setting.items.push({
       id,
@@ -83,7 +85,7 @@ export const registerSetting = (
 export function setItem(id: string, value: string) {
   settingCache[id] = value
   log(`Updated setting '${id}' to '${value}'`)
-  return localStorage.setItem(`bss_${id}`, value)
+  return browser.storage.local.set({ [id]: value })
 }
 
 /**
@@ -92,20 +94,16 @@ export function setItem(id: string, value: string) {
  * @param force Bypass cache
  * @returns
  */
-export function getItem(id: string, force = false) {
-  if (!force && settingCache[id]) {
-    return settingCache[id]
-  }
-
-  const value = localStorage.getItem(`bss_${id}`)
-  settingCache[id] = value as string
-  return value
+export async function getItem(id: string) {
+  const items = await browser.storage.local.get(id)
+  console.log(items)
+  return items[id]
 }
 
 export function updateCache() {
   settings.forEach(settingCategory => {
     settingCategory.items.forEach(item => {
-      getItem(item.id, true)
+      getItem(item.id)
     })
   })
 }

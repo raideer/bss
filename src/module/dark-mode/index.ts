@@ -9,8 +9,8 @@ registerSetting({
   title: 'Nakts režīms'
 })
 
-whenStarting(() => {
-  if (getItem('dark-mode-enabled') !== 'true') return
+whenStarting(async () => {
+  if (await getItem('dark-mode-enabled') !== 'true') return
 
   document.body.classList.add('bss-dark');
 })

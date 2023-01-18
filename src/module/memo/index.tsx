@@ -41,14 +41,16 @@ beforeAddButtons(async () => {
   currentMemoItems = await loadMemoItems()
 })
 
-addButton((row: Element) => {
-  if (getItem(SETTING_ENABLED) !== 'true') return
+getItem(SETTING_ENABLED).then(enabled => {
+  if (enabled === 'true') {
+    addButton((row: Element) => {
+      const rowId = row.getAttribute('id');
 
-  const rowId = row.getAttribute('id');
-
-  if (rowId && currentMemoItems) {
-    const id = parseId(rowId)
-    const isInMemo = currentMemoItems.indexOf(id) > -1
-    return <MemoButton id={id} isInMemo={isInMemo} />
+      if (rowId && currentMemoItems) {
+        const id = parseId(rowId)
+        const isInMemo = currentMemoItems.indexOf(id) > -1
+        return <MemoButton id={id} isInMemo={isInMemo} />
+      }
+    })
   }
 })

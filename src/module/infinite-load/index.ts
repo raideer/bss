@@ -86,8 +86,8 @@ async function loadNextPage () {
   }
 }
 
-whenLoaded(() => {
-  if (getItem('infinite-load-enabled') !== 'true') return
+whenLoaded(async () => {
+  if (await getItem('infinite-load-enabled') !== 'true') return
 
   window.addEventListener('scroll', () => {
     const menuButtonEl = document.querySelector('button.navia')

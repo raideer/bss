@@ -9,7 +9,8 @@ import clsx from "clsx"
 
 export const FilterMemory = () => {
   const [presets, setPresets] = useState<any[]>([])
-  const savedFilters = getSavedFilters()
+  const [savedFilters, setSavedFilters] = useState<Record<string, any>>({})
+  // const savedFilters = getSavedFilters()
   const pageInfo = take(getLocationPath().filter((part: string) => !['filter'].includes(part)), 2)
   const saveKey = pageInfo.join('_')
 
@@ -120,6 +121,10 @@ export const FilterMemory = () => {
   }
 
   useEffect(() => {
+    getSavedFilters().then((data) => {
+      setSavedFilters(data)
+    })
+
     renderPresets()
   }, [])
 

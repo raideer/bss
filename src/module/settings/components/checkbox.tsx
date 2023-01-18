@@ -13,8 +13,7 @@ export const Checkbox = ({ setting }: Props) => {
   }
 
   useEffect(() => {
-    const val = getItem(setting.id)
-    setSettingValue(val === 'true')
+    getItem(setting.id).then(val => setSettingValue(val === 'true'))
   }, [setting])
 
   return (

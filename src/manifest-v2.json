@@ -29,5 +29,8 @@
     "assets/fonts/Roboto-Medium.ttf",
     "assets/fonts/Roboto-Regular.ttf"
   ],
-  "manifest_version": 2
+  "manifest_version": 2,
+  "permissions": [
+    "storage"
+  ]
 }
