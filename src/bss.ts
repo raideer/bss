@@ -10,5 +10,6 @@ import 'module/infinite-load'
 import 'module/preview'
 import 'module/filter-memory'
 import 'module/memo'
+import 'module/memo-sync'
 
 log('Modules loaded')

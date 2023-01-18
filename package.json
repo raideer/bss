@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "clsx": "^1.2.1",
+    "js-cookie": "^3.0.1",
     "js-md5": "^0.7.3",
     "lodash-es": "^4.17.21",
     "preact": "^10.6.1",

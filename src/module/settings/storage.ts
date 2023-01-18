@@ -10,7 +10,8 @@ export enum SettingValueType {
 
 export const SettingCategory = {
   AdList: 'ad-list',
-  Appearance: 'appearance'
+  Appearance: 'appearance',
+  Other: 'other'
 }
 
 export interface Setting {
@@ -41,6 +42,11 @@ const settings: SettingsCategory[] = [
   {
     id: SettingCategory.Appearance,
     title: 'Izskats',
+    items: []
+  },
+  {
+    id: SettingCategory.Other,
+    title: 'Citi',
     items: []
   }
 ]
