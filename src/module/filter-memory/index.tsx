@@ -4,7 +4,7 @@ import { dom } from "util/dom";
 import { whenLoaded } from "util/lifecycle";
 import { FilterMemory } from "./FilterMemory";
 
-export const SETTING_ENABLED = 'preview-enabled'
+export const SETTING_ENABLED = 'filter-memory-enabled'
 export const STORAGE_MEMORY = 'bss-filter-mem'
 
 registerSetting({

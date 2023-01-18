@@ -94,16 +94,20 @@ export function setItem(id: string, value: string) {
  * @param force Bypass cache
  * @returns
  */
-export async function getItem(id: string) {
+export async function getItem(id: string, force = false) {
+  if (!force && settingCache[id]) return settingCache[id]
+
   const items = await browser.storage.local.get(id)
-  console.log(items)
+  settingCache[id] = items[id]
   return items[id]
 }
 
 export function updateCache() {
   settings.forEach(settingCategory => {
     settingCategory.items.forEach(item => {
-      getItem(item.id)
+      getItem(item.id, true)
     })
   })
 }
+
+updateCache()
