@@ -1,10 +1,6 @@
 /* eslint-disable camelcase */
 declare module '*';
 
-declare let BSS: {
-  version: any
-}
-
 declare let __webpack_hash__: string;
 declare let __git_commit__: string;
 declare let __version_major__: number;

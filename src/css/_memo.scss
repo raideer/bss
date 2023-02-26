@@ -2,6 +2,7 @@
   &__button {
     &--active {
       background-color: color(primary);
+      color: white;
     }
 
     display: flex;

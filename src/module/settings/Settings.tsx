@@ -1,11 +1,19 @@
 import clsx from "clsx";
 import { useEffect, useState } from "preact/hooks"
 import { Checkbox } from "./components/checkbox";
-import { getSettings, SettingsCategory, SettingValueType } from "./storage";
+import { getSettings, setItem, SettingsCategory, SettingValueType } from "./storage";
+import { FC, useCallback } from "react";
+import { BSS } from "core/bss";
 
-export const Settings = () => {
+export const Settings: FC = () => {
   const menu = getSettings()
+  const [needsReload, setNeedsReload] = useState(false)
   const [activeSetting, setActiveSetting] = useState<SettingsCategory|null>(null);
+
+  const handleSettingChange = useCallback((id: string, value: boolean) => {
+    setItem(id, value ? 'true' : 'false')
+    setNeedsReload(true)
+  }, [setItem, setNeedsReload])
 
   useEffect(() => {
     if (!activeSetting) {
@@ -15,6 +23,13 @@ export const Settings = () => {
 
   return (
     <div className="bss-settings">
+      {
+        needsReload && (
+          <button type="button" onClick={() => window.location.reload()} className="bss-settings__reload">
+            Pārlādēt lapu
+          </button>
+        )
+      }
       <div className="bss-settings__menu">
         <div className="bss-settings__menu-items">
         {
@@ -31,7 +46,7 @@ export const Settings = () => {
         }
         </div>
         <div className="bss-settings__version">
-          <div>Versija: { BSS.version.toString() }</div>
+          <div>Versija: { BSS.version.full }</div>
           <div>
             <a
               target="_blank"
@@ -50,7 +65,7 @@ export const Settings = () => {
               <div className="bss-settings__settings-item" key={item.id}>
                 {
                   item.type === SettingValueType.Checkbox && (
-                    <Checkbox setting={item} />
+                    <Checkbox onChange={handleSettingChange} setting={item} />
                   )
                 }
               </div>

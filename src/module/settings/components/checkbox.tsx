@@ -1,19 +1,22 @@
 import { useEffect, useState } from "preact/hooks"
 import { getItem, setItem, Setting } from "../storage"
+import { FC, useCallback } from "react";
 
 interface Props {
   setting: Setting;
+  onChange: (id: Setting['id'], value: boolean) => void;
 }
 
-export const Checkbox = ({ setting }: Props) => {
+export const Checkbox: FC<Props> = ({ setting, onChange }) => {
   const [settingValue, setSettingValue] = useState(false)
 
-  const updateValue = (event: any) => {
-    setItem(setting.id, event.target.checked ? 'true' : 'false')
-  }
+  const updateValue = useCallback((event: any) => {
+    onChange(setting.id, event.target.checked)
+    setSettingValue(event.target.checked)
+  }, [onChange, setting.id])
 
   useEffect(() => {
-    const val = getItem(setting.id)
+    const val = getItem(setting.id, true)
     setSettingValue(val === 'true')
   }, [setting])
 
