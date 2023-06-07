@@ -26,12 +26,12 @@ export function whenNextPageLoaded (callback: CallbackFunction) {
 function showLoader () {
   loading = true
   const loader = dom('div', { class: 'bss-loader', 'data-loader': 'infiniteload' }, dom('div'), dom('div'), dom('div'))
-  document.querySelector('button.navia')?.closest('table')?.insertAdjacentElement('beforebegin', loader)
+  document.querySelector('button.navia')?.closest('div')?.insertAdjacentElement('beforebegin', loader)
 }
 
 function hideLoader () {
-  loading = false
   document.querySelector('.bss-loader[data-loader="infiniteload"]')?.remove()
+  loading = false
 }
 
 async function loadNextPage () {
@@ -80,9 +80,7 @@ async function loadNextPage () {
 
     loadedListeners.forEach(listener => listener())
 
-    setTimeout(() => {
-      hideLoader()
-    }, 1000)
+    hideLoader()
   }
 }
 
