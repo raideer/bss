@@ -10,7 +10,7 @@ export const PreviewMap: FC<Props> = ({ html }) => {
   const [iframe, setIframe] = useState<string | null>(null)
 
   useEffect(() => {
-    const openMapLink = html.querySelector('.ads_opt_link_map')
+    const openMapLink = html.querySelector('a[onclick*="/gmap/"]')
     if (!openMapLink) return
 
     const onClickAttribute = openMapLink.getAttribute('onclick')
