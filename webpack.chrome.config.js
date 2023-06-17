@@ -60,7 +60,7 @@ module.exports = {
       __git_commit__: JSON.stringify(commitHash)
     }),
     new ZipPlugin({
-      filename: `bss-chrome-v${version}.zip`,
+      filename: `bss-chrome.zip`,
       exclude: [
         'node_modules'
       ]

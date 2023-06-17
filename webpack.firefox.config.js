@@ -60,7 +60,7 @@ module.exports = {
       __git_commit__: JSON.stringify(commitHash)
     }),
     new ZipPlugin({
-      filename: `bss-firefox-v${version}.zip`,
+      filename: `bss-firefox.zip`,
       exclude: [
         'node_modules'
       ]
