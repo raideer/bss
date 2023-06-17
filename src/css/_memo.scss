@@ -1,14 +1,14 @@
 .bss-memo {
   &__button {
     &--active {
-      background-color: color(primary);
+      background-color: var(--primary-color);
       color: white;
     }
 
     display: flex;
     align-items: center;
     border: 0 none;
-    background-color: color(background-darker);
+    background-color: var(--background-darker-color);
     border-radius: 5px;
     padding: 2px 5px;
     z-index: 999;
@@ -21,7 +21,7 @@
     }
 
     i {
-      color: color(gray);
+      color: var(--gray-color);
     }
   }
 }

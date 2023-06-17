@@ -1,13 +1,13 @@
 .bss-core-button {
-  border: 1px solid color(background-darker);
-  background: color(background);
+  border: 1px solid var(--background-darker-color);
+  background: var(--background-color);
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 12px;
   transition: background 0.3s;
 
   &:hover {
-    background: color(background-darker);
+    background: var(--background-darker-color);
   }
 }
 

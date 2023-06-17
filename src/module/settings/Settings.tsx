@@ -1,17 +1,19 @@
 import clsx from "clsx";
 import { useEffect, useState } from "preact/hooks"
 import { Checkbox } from "./components/checkbox";
-import { getSettings, setItem, SettingsCategory, SettingValueType } from "./storage";
+import { getSettings, setItem } from "./storage";
 import { FC, useCallback } from "react";
 import { BSS } from "core/bss";
+import { SettingValueType, SettingsCategory } from "./types";
+import { Select } from "./components/select";
 
 export const Settings: FC = () => {
   const menu = getSettings()
   const [needsReload, setNeedsReload] = useState(false)
-  const [activeSetting, setActiveSetting] = useState<SettingsCategory|null>(null);
+  const [activeSetting, setActiveSetting] = useState<SettingsCategory|undefined>();
 
-  const handleSettingChange = useCallback((id: string, value: boolean) => {
-    setItem(id, value ? 'true' : 'false')
+  const handleSettingChange = useCallback((id: string, value: string) => {
+    setItem(id, value)
     setNeedsReload(true)
   }, [setItem, setNeedsReload])
 
@@ -47,14 +49,6 @@ export const Settings: FC = () => {
         </div>
         <div className="bss-settings__version">
           <div>Versija: { BSS.version.full }</div>
-          <div>
-            <a
-              target="_blank"
-              href={`https://github.com/raideer/bss/commit/${BSS.version.commit}`}
-              rel="noreferrer">
-                { BSS.version.commit.substring(0, 7) }
-            </a>
-          </div>
         </div>
       </div>
       <div className="bss-settings__settings">
@@ -66,6 +60,11 @@ export const Settings: FC = () => {
                 {
                   item.type === SettingValueType.Checkbox && (
                     <Checkbox onChange={handleSettingChange} setting={item} />
+                  )
+                }
+                {
+                  item.type === SettingValueType.Select && (
+                    <Select onChange={handleSettingChange} setting={item} />
                   )
                 }
               </div>

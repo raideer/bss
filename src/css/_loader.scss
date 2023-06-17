@@ -6,7 +6,7 @@
   & > div {
     width: 15px;
     height: 15px;
-    background-color: color(primary);
+    background-color: var(--primary-color);
   }
 
   & > div:nth-child(1) {

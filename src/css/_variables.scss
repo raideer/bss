@@ -1,18 +1,15 @@
-$color: (
-  primary: #5516C2,
-  background: #F6F6F6,
-  background-darker: #E9E9E9,
-  gray: #707070,
-  dark-gray: #1c1c1c,
+:root {
+  --primary-color: #5516C2;
+  --background-color: #F6F6F6;
+  --background-darker-color: #E9E9E9;
+  --gray-color: #707070;
+  --dark-gray-color: #1c1c1c;
 
-  dark-text: #c3c3c3,
-  dark-text-darker: #828282,
-  dark-background: #262626,
-  dark-background-lighter: #373737,
-  dark-line: #585858,
-  dark-green: #4b8159
-);
-
-@function color($key) {
-  @return map-get($color, $key);
+  --dark-text-color: #c3c3c3;
+  --dark-text-darker-color: #828282;
+  --dark-background-color: #262626;
+  --dark-background-lighter-color: #373737;
+  --dark-background-lightest-color: #444444;
+  --dark-line-color: #585858;
+  --dark-green-color: #4b8159;
 }
