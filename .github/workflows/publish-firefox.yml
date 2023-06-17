@@ -25,6 +25,6 @@ jobs:
       with:
         api_key: ${{ secrets.AMO_ISSUER }}
         api_secret: ${{ secrets.AMO_SECRET }}
-        guid: '{0d5cc643-833e-40be-a03b-ca9057bb8d52}'
+        guid: '{4015ef04-67e5-4166-8221-f2c731101288} '
         xpi_path: dist/bss-firefox.zip
         src_path: dist/bss-firefox-source.zip
