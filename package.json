@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "rimraf dist && webpack --watch --config webpack.dev.config.js",
+    "lint": "eslint",	
     "build:chrome": "rimraf dist && cross-env NODE_ENV=production webpack --config webpack.chrome.config.js",
     "build:firefox": "rimraf dist && cross-env NODE_ENV=production webpack --config webpack.firefox.config.js"
   },
