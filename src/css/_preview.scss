@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: 10px 0;
-  background-color: color(background);
+  background-color: var(--background-color);
   font-family: $font-family;
 
   &__menu {
@@ -16,7 +16,7 @@
       padding-bottom: 10px;
 
       &.bss-preview__menu--active {
-        border-bottom: 2px solid color(primary);
+        border-bottom: 2px solid var(--primary-color);
       }
     }
   }
@@ -71,7 +71,7 @@
     }
 
     &--active {
-      background-color: color(primary);
+      background-color: var(--primary-color);
       
       img {
         opacity: 0.8;
@@ -87,7 +87,7 @@
     display: flex;
     align-items: center;
     border: 0 none;
-    background-color: color(background-darker);
+    background-color: var(--background-darker-color);
     border-radius: 5px;
     padding: 2px 5px;
     z-index: 999;
@@ -98,7 +98,7 @@
     }
 
     i {
-      color: color(gray);
+      color: var(--gray-color);
     }
 
     .icon-image {
@@ -147,7 +147,7 @@
     }
 
     span {
-      color: color(dark-gray);
+      color: var(--dark-gray-color);
     }
 
     &-rr {

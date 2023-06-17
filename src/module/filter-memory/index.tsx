@@ -1,8 +1,9 @@
-import { getItem, registerSetting, setItem, SettingCategory, SettingValueType } from "module/settings/storage";
+import { getItem, registerSetting, setItem } from "module/settings/storage";
 import { render } from "preact/compat";
 import { dom } from "util/dom";
 import { whenLoaded } from "util/lifecycle";
 import { FilterMemory } from "./FilterMemory";
+import { SettingCategory, SettingValueType } from "module/settings/types";
 
 export const SETTING_ENABLED = 'preview-enabled'
 export const STORAGE_MEMORY = 'bss-filter-mem'

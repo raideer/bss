@@ -1,34 +1,7 @@
 import { log } from 'util/logger'
+import { Setting, SettingCategory, SettingsCategory } from './types'
 
 const settingCache: { [key: string]: string } = {}
-
-export enum SettingValueType {
-  Checkbox
-}
-
-export const SettingCategory = {
-  AdList: 'ad-list',
-  Appearance: 'appearance'
-}
-
-export interface Setting {
-  type: SettingValueType,
-  title: string,
-  description?: string,
-  id: string
-}
-
-export interface SettingsTab {
-  id: string;
-  title: string;
-}
-
-export interface SettingsCategory {
-  id: string;
-  tab?: SettingsTab,
-  title: string;
-  items: Setting[];
-}
 
 const settings: SettingsCategory[] = [
   {
@@ -53,23 +26,20 @@ export const getSettings = () => {
 }
 
 export const registerSetting = (
-  { id, title, description, type, menu, defaultValue }: Setting & { menu: string, defaultValue: string }
+  { menu, defaultValue, ...values}: Setting & { menu: string, defaultValue: string }
 ) => {
   const setting = settings.find(setting => setting.id === menu)
 
   if (setting) {
-    const hasValue = getItem(id)
+    const hasValue = getItem(values.id)
 
     if (!hasValue) {
-      setItem(id, defaultValue)
-      log(`Registered default value '${defaultValue}' for setting '${id}'`)
+      setItem(values.id, defaultValue)
+      log(`Registered default value '${defaultValue}' for setting '${values.id}'`)
     }
 
     setting.items.push({
-      id,
-      title,
-      description,
-      type
+      ...values
     })
   }
 }

@@ -1,6 +1,7 @@
-import { getItem, registerSetting, SettingCategory, SettingValueType } from 'module/settings/storage'
+import { getItem, registerSetting } from 'module/settings/storage'
 import { PreviewButton } from './PreviewButton'
 import { addButton } from 'core/module/button-container'
+import { SettingCategory, SettingValueType } from 'module/settings/types'
 
 export const SETTING_ENABLED = 'preview-enabled'
 

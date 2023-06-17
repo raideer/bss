@@ -9,15 +9,15 @@
 
   &, a, .main_category, #page_footer, h1, h2, #err_w_td, .ads_contacts_bold,
   .ads_contacts, button, .b, .wb-header, .td6, .alert_dv, .auto_c_head, .new_ad_auto_c, .d7, .td1, .td7, .td11 {
-    color: color(dark-text) !important;
+    color: var(--dark-text-color) !important;
   }
 
   .am4:hover {
-    color: color(dark-text);
+    color: var(--dark-text-color);
   }
 
-  #page_footer {
-    border-color: color(dark-line);
+  #page_footer, .bss-settings__settings-item {
+    border-color: var(--dark-line-color);
   }
 
   .main_images {
@@ -25,38 +25,38 @@
   }
 
   select, input, .bss-core-button, .btn, textarea {
-    color: color(dark-text);
-    background-color: color(dark-background-lighter);
+    color: var(--dark-text-color);
+    background-color: var(--dark-background-lighter-color);
     outline: none;
-    border: 1px solid lighten(color(dark-background-lighter), 10%);
+    border: 1px solid var(--dark-background-lightest-color);
   }
 
   .d8p {
-    border-color: color(dark-green);
+    border-color: var(--dark-green-color);
   }
 
   .category_cnt, .category_head, .ads_opt, .auto_c {
-    color: color(dark-green);
+    color: var(--dark-green-color);
   }
 
   .msg2, .msga2-o, .msga2, .msga2-r, .msg_column, .msg_column_td, .bss-settings__window, .bss-settings__version, .new_ad_img_body {
-    border-color: color(dark-background-lighter) !important;
+    border-color: var(--dark-background-lighter-color) !important;
   }
 
   .msg_column, .msg_column_td, .d7p {
-    background: color(dark-green);
+    background: var(--dark-green-color);
   }
 
   table[bgcolor], td[bgcolor], tr[bgcolor], .filter_second_line_dv, .d5, .d7, .bss-filter-mem {
-    background-color: color(dark-background-lighter) !important;
+    background-color: var(--dark-background-lighter-color) !important;
   }
 
   tr[id^="tr_"], div[id^="tr_"], #page_right {
-    background-color: color(dark-background) !important;
+    background-color: var(--dark-background-color) !important;
   }
 
   table[style^="border"] {
-    border-color: color(dark-background-lighter) !important;
+    border-color: var(--dark-background-lighter-color) !important;
   }
   
   img[src="https://bnr.ss.com/img/shadow.jpg"] {
@@ -69,11 +69,11 @@
 
   .navi, .navia {
     box-shadow: none;
-    background: color(dark-background);
-    border-color: color(dark-background-lighter);
+    background: var(--dark-background-color);
+    border-color: var(--dark-background-lighter-color);
 
     &:hover {
-      background: color(dark-background-lighter);
+      background: var(--dark-background-lighter-color);
     }
   }
 
@@ -87,30 +87,30 @@
       width: 100%;
       height: 2px;
       bottom: 0;
-      background-color: color(dark-line);
+      background-color: var(--dark-line-color);
     }
   }
 
   &, .page_header, .bss-settings__menu, .alert_body, #sslogin {
-    background-color: color(dark-background);
+    background-color: var(--dark-background-color);
   }
 
   .bss-settings__button, .bss-settings__reload  {
-    background-color: color(dark-background);
-    border-color: color(dark-background);
+    background-color: var(--dark-background-color);
+    border-color: var(--dark-background-color);
   }
 
   .bss-preview, .top_head_msg, .winbox, .wb-body, .wb-header, .alert_dv, .new_ad_auto_c, .auto_c_head, .bss-gallery__button, .bss-memo__button, .new_ad_img_div {
-    background-color: color(dark-background-lighter);
+    background-color: var(--dark-background-lighter-color);
   }
 
   .bss-memo__button--active {
-    background-color: color(primary);
+    background-color: var(--primary-color);
   }
 
   .wb-close {
     &::before, &::after {
-      background-color: color(dark-text);
+      background-color: var(--dark-text-color);
     }
   }
 }

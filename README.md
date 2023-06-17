@@ -11,7 +11,6 @@
 3. Load `dist` directory as unpacked extension
 
 #### TODO
-- [ ] Memo badge, hide ad
 - [ ] Keyboard shortcuts
 - [ ] Ad browser notifications
 - [ ] Quick save/open categories

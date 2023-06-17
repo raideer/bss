@@ -2,9 +2,10 @@ import { CallbackFunction, whenLoaded } from 'util/lifecycle'
 import fetchHtml from 'util/fetch-html'
 
 import { dom, isElementInViewport } from 'util/dom'
-import { getItem, registerSetting, SettingCategory, SettingValueType } from 'module/settings/storage'
+import { getItem, registerSetting } from 'module/settings/storage'
 import { timeout } from 'util/async'
 import { AdType, getPageInfo } from 'util/page-info'
+import { SettingCategory, SettingValueType } from 'module/settings/types'
 
 let loading = false
 
