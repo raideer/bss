@@ -10,7 +10,3 @@
 2. Run with `yarn watch`
 3. Load `dist` directory as unpacked extension
 
-#### TODO
-- [ ] Keyboard shortcuts
-- [ ] Ad browser notifications
-- [ ] Quick save/open categories
