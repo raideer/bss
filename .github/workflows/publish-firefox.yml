@@ -1,0 +1,29 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Publish webextension
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Build
+      run: |
+        yarn
+        yarn build:firefox
+    - name: Upload & release
+      uses: yayuyokitano/firefox-addon@v0.0.3-alpha
+      with:
+        api_key: ${{ secrets.AMO_ISSUER }}
+        api_secret: ${{ secrets.AMO_SECRET }}
+        guid: '{0d5cc643-833e-40be-a03b-ca9057bb8d52}'
+        xpi_path: dist/bss-firefox.zip
+        src_path: dist/bss-firefox-source.zip

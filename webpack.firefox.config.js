@@ -48,6 +48,13 @@ module.exports = {
         }
       ]
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src', to: 'source'
+        }
+      ]
+    }),
     new MiniCssExtractPlugin({
       filename: "bss.css"
     }),
@@ -62,7 +69,13 @@ module.exports = {
     new ZipPlugin({
       filename: `bss-firefox.zip`,
       exclude: [
-        'node_modules'
+        'source'
+      ]
+    }),
+    new ZipPlugin({
+      filename: `bss-firefox-source.zip`,
+      include: [
+        'source'
       ]
     })
   ],
