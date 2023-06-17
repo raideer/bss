@@ -1,6 +1,7 @@
 name: Publish Chrome
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - '*'
