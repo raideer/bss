@@ -61,6 +61,10 @@
       width: 100%;
       border-bottom: 1px solid var(--background-darker-color);
       padding-bottom: 8px;
+
+      &:last-child {
+        border-bottom: none;
+      }
     }
   }
 

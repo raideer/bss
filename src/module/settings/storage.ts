@@ -13,6 +13,11 @@ const settings: SettingsCategory[] = [
     id: SettingCategory.Appearance,
     title: 'Izskats',
     items: []
+  },
+  {
+    id: SettingCategory.Search,
+    title: 'Kategoriju meklētājs',
+    items: []
   }
 ]
 
