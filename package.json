@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "rimraf dist && webpack --watch --config webpack.dev.config.js",
+    "watch": "rimraf dist && webpack --watch --config webpack.chrome.config.js",
     "lint": "eslint",
     "build:chrome": "rimraf dist && cross-env NODE_ENV=production webpack --config webpack.chrome.config.js",
     "build:firefox": "rimraf dist && cross-env NODE_ENV=production webpack --config webpack.firefox.config.js"
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "clsx": "^1.2.1",
+    "fuse.js": "^6.6.2",
     "js-md5": "^0.7.3",
     "lodash-es": "^4.17.21",
     "preact": "^10.6.1",

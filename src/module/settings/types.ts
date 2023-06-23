@@ -1,12 +1,15 @@
 
 export enum SettingValueType {
   Checkbox,
-  Select
+  Select,
+  Text,
+  Information
 }
 
 export const SettingCategory = {
   AdList: 'ad-list',
-  Appearance: 'appearance'
+  Appearance: 'appearance',
+  Search: 'search'
 }
 
 interface BaseSetting {
@@ -14,6 +17,15 @@ interface BaseSetting {
   title: string,
   description?: string,
   id: string,
+}
+
+export type TextSetting = BaseSetting & {
+  type: SettingValueType.Text
+  disabled?: boolean
+}
+
+export type InformationSetting = BaseSetting & {
+  type: SettingValueType.Information
 }
 
 export type CheckboxSetting = BaseSetting & {
@@ -25,7 +37,7 @@ export type SelectSetting = BaseSetting & {
   options: { label: string, value: string }[]
 }
 
-export type Setting = CheckboxSetting | SelectSetting
+export type Setting = CheckboxSetting | SelectSetting | TextSetting | InformationSetting
 
 export interface SettingsTab {
   id: string;

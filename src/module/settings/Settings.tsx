@@ -6,6 +6,7 @@ import { FC, useCallback } from "react";
 import { BSS } from "core/bss";
 import { SettingValueType, SettingsCategory } from "./types";
 import { Select } from "./components/select";
+import { Text } from "./components/text";
 
 export const Settings: FC = () => {
   const menu = getSettings()
@@ -65,6 +66,11 @@ export const Settings: FC = () => {
                 {
                   item.type === SettingValueType.Select && (
                     <Select onChange={handleSettingChange} setting={item} />
+                  )
+                }
+                {
+                  item.type === SettingValueType.Text && (
+                    <Text onChange={handleSettingChange} setting={item} />
                   )
                 }
               </div>

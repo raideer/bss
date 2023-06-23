@@ -1,3 +1,4 @@
+import { memoize, trimStart } from "lodash-es"
 import { error } from "./logger"
 
 export enum AdType {
@@ -9,7 +10,7 @@ export interface PageInfo {
   adType: AdType
 }
 
-export function getPageInfo() {
+export const getPageInfo = memoize(() => {
   const paths = getLocationPath()
 
   const pageInfo: PageInfo = {
@@ -21,20 +22,35 @@ export function getPageInfo() {
   }
 
   return pageInfo
-}
+})
 
-export function getLocationPath() {
+export const getLocationInfo = memoize(() => {
+  const location = window.location
+
   const currentUrl = window.location.pathname
-  const match = currentUrl.match(/(\/msg)?((\/lv|\/ru|\/en))?\/(?<path>[a-zA-Z0-9-\/]+)+/)
+  const match = currentUrl.match(/(\/msg)?((?<lang>\/lv|\/ru|\/en))?\/(?<path>[a-zA-Z0-9-\/]*)+/)
 
   if (!match) {
+    return null
+  }
+
+  return {
+    path: match.groups?.path,
+    lang: trimStart(match.groups?.lang, '/'),
+    baseUrl: `${location.protocol}//${location.host}`
+  }
+})
+
+export function getLocationPath() {
+  const info = getLocationInfo()
+
+  if (!info) {
     error('Could not match pathname regex')
     return []
   }
 
-  const path = match.groups?.path
-  if (path) {
-    const currentPath = path.split('/').filter(p => p)
+  if (info.path) {
+    const currentPath = info.path.split('/').filter(p => p)
     return currentPath
   }
 
