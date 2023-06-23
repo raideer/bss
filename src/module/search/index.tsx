@@ -1,7 +1,7 @@
 import { render } from "preact"
 import { whenLoaded } from "util/lifecycle"
 import { SearchBar } from "./SearchBar"
-import { indexCategories } from "./indexer"
+import { indexCategories, loadDefaultIndex } from "./indexer"
 import { getItem, registerSetting } from "module/settings/storage"
 import { SettingCategory, SettingValueType } from "module/settings/types"
 
@@ -24,7 +24,7 @@ whenLoaded(() => {
     return
   }
 
-  indexCategories()
+  loadDefaultIndex()
 
   if (insertPoint) {
     render(<SearchBar />, insertPoint)

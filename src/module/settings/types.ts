@@ -21,11 +21,11 @@ interface BaseSetting {
 
 export type TextSetting = BaseSetting & {
   type: SettingValueType.Text
+  disabled?: boolean
 }
 
 export type InformationSetting = BaseSetting & {
-  type: SettingValueType.Information,
-  text: string
+  type: SettingValueType.Information
 }
 
 export type CheckboxSetting = BaseSetting & {

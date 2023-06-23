@@ -53,6 +53,7 @@ export const SearchBar: FC = () => {
         {
           includeScore: true,
           useExtendedSearch: true,
+          threshold: 0.4,
           keys: [
             {
               name: 'name',

@@ -3,6 +3,7 @@ import fetchHtml from "util/fetch-html";
 import { trimEnd } from "lodash-es";
 import { log } from "util/logger";
 import { SearchCategory } from "./types";
+import defaultIndex from './defaultIndex.json'
 
 let progressMax = 0;
 let progressCurrent = 0;
@@ -92,6 +93,12 @@ const getMainCategories = (html: Document): Promise<SearchCategory[]> => {
   return Promise.all(promises)
 }
 
+const saveIndex = (categories: SearchCategory[]) => {
+  const json = JSON.stringify(categories);
+  localStorage.setItem(`bss_search_index`, json)
+  localStorage.setItem(`bss_search_index_timestamp`, `${+new Date()}`)
+}
+
 const indexHomepage = async () => {
   const locationInfo = getLocationInfo();
 
@@ -104,9 +111,7 @@ const indexHomepage = async () => {
   const html = await fetchHtml(homeUrl)
   const categories = await getMainCategories(html)
 
-  const json = JSON.stringify(categories);
-  localStorage.setItem(`bss_search_index`, json)
-  localStorage.setItem(`bss_search_index_timestamp`, `${+new Date()}`)
+  saveIndex(categories)
 }
 
 export const indexCategories = async () => {
@@ -126,4 +131,12 @@ export const indexCategories = async () => {
   await indexHomepage();
 
   log('Indexing complete')
+}
+
+export const loadDefaultIndex = (force = false) => {
+  if (!force && localStorage.getItem('bss_search_index')) {
+    return
+  }
+
+  saveIndex(defaultIndex)
 }
