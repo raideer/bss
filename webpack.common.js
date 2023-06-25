@@ -12,6 +12,7 @@ const version = `${VERSION.major}.${VERSION.minor}.${VERSION.patch}`;
 
 module.exports = (type) => {
   const resourceLink = type === 'chrome' ? 'chrome-extension://__MSG_@@extension_id__' : 'moz-extension://__MSG_@@extension_id__';
+  const manifest = type === 'chrome' ? 'manifest' : 'manifest-v2';
 
   return {
     mode: PROD ? 'production' : 'development',
@@ -38,7 +39,7 @@ module.exports = (type) => {
         patterns: [
           { from: 'assets', to: 'assets' },
           {
-            from: "./src/manifest.json",
+            from: `./src/${manifest}.json`,
             to: "./manifest.json",
             transform: {
               transformer(content, path) {
