@@ -9,8 +9,8 @@
 
   &__results {
     position: absolute;
-    background-color: var(--background-color);
-    border: 1px solid var(--background-darker-color);
+    background-color: hsl(var(--b1));
+    border: 1px solid hsl(var(--bc) / 0.2);
 
     width: 500px;
     left: 50%;
@@ -26,7 +26,8 @@
       font-weight: bold;
       margin-bottom: 10px;
       padding-bottom: 10px;
-      border-bottom: 1px solid var(--background-darker-color);
+      border-bottom: 1px solid hsl(var(--bc) / 0.2);
+      color: hsl(var(--a));
     }
 
     &-close {
@@ -44,18 +45,5 @@
         text-decoration: underline;
       }
     }
-  }
-}
-
-.bss-dark {
-  .bss-search__results {
-    background-color: var(--dark-background-lighter-color);
-    color: var(--dark-text-color);
-    border-radius: 5px;
-    border-color: var(--dark-background-lightest-color);
-  }
-
-  .bss-search__results-head {
-    border-color: var(--dark-background-lightest-color);
   }
 }

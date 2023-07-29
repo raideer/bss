@@ -1,0 +1,36 @@
+.bss-button {
+  border-radius: var(--border-radius);
+  border-width: 1px;
+  border-style: solid;
+  color: hsl(var(--bc));
+  border-color: hsl(var(--b2));
+  background-color: hsl(var(--b2));
+  padding: 5px 10px;
+  font-size: 12px;
+
+  transition: all 0.2s;
+
+  &.bss-button-active, &:hover {
+    background-color: hsl(var(--b3));
+  }
+
+  &-neutral {
+    border-color: hsl(var(--n));
+    background-color: hsl(var(--n));
+    color: hsl(var(--nc));
+
+    &.bss-button-active, &:hover {
+      background-color: hsl(var(--nf));
+    }
+  }
+
+  &-accent {
+    border-color: hsl(var(--a));
+    background-color: hsl(var(--a));
+    color: hsl(var(--ac));
+
+    &.bss-button-active, &:hover {
+      background-color: hsl(var(--af));
+    }
+  }
+}

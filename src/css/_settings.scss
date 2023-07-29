@@ -5,7 +5,16 @@
   height: 100%;
   font-family: $font-family;
 
-  &__menu {
+  &-button {
+    width: 50px;
+    margin-right: 5px;
+    margin-top: -4px;
+    font-family: $font-family;
+    font-weight: 500;
+    color: var(--pc) !important;
+  }
+
+  &-menu {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -14,7 +23,7 @@
     height: 100%;
     flex-shrink: 0;
 
-    background-color: var(--background-color);
+    background-color: hsl(var(--b2));
 
     &-items {
       flex: 1;
@@ -31,19 +40,20 @@
       font-size: 14px;
 
       &--active {
-        border-left: 2px solid var(--primary-color);
+        border-left: 2px solid hsl(var(--a));
+        background-color: hsl(var(--b3));
       }
     }
   }
 
-  &__version {
-    border-top: 1px solid var(--background-darker-color);
+  &-version {
+    border-top: 1px solid var(--border-color);
     padding: 12px;
     font-size: 12px;
 
     a {
       font-weight: 500;
-      color: var(--primary-color);
+      color: var(--bss-primary-color);
     }
   }
 
@@ -59,25 +69,13 @@
     &-item {
       margin-bottom: 10px;
       width: 100%;
-      border-bottom: 1px solid var(--background-darker-color);
+      border-bottom: 1px solid var(--border-color);
       padding-bottom: 8px;
 
       &:last-child {
         border-bottom: none;
       }
     }
-  }
-
-  &__button {
-    width: 50px;
-    border-radius: 5px;
-    margin-right: 5px;
-    margin-top: -4px;
-    font-family: $font-family;
-    font-weight: 500;
-    color: var(--primary-color);
-    background-color: var(--background-color);
-    border: 1px solid var(--background-darker-color);
   }
 
   &__window {
@@ -103,22 +101,16 @@
   }
 
   &__input-description {
-    color: var(--gray-color);
+    // color: var(--gray-color);
     font-size: 12px;
     margin-top: 2px;
   }
 
-  &__reload {
+  &-reload {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    border-radius: 5px;
     margin-right: 5px;
     margin-top: -4px;
-    font-family: $font-family;
-    font-weight: 500;
-    color: var(--primary-color);
-    background-color: var(--background-color);
-    border: 1px solid var(--background-darker-color);
   }
 }

@@ -3,6 +3,7 @@ import { useState } from "preact/hooks";
 import { dom } from "util/dom";
 import { AdType, getPageInfo } from "util/page-info";
 import { Preview } from "./Preview";
+import { Button } from "core/components/Button";
 interface Props {
   row: any;
 }
@@ -44,9 +45,9 @@ export const PreviewButton = ({ row }: Props) => {
   }
 
   return (
-    <button type="button" onClick={onClick} className="bss-gallery__button">
+    <Button className="bss-gallery__button" onClick={onClick} >
       <span class="icon-image" />
       <span class="icon-chevron-down" />
-    </button>
+    </Button>
   )
 }

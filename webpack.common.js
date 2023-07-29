@@ -18,6 +18,7 @@ module.exports = (type) => {
     mode: PROD ? 'production' : 'development',
     entry: {
       'bss.js': './src/bss.ts',
+      'style-blocker.js': './src/style-blocker.ts',
       styles: './src/css/main.scss'
     },
     devtool: 'inline-source-map',
@@ -82,7 +83,7 @@ module.exports = (type) => {
           test: /\.(s[ac]ss|css)$/i,
           use: [
             MiniCssExtractPlugin.loader,
-            'css-loader',
+            'css-loader?url=false',
             {
               loader: 'string-replace-loader',
               options: {

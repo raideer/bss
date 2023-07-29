@@ -7,6 +7,7 @@ import { Loader } from "core/components/Loader";
 import { FC } from "preact/compat";
 import first from "lodash-es/first";
 import { PreviewMap } from "./PreviewMap";
+import { Button } from "core/components/Button";
 
 interface Props {
   row: Element;
@@ -63,22 +64,21 @@ export const Preview: FC<Props> = ({ row }) => {
   return (
     <div className="bss-preview">
       <div className="bss-preview__menu">
-        {TABS.map((tab) => {
-          if (tab.key === Tab.Map && !showMap) {
-            return null
-          }
+        <div className="bss-menu">
+          {TABS.map((tab) => {
+            if (tab.key === Tab.Map && !showMap) {
+              return null
+            }
 
-          return <button
-            type="button"
-            className={clsx({
-              'bss-preview__menu--active': activeTab && activeTab.key === tab.key
-            })}
-            key={tab.key}
-            onClick={() => setActiveTab(tab)}>
-              {tab.label}
-          </button>
-        })}
+            return <Button
+              active={activeTab && activeTab.key === tab.key}
+              key={tab.key}
+              onClick={() => setActiveTab(tab)}>
+                {tab.label}
+            </Button>
+          })}
 
+        </div>
       </div>
       {activeTab && activeTab.component && <activeTab.component switchTab={handleSwitchTab} html={html} />}
     </div>

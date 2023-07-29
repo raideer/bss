@@ -88,7 +88,7 @@ export const SearchBar: FC = () => {
 
   return (
     <div className="bss-search__container">
-      <input value={query} onChange={(e) => setQuery((e.target as any).value) } type="text" placeholder="Meklēt kategoriju..." />
+      <input className="bss-input" value={query} onChange={(e) => setQuery((e.target as any).value) } type="text" placeholder="Meklēt kategoriju..." />
 
       {results.length > 0 && (
         <div className="bss-search__results">

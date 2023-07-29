@@ -5,7 +5,7 @@ import 'core/bss'
 import 'core/module/button-container'
 
 import 'module/settings'
-import 'module/dark-mode'
+import 'module/theme'
 import 'module/infinite-load'
 import 'module/preview'
 import 'module/filter-memory'

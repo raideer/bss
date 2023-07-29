@@ -28,19 +28,19 @@ export const Settings: FC = () => {
     <div className="bss-settings">
       {
         needsReload && (
-          <button type="button" onClick={() => window.location.reload()} className="bss-settings__reload">
+          <button type="button" onClick={() => window.location.reload()} className="bss-button bss-settings-reload">
             Pārlādēt lapu
           </button>
         )
       }
-      <div className="bss-settings__menu">
-        <div className="bss-settings__menu-items">
+      <div className="bss-settings-menu">
+        <div className="bss-settings-menu-items">
         {
           menu.map(item => {
             return (
               <button key={item.id} onClick={() => setActiveSetting(item)} className={clsx({
-                'bss-settings__menu-item': true,
-                'bss-settings__menu-item--active': activeSetting && activeSetting.id === item.id
+                'bss-settings-menu-item': true,
+                'bss-settings-menu-item--active': activeSetting && activeSetting.id === item.id
               })}>
                 { item.title }
               </button>
@@ -48,7 +48,7 @@ export const Settings: FC = () => {
           })
         }
         </div>
-        <div className="bss-settings__version">
+        <div className="bss-settings-version">
           <div>Versija: { BSS.version.full }</div>
         </div>
       </div>

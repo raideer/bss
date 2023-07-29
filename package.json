@@ -1,6 +1,6 @@
 {
   "name": "better-ss",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "string-replace-loader": "^3.1.0",
     "unique-selector": "^0.5.0",
     "urlcat": "^2.0.4",
+    "webextension-polyfill": "^0.10.0",
     "winbox": "^0.2.0"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@babel/preset-env": "^7.14.7",
     "@types/lodash-es": "^4.17.5",
     "@types/react": "^17.0.31",
+    "@types/webextension-polyfill": "^0.10.1",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "autoprefixer": "^8.0.0",

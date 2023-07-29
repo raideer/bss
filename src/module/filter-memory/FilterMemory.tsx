@@ -104,13 +104,14 @@ export const FilterMemory = () => {
 
     if (savedFilters[saveKey]) {
       for (const name in savedFilters[saveKey]) {
+        const isActive = currentHash === savedFilters[saveKey][name].id
+
         items.push((
           <div className={clsx({
-            'bss-filter-preset': true,
-            'bss-filter-preset--active': currentHash === savedFilters[saveKey][name].id
+            'bss-fm-preset': true
           })}>
-            <Button text={name} onClick={() => { applyFilter(savedFilters[saveKey][name]) }} />
-            <Button className="bss-filter-preset__remove" text={'x'} onClick={() => { deleteFilter(name) }} />
+            <Button active={isActive} variant={isActive ? 'accent' : "neutral"} onClick={() => { applyFilter(savedFilters[saveKey][name]) }} >{name}</Button>
+            <Button active={isActive} variant={isActive ? 'accent' : "neutral"} onClick={() => { deleteFilter(name) }}>x</Button>
           </div>
         ))
       }
@@ -124,11 +125,11 @@ export const FilterMemory = () => {
   }, [])
 
   return (
-    <div className="bss-filter-mem__container">
-      <div className="bss-filter-presets">
+    <div className="bss-fm-container">
+      <div className="bss-fm-presets">
         {presets}
       </div>
-      <Button className="bss-filter-mem__savebtn" onClick={saveCurrentFilters} text="Saglabāt pašreizējos filtrus" />
+      <Button variant="neutral" className="bss-fm-btn" onClick={saveCurrentFilters}>Saglabāt filtrus</Button>
     </div>
   )
 }
