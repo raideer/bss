@@ -17,6 +17,7 @@
   --font-color: #000000;
   --link-visited-color: #aaa;
   --link-hover-color: #06c;
+  --section-heading-color: #000;
   --menu-font-color: #EEE;
   --menu-font-color-hover: #FFF;
   --accent-color: green;
@@ -87,6 +88,7 @@
   --font-color: hsl(var(--bc) / 0.8);
   --menu-font-color: hsl(var(--bc) / 0.8);
   --menu-font-color-hover: hsl(var(--bc));
+  --section-heading-color: hsl(var(--bc));
   --photo-label-color: hsl(var(--bc) / 0.8);
   --link-hover-color: hsl(var(--af));
   --link-visited-color: hsl(var(--bc) / 0.1);

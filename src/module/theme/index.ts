@@ -9,7 +9,7 @@ registerSetting({
   options: [
     {
       value: 'original',
-      label: 'Izslēgts'
+      label: 'SS.com'
     },
     {
       value: 'light',
