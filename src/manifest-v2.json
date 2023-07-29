@@ -7,6 +7,12 @@
     "48": "assets/icons/bss48.png",
     "128": "assets/icons/bss128.png"
   },
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://*.ss.com/*",
+    "https://*.ss.lv/*"
+  ],
   "content_scripts": [
     {
       "matches": [
@@ -22,6 +28,10 @@
       ]
     }
   ],
+  "background": {
+    "persistent": true,
+    "scripts": ["style-blocker.js"]
+  },
   "web_accessible_resources": [
     "assets/fonts/bss.ttf",
     "assets/fonts/bss.woff",

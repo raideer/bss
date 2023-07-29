@@ -40,7 +40,7 @@ whenLoaded(() => {
     return;
   }
 
-  const container = dom('div', { class: 'bss-filter-mem' })
+  const container = dom('div', { class: 'bss-fm' })
 
   filterForm.prepend(container)
 

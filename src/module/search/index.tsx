@@ -1,7 +1,7 @@
 import { render } from "preact"
 import { whenLoaded } from "util/lifecycle"
 import { SearchBar } from "./SearchBar"
-import { indexCategories, loadDefaultIndex } from "./indexer"
+import { loadDefaultIndex } from "./indexer"
 import { getItem, registerSetting } from "module/settings/storage"
 import { SettingCategory, SettingValueType } from "module/settings/types"
 

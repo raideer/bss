@@ -1,6 +1,7 @@
 import { useState } from "preact/hooks";
 import { urlArgs } from "util/url";
 import { loadMemoItems } from ".";
+import { Button } from "core/components/Button";
 
 const ADD_ENDPOINT = '/w_inc/add_to_favorites.php?lg={{lang}}&m={{id}}&d={{date}}'
 const DELETE_ENDPOINT = '/w_inc/add_to_favorites.php?lg={{lang}}&action=del&m={{id}}&d={{date}}'
@@ -42,8 +43,8 @@ export const MemoButton = ({ id, isInMemo }: Props) => {
   }
 
   return (
-    <button type="button" onClick={onClick} className={`bss-memo__button ${added ? 'bss-memo__button--active' : ''}`}>
+    <Button onClick={onClick} variant={added ? 'accent' : 'default'}>
       <span>{ added ? '-' : '+'} Memo</span>
-    </button>
+    </Button>
   )
 }

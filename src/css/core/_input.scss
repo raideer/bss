@@ -1,0 +1,10 @@
+.bss-input {
+  border-radius: var(--border-radius);
+  border-width: 1px;
+  border-style: solid;
+  color: hsl(var(--bc));
+  padding: 5px 10px;
+  font-size: 14px;
+  border-color: hsl(var(--bc) / 0.2);
+  background-color: hsl(var(--b1));
+}

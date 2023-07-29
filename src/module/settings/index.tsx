@@ -35,7 +35,7 @@ const SettingsButton = () => {
     render(<Settings />, wb.body)
   }
 
-  return (<button className="bss-settings__button" onClick={onClick}>BSS</button>)
+  return (<button className="bss-button bss-button-neutral bss-settings-button" onClick={onClick}>BSS</button>)
 }
 
 whenLoaded(() => {

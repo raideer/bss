@@ -2,7 +2,6 @@ import clsx from "clsx"
 import SimpleBar from "core/components/Simplebar"
 import { useEffect, useState } from "preact/hooks"
 import { GalleryImage } from "./GalleryImage"
-
 interface Props {
   html: Document;
 }
@@ -34,9 +33,10 @@ export const PreviewGallery = ({ html }: Props) => {
     loadImages()
   }, [])
 
+  console.log(images)
+
   return (
     <div className="bss-preview">
-
       <div className="bss-gallery">
         <div class="bss-gallery__images">
           <SimpleBar style={{ maxHeight: 600 }} autoHide={false}>
