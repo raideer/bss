@@ -1,7 +1,7 @@
 {
-  "name": "BSS - Better SS.com",
+  "name": "BSS - Better SS.com & SS.lv",
   "version": "__VERSION__",
-  "description": "SS.com enhancements",
+  "description": "SS.com & SS.lv enhancements",
   "icons": {
     "16": "assets/icons/bss16.png",
     "48": "assets/icons/bss48.png",
