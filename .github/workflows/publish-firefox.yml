@@ -2,9 +2,6 @@ name: Publish Firefox
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - '*'
 
 jobs:
   build:

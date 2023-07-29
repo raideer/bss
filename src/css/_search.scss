@@ -9,8 +9,10 @@
 
   &__results {
     position: absolute;
-    background-color: hsl(var(--b1));
+    background-color: hsl(var(--n));
     border: 1px solid hsl(var(--bc) / 0.2);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px hsl(var(--b3));
 
     width: 500px;
     left: 50%;
@@ -38,7 +40,11 @@
     }
 
     &-item {
-      margin-bottom: 10px;
+      &:not(:last-child) {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid hsl(var(--bc) / 0.2);
+      }
 
       &-match {
         font-weight: bold;
