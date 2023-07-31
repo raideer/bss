@@ -12,6 +12,7 @@
   --alert-background-color: green;
   --alert-body-background-color: #FFFFFF;
   --sslogin-background-color: #FFF;
+  --album-view-background-color: #ddd;
 
   // Font color
   --font-color: #000000;
@@ -21,6 +22,7 @@
   --menu-font-color: #EEE;
   --menu-font-color-hover: #FFF;
   --accent-color: green;
+  --accent-content-color: #FFF;
   --pagination-active-color: #000;
   --alert-heading-color: #000;
   --head-title-color: #036013;
@@ -83,6 +85,7 @@
   --alert-background-color: hsl(var(--n));
   --alert-body-background-color: hsl(var(--b1));
   --sslogin-background-color: hsl(var(--b2));
+  --album-view-background-color: hsl(var(--b2));
   
   // Font color
   --font-color: hsl(var(--bc) / 0.8);
@@ -96,6 +99,7 @@
   --listing-header-color: hsl(var(--nc));
   --menu-accent-color: hsl(var(--a));
   --accent-color: hsl(var(--a));
+  --accent-content-color: hsl(var(--ac));
   --pagination-active-color: hsl(var(--ac));
   --head-title-color: hsl(var(--s));
   --alert-heading-color: hsl(var(--nc));
