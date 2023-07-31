@@ -106,7 +106,7 @@
     background-color: var(--table-header-background-color);
   }
 
-  tr[id^="tr_"] {
+  [id^="tr_"] {
     background-color: var(--background-color) !important;
     transition: background-color 0.2s;
 

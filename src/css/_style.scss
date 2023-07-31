@@ -1936,7 +1936,8 @@ li {
   width: 160px;
   height: 36px;
   overflow: hidden;
-  background-color: #ddd;
+  // background-color: #ddd;
+  background-color: var(--album-view-background-color);
   text-align: center;
   cursor: pointer
 }
@@ -1952,7 +1953,8 @@ li {
   padding-bottom: 1px
 }
 .d7 {
-  background-color: #ddd;
+  // background-color: #ddd;
+  background-color: var(--album-view-background-color);
   // color: #000;
   color: var(--font-color);
   text-decoration: none
@@ -1960,7 +1962,8 @@ li {
 .d7p {
   // background-color: green;
   background-color: var(--accent-color);
-  color: #fff
+  // color: #fff
+  color: var(--accent-content-color);
 }
 .d8,
 .d8p {
