@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from "preact/hooks";
-import { FC } from "preact/compat";
+import { FC, useEffect, useRef, useState } from 'react'
 
 interface Props {
   html: Document;
 }
 
 export const PreviewMap: FC<Props> = ({ html }) => {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null)
   const [iframe, setIframe] = useState<string | null>(null)
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export const PreviewMap: FC<Props> = ({ html }) => {
     const onClickAttribute = openMapLink.getAttribute('onclick')
     const args = onClickAttribute?.match(/'map',\d,\d,'([^']+)'/)
     if (!args) {
-      return;
+      return
     }
 
     setIframe(args[1])

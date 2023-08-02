@@ -1,5 +1,5 @@
-import { memoize, trimStart } from "lodash-es"
-import { error } from "./logger"
+import { memoize, trimStart } from 'lodash-es'
+import { error } from './logger'
 
 export enum AdType {
   AD_TYPE_TABLE = 'table',
@@ -41,7 +41,7 @@ export const getLocationInfo = memoize(() => {
   }
 })
 
-export function getLocationPath() {
+export function getLocationPath () {
   const info = getLocationInfo()
 
   if (!info) {

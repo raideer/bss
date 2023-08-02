@@ -1,9 +1,9 @@
-import { render } from "preact";
-import { useState } from "preact/hooks";
-import { dom } from "util/dom";
-import { AdType, getPageInfo } from "util/page-info";
-import { Preview } from "./Preview";
-import { Button } from "core/components/Button";
+import { useState } from 'react'
+import { dom } from 'util/dom'
+import { AdType, getPageInfo } from 'util/page-info'
+import { Preview } from './Preview'
+import { Button } from 'core/components/Button'
+import { renderReact } from 'util/react'
 interface Props {
   row: any;
 }
@@ -14,7 +14,7 @@ export const PreviewButton = ({ row }: Props) => {
   const [container, setContainer] = useState<HTMLElement | null>(null)
 
   const onClick = (e: any) => {
-    e.stopPropagation();
+    e.stopPropagation()
 
     if (container && document.body.contains(container)) {
       container.remove()
@@ -38,16 +38,17 @@ export const PreviewButton = ({ row }: Props) => {
       }
 
       const col = container.querySelector('td')
+
       if (col) {
-        render(<Preview row={row} />, col)
+        renderReact(<Preview row={row} />, col, 'append')
       }
     }
   }
 
   return (
     <Button className="bss-gallery__button" onClick={onClick} >
-      <span class="icon-image" />
-      <span class="icon-chevron-down" />
+      <span className="icon-image" />
+      <span className="icon-chevron-down" />
     </Button>
   )
 }

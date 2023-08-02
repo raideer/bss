@@ -27,39 +27,39 @@ export function isElementInViewport (el: HTMLElement | Element): boolean {
   )
 }
 
-export function waitForChild(ele: Element, selector: string): Promise<HTMLElement> {
+export function waitForChild (ele: Element, selector: string): Promise<HTMLElement> {
   return new Promise(resolve => {
-    const child = Array.from(ele.children).find(child => child.matches(selector));
+    const child = Array.from(ele.children).find(child => child.matches(selector))
     if (child) {
-      resolve(child as HTMLElement);
-      return;
+      resolve(child as HTMLElement)
+      return
     }
 
     const observer = new MutationObserver(mutations => {
       for (const mutation of mutations) {
         for (const node of Array.from(mutation.addedNodes)) {
           if (node.nodeType === Node.ELEMENT_NODE && (node as any).matches(selector)) {
-            observer.disconnect();
-            resolve(node as HTMLElement);
-            return;
+            observer.disconnect()
+            resolve(node as HTMLElement)
+            return
           }
         }
       }
-    });
+    })
 
-    observer.observe(ele, { childList: true });
-  });
+    observer.observe(ele, { childList: true })
+  })
 }
 
 export const generateQuerySelector = (el: any): string => {
-  if (el.tagName.toLowerCase() === "html") { return "HTML"; }
-  let str = el.tagName;
-  str += (el.id !== "") ? `#${el.id}` : "";
+  if (el.tagName.toLowerCase() === 'html') { return 'HTML' }
+  let str = el.tagName
+  str += (el.id !== '') ? `#${el.id}` : ''
   if (el.className) {
-    const classes = el.className.split(/\s/);
+    const classes = el.className.split(/\s/)
     for (let i = 0; i < classes.length; i++) {
       str += `.${classes[i]}`
     }
   }
-  return `${generateQuerySelector(el.parentNode)} > ${str}`;
+  return `${generateQuerySelector(el.parentNode)} > ${str}`
 }

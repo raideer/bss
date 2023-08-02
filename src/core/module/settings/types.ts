@@ -8,6 +8,7 @@ export enum SettingValueType {
 
 export const SettingCategory = {
   AdList: 'ad-list',
+  Filters: 'filters',
   Appearance: 'appearance',
   Search: 'search'
 }

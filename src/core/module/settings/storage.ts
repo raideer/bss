@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill'
 import { log } from 'util/logger'
 import { Setting, SettingCategory, SettingsCategory } from './types'
 
@@ -12,6 +13,11 @@ const settings: SettingsCategory[] = [
   {
     id: SettingCategory.Appearance,
     title: 'Izskats',
+    items: []
+  },
+  {
+    id: SettingCategory.Filters,
+    title: 'Filtri',
     items: []
   },
   {
@@ -31,7 +37,7 @@ export const getSettings = () => {
 }
 
 export const registerSetting = (
-  { menu, defaultValue, ...values}: Setting & { menu: string, defaultValue: string }
+  { menu, defaultValue, ...values }: Setting & { menu: string, defaultValue: string }
 ) => {
   const setting = settings.find(setting => setting.id === menu)
 
@@ -49,16 +55,20 @@ export const registerSetting = (
   }
 }
 
+function setItemLocal (id: string, value: string) {
+  settingCache[id] = value
+  return localStorage.setItem(`bss_${id}`, value)
+}
 /**
  * Set an item to storage
  * @param id
  * @param value
  * @returns
  */
-export function setItem(id: string, value: string) {
-  settingCache[id] = value
+export function setItem (id: string, value: string) {
   log(`Updated setting '${id}' to '${value}'`)
-  return localStorage.setItem(`bss_${id}`, value)
+  browser.storage.sync.set({ [`bss_${id}`]: value })
+  return setItemLocal(id, value)
 }
 
 /**
@@ -67,7 +77,7 @@ export function setItem(id: string, value: string) {
  * @param force Bypass cache
  * @returns
  */
-export function getItem(id: string, force = false) {
+export function getItem (id: string, force = false) {
   if (!force && settingCache[id]) {
     return settingCache[id]
   }
@@ -77,10 +87,38 @@ export function getItem(id: string, force = false) {
   return value
 }
 
-export function updateCache() {
-  settings.forEach(settingCategory => {
-    settingCategory.items.forEach(item => {
-      getItem(item.id, true)
+export async function migrateToStorage () {
+  const items = await browser.storage.sync.get()
+
+  if (Object.keys(items).length === 0) {
+    settings.forEach(settingCategory => {
+      settingCategory.items.forEach(item => {
+        const value = getItem(item.id, true)
+
+        if (value) {
+          setItem(item.id, value)
+        }
+      })
     })
-  })
+  }
+}
+
+export async function updateLocalStorage () {
+  let updated = false
+  const items = await browser.storage.sync.get()
+
+  for (const id in items) {
+    const storageVal = items[id]
+    const value = localStorage.getItem(id)
+
+    if (value !== storageVal) {
+      localStorage.setItem(id, storageVal)
+      log(`Updated setting '${id}' to '${storageVal}'`)
+      updated = true
+    }
+  }
+
+  if (updated) {
+    window.location.reload()
+  }
 }

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "preact/hooks"
-import { getItem } from "../storage"
-import { FC, useCallback } from "react";
-import { CheckboxSetting } from "../types";
+import { useEffect, useState, FC, useCallback } from 'react'
+import { getItem } from '../storage'
+
+import { CheckboxSetting } from '../types'
 
 interface Props {
   setting: CheckboxSetting;
@@ -23,11 +23,13 @@ export const Checkbox: FC<Props> = ({ setting, onChange }) => {
 
   return (
     <div className="bss-settings__checkbox">
-      <label>
-        <input onChange={updateValue} checked={settingValue} type="checkbox" />
-        { setting.title }
-      </label>
-      { setting.description && <span class="bss-settings__input-description">{ setting.description }</span>}
+      <div className="bss-form-control">
+        <label className='bss-label'>
+          <div className="bss-label-text">{ setting.title }</div>
+          <input className='bss-checkbox' onChange={updateValue} checked={settingValue} type="checkbox" />
+        </label>
+      </div>
+      { setting.description && <span className="bss-settings__input-description">{ setting.description }</span>}
     </div>
   )
 }

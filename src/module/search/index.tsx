@@ -1,9 +1,9 @@
-import { render } from "preact"
-import { whenLoaded } from "util/lifecycle"
-import { SearchBar } from "./SearchBar"
-import { loadDefaultIndex } from "./indexer"
-import { getItem, registerSetting } from "module/settings/storage"
-import { SettingCategory, SettingValueType } from "module/settings/types"
+import { whenLoaded } from 'util/lifecycle'
+import { SearchBar } from './components/SearchBar'
+import { loadDefaultIndex } from './data/indexer'
+import { getItem, registerSetting } from 'core/module/settings/storage'
+import { SettingCategory, SettingValueType } from 'core/module/settings/types'
+import { renderReact } from 'util/react'
 
 const SETTING_ENABLED = 'search-enabled'
 
@@ -27,6 +27,6 @@ whenLoaded(() => {
   loadDefaultIndex()
 
   if (insertPoint) {
-    render(<SearchBar />, insertPoint)
+    renderReact(<SearchBar />, insertPoint, 'prepend')
   }
 })

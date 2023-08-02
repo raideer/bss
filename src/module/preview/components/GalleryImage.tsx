@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "preact/hooks"
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface Props {
   src: string;
@@ -12,11 +12,11 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 })
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
 
-  const ghostImage = new Image(0, 0);
-  ghostImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+  const ghostImage = new Image(0, 0)
+  ghostImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
 
   const hideGhostImage = (event: any) => {
-    event.dataTransfer.setDragImage(ghostImage, 0, 0);
+    event.dataTransfer.setDragImage(ghostImage, 0, 0)
   }
 
   const onDragStart = (e: any) => {
@@ -85,16 +85,16 @@ export const GalleryImage = ({ src, setContainerHeight }: Props) => {
     <div className="bss-gallery-image">
       <div className="bss-gallery-image__controls">
         <button title="Pagriezt pa kreisi" onClick={() => rotate(-1)} type="button">
-          <span class="icon-rotate-left" />
+          <span className="icon-rotate-left" />
         </button>
         <button title="Pagriezt pa labi" onClick={() => rotate(1)} className="bss-gallery-image__controls-rr" type="button">
-          <span class="icon-rotate-left" />
+          <span className="icon-rotate-left" />
         </button>
         <a href={src} download={src}>
-          <span class="icon-download" />
+          <span className="icon-download" />
         </a>
         <a title="Reverse image search" href={`https://www.google.com/searchbyimage?sbisrc=4chanx&image_url=${encodeURIComponent(src)}&safe=off`} target="_blank" rel="noreferrer">
-          <span class="icon-search" />
+          <span className="icon-search" />
         </a>
       </div>
       <div>

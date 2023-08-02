@@ -1,8 +1,7 @@
-import { PreactHTMLConverter } from "preact-html-converter";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { FC, useEffect, useRef, useState } from 'react'
 import trim from 'lodash-es/trim'
-import { urlArgs } from "util/url";
-import { FC } from "preact/compat";
+import { urlArgs } from 'util/url'
+import { ReactHTMLConverter } from 'react-html-converter/browser'
 
 interface Props {
   html: Document;
@@ -11,21 +10,21 @@ interface Props {
 
 const ENDPOINT = '/w_inc/ajax.php?action=show_special_js_data&version=1&lg={{lang}}&data={{hash}}'
 
-const converter = PreactHTMLConverter();
+const converter = ReactHTMLConverter()
 
-function getOnClickArgs(onclick: string|null|undefined) {
+function getOnClickArgs (onclick: string|null|undefined) {
   if (!onclick) return null
 
   const match = onclick.match(/\((.*)\)/)
 
   if (match) {
-    return match[1].split(', ').map(part => trim(part, '\''));
+    return match[1].split(', ').map(part => trim(part, '\''))
   }
 
   return null
 }
 
-function loadSpecialData(hash: string, lang: string) {
+function loadSpecialData (hash: string, lang: string) {
   return fetch(urlArgs(ENDPOINT, { hash, lang }), {
     headers: {
       accept: 'message/x-ajax'
@@ -42,11 +41,11 @@ function loadSpecialData(hash: string, lang: string) {
 }
 
 export const PreviewDetails: FC<Props> = ({ html, switchTab }) => {
-  const ref = useRef<any>();
-  const [Component, setComponent] = useState<any>(null);
+  const ref = useRef<any>()
+  const [Component, setComponent] = useState<any>(null)
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current) return
 
     const specialLinks = html.querySelectorAll('[id^="tdo_"]')
 
@@ -78,7 +77,7 @@ export const PreviewDetails: FC<Props> = ({ html, switchTab }) => {
     })
 
     return () => {
-      if (!ref.current) return;
+      if (!ref.current) return
 
       const specialLinks = ref.current.querySelectorAll('[id^="tdo_"] a')
       // Remove event listeners
@@ -90,6 +89,7 @@ export const PreviewDetails: FC<Props> = ({ html, switchTab }) => {
 
   useEffect(() => {
     const details = html.querySelector('#msg_div_msg')
+
     if (details) {
       setComponent(converter.convert(details.innerHTML))
     }

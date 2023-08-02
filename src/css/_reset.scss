@@ -23,9 +23,13 @@
         font-size: 2em;
         position: absolute;
         left: 50%;
-        top: -15px;
+        top: -11px;
         transform: translateX(-50%);
         content: "SS.COM";
+
+        @media screen and (min-width:1280px) {
+          top: -15px;
+        }
       }
     }
   }

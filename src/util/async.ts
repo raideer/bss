@@ -4,19 +4,19 @@
  * @param interval
  * @returns
  */
-export function waitFor<T>(callback: () => T, interval: number = 1): Promise<T> {
+export function waitFor<T> (callback: () => T, interval: number = 1): Promise<T> {
   return new Promise(resolve => {
-    (function repeat() {
-      const val = callback();
+    (function repeat () {
+      const val = callback()
 
       if (!val) {
-        setTimeout(repeat, interval);
-        return;
+        setTimeout(repeat, interval)
+        return
       }
 
-      resolve(val);
-    })();
-  });
+      resolve(val)
+    })()
+  })
 }
 
 /**

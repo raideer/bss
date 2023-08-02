@@ -1,7 +1,7 @@
-import { useEffect, useState } from "preact/hooks"
-import { getItem } from "../storage"
-import { FC, useCallback } from "react";
-import { SelectSetting } from "../types";
+import { useEffect, useState, FC, useCallback } from 'react'
+import { getItem } from '../storage'
+
+import { SelectSetting } from '../types'
 
 interface Props {
   setting: SelectSetting;
@@ -21,13 +21,15 @@ export const Select: FC<Props> = ({ setting, onChange }) => {
     setSettingValue(val)
   }, [setting])
 
+  if (!settingValue) return null
+
   return (
     <div className="bss-settings__select">
         <span>{ setting.title }</span>
-        <select onChange={updateValue}>
-          { setting.options.map(option => <option selected={settingValue === option.value} key={option.value} value={option.value}>{option.label}</option>)}
+        <select value={settingValue} className='bss-input' onChange={updateValue}>
+          { setting.options.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
         </select>
-      { setting.description && <span class="bss-settings__input-description">{ setting.description }</span>}
+      { setting.description && <span className="bss-settings__input-description">{ setting.description }</span>}
     </div>
   )
 }

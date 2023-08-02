@@ -8,7 +8,10 @@
     "128": "assets/icons/bss128.png"
   },
   "permissions": [
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "storage",
+    "alarms",
+    "notifications"
   ],
   "content_scripts": [
     {
@@ -33,6 +36,10 @@
         "path": "assets/style-blocker.json"
       }
     ]
+  },
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
   },
   "web_accessible_resources": [
     {

@@ -1,4 +1,4 @@
-export function urlArgs(url: string, args: Record<string, string>) {
+export function urlArgs (url: string, args: Record<string, string>) {
   let output = url
 
   for (const key in args) {

@@ -1,4 +1,4 @@
-import { FC } from "preact/compat"
+import { FC } from 'react'
 
 export const Loader: FC = () => {
   return <div className="bss-loader">

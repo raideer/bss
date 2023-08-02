@@ -7,7 +7,7 @@
 
   &-button {
     width: 50px;
-    margin-right: 5px;
+    margin-left: 5px;
     margin-top: -4px;
     font-family: $font-family;
     font-weight: 500;
@@ -47,13 +47,20 @@
   }
 
   &-version {
+    display: flex;
+    justify-content: space-between;
     border-top: 1px solid var(--border-color);
     padding: 12px;
     font-size: 12px;
 
     a {
-      font-weight: 500;
-      color: var(--bss-primary-color);
+      font-weight: 700;
+      font-size: 15px;
+      color: hsl(var(--a));
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 
@@ -63,13 +70,15 @@
 
     &-title {
       font-size: 12px;
+      padding-bottom: 10px;
       margin-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
     }
 
     &-item {
       margin-bottom: 10px;
       width: 100%;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px dashed var(--border-color);
       padding-bottom: 8px;
 
       &:last-child {

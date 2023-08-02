@@ -5,13 +5,13 @@ const config = common('firefox')
 
 config.plugins.push(
   new ZipPlugin({
-    filename: `bss-firefox.zip`,
+    filename: 'bss-firefox.zip',
     exclude: [
       'source'
     ]
   }),
   new ZipPlugin({
-    filename: `bss-firefox-source.zip`,
+    filename: 'bss-firefox-source.zip',
     include: [
       'source'
     ]

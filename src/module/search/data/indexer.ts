@@ -1,37 +1,37 @@
-import { getLocationInfo } from "util/page-info";
-import fetchHtml from "util/fetch-html";
-import { trimEnd } from "lodash-es";
-import { log } from "util/logger";
-import { SearchCategory } from "./types";
+import { getLocationInfo } from 'util/page-info'
+import fetchHtml from 'util/fetch-html'
+import { trimEnd } from 'lodash-es'
+import { log } from 'util/logger'
+import { SearchCategory } from '../types'
 import defaultIndex from './defaultIndex.json'
 
-let progressMax = 0;
-let progressCurrent = 0;
+let progressMax = 0
+let progressCurrent = 0
 
-const INDEX_LIFETIME = 1000 * 60 * 60 * 24 * 30;
+const INDEX_LIFETIME = 1000 * 60 * 60 * 24 * 30
 
 const updateProgress = () => {
-  progressCurrent++;
+  progressCurrent++
 
   // console.log(`Progress: ${progressCurrent}/${progressMax}`);
 }
 
 const trimUrl = (url: string) => {
-  return trimEnd(url.slice(3), '/');
+  return trimEnd(url.slice(3), '/')
 }
 
 const indexChildCategories = async (url: string): Promise<SearchCategory[]> => {
   const html = await fetchHtml(url)
-  const elements = html.querySelectorAll('.category a');
+  const elements = html.querySelectorAll('.category a')
 
   if (!elements) {
-    return [];
+    return []
   }
 
-  progressMax += elements.length;
+  progressMax += elements.length
 
   const promises = Array.from(elements).map(async (categoryLink: Element) => {
-    const href = categoryLink.getAttribute('href')!;
+    const href = categoryLink.getAttribute('href')!
 
     const category = {
       name: categoryLink.textContent!,
@@ -48,16 +48,16 @@ const indexChildCategories = async (url: string): Promise<SearchCategory[]> => {
 }
 
 const getSubcategories = async (categoryLink: Element): Promise<SearchCategory[]> => {
-  const elements = categoryLink.closest('div[id^="dv_"]')?.querySelectorAll('a[id^="mtd_"]');
+  const elements = categoryLink.closest('div[id^="dv_"]')?.querySelectorAll('a[id^="mtd_"]')
 
   if (!elements) {
-    return [];
+    return []
   }
 
-  progressMax += elements.length;
+  progressMax += elements.length
 
   const promises = Array.from(elements).map(async (subcategoryLink: Element) => {
-    const href = subcategoryLink.getAttribute('href')!;
+    const href = subcategoryLink.getAttribute('href')!
 
     const category = {
       name: subcategoryLink.textContent!,
@@ -74,9 +74,9 @@ const getSubcategories = async (categoryLink: Element): Promise<SearchCategory[]
 }
 
 const getMainCategories = (html: Document): Promise<SearchCategory[]> => {
-  const elements = html.querySelectorAll('#main_img_div .a1');
+  const elements = html.querySelectorAll('#main_img_div .a1')
 
-  progressMax += elements.length;
+  progressMax += elements.length
 
   const promises = Array.from(elements).map(async (categoryLink: Element) => {
     const category = {
@@ -94,19 +94,19 @@ const getMainCategories = (html: Document): Promise<SearchCategory[]> => {
 }
 
 const saveIndex = (categories: SearchCategory[]) => {
-  const json = JSON.stringify(categories);
-  localStorage.setItem(`bss_search_index`, json)
-  localStorage.setItem(`bss_search_index_timestamp`, `${+new Date()}`)
+  const json = JSON.stringify(categories)
+  localStorage.setItem('bss_search_index', json)
+  localStorage.setItem('bss_search_index_timestamp', `${+new Date()}`)
 }
 
 const indexHomepage = async () => {
-  const locationInfo = getLocationInfo();
+  const locationInfo = getLocationInfo()
 
   if (!locationInfo) {
-    return;
+    return
   }
 
-  const homeUrl = `${locationInfo.baseUrl}/${locationInfo.lang}`;
+  const homeUrl = `${locationInfo.baseUrl}/${locationInfo.lang}`
 
   const html = await fetchHtml(homeUrl)
   const categories = await getMainCategories(html)
@@ -116,11 +116,11 @@ const indexHomepage = async () => {
 
 export const indexCategories = async () => {
   if (localStorage.getItem('bss_search_index')) {
-    const timestamp = localStorage.getItem('bss_search_index_timestamp')!;
+    const timestamp = localStorage.getItem('bss_search_index_timestamp')!
 
     if (+new Date() - +timestamp < INDEX_LIFETIME) {
       log(`Index is still valid [ts ${timestamp}]`)
-      return;
+      return
     }
 
     log('Index is outdated')
@@ -128,7 +128,7 @@ export const indexCategories = async () => {
 
   log('Indexing categories...')
 
-  await indexHomepage();
+  await indexHomepage()
 
   log('Indexing complete')
 }

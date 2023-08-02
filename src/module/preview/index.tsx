@@ -1,7 +1,7 @@
-import { getItem, registerSetting } from 'module/settings/storage'
-import { PreviewButton } from './PreviewButton'
+import { getItem, registerSetting } from 'core/module/settings/storage'
+import { PreviewButton } from './components/PreviewButton'
 import { addButton } from 'core/module/button-container'
-import { SettingCategory, SettingValueType } from 'module/settings/types'
+import { SettingCategory, SettingValueType } from 'core/module/settings/types'
 
 export const SETTING_ENABLED = 'preview-enabled'
 
@@ -16,7 +16,7 @@ registerSetting({
 
 addButton((row: Element) => {
   if (getItem(SETTING_ENABLED) !== 'true') return
-  document.body.classList.add('bss-preview-enabled');
+  document.body.classList.add('bss-preview-enabled')
 
-  return <PreviewButton row={row} />
+  return <PreviewButton key="preview-button" row={row} />
 })

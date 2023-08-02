@@ -1,7 +1,7 @@
-import { useEffect, useState } from "preact/hooks"
-import { getItem } from "../storage"
-import { FC, useCallback } from "react";
-import { TextSetting } from "../types";
+import { useEffect, useState, FC, useCallback } from 'react'
+import { getItem } from '../storage'
+
+import { TextSetting } from '../types'
 
 interface Props {
   setting: TextSetting;
@@ -21,7 +21,6 @@ export const Text: FC<Props> = ({ setting, onChange }) => {
 
   useEffect(() => {
     const val = getItem(setting.id, true)
-
     if (val) {
       setSettingValue(val)
     }
@@ -30,8 +29,8 @@ export const Text: FC<Props> = ({ setting, onChange }) => {
   return (
     <div className="bss-settings__select">
         <span>{ setting.title }</span>
-        <input value={settingValue} disabled={disabled} type="text" onChange={updateValue} />
-      { setting.description && <span class="bss-settings__input-description">{ setting.description }</span>}
+        <input className='bss-input' value={settingValue} disabled={disabled} type="text" onChange={updateValue} />
+      { setting.description && <span className="bss-settings__input-description">{ setting.description }</span>}
       { dirty && <button disabled={disabled} className="bss-settings__reload" onClick={() => onChange(setting.id, settingValue || '')}>Saglabāt</button>}
     </div>
   )

@@ -1,8 +1,9 @@
-import { FC, useCallback, useEffect, useState } from "react"
-import { FlatSearchCategory, SearchCategory } from "./types"
+import { FC, useCallback, useEffect, useState } from 'react'
+import { FlatSearchCategory, SearchCategory } from '../types'
 import Fuse from 'fuse.js'
-import { each, take } from "lodash-es"
-import { getLocationInfo } from "util/page-info"
+import { each, take } from 'lodash-es'
+import { getLocationInfo } from 'util/page-info'
+import { Modal } from 'core/components/Modal'
 
 const flattenCategories = (categories: SearchCategory[], parent?: string, flattened: FlatSearchCategory[] = []) => {
   each(categories, (category: SearchCategory) => {
@@ -27,7 +28,7 @@ export const SearchBar: FC = () => {
   const [loaded, setLoaded] = useState(false)
   const [fuse, setFuse] = useState<Fuse<FlatSearchCategory> | null>(null)
   const [results, setResults] = useState<Fuse.FuseResult<FlatSearchCategory>[]>([])
-  const locationInfo = getLocationInfo();
+  const locationInfo = getLocationInfo()
 
   const loadFuse = useCallback(() => {
     setLoaded(false)
@@ -72,7 +73,7 @@ export const SearchBar: FC = () => {
         loadFuse()
       }
 
-      return;
+      return
     }
 
     setResults(fuse.search(value))
@@ -90,22 +91,16 @@ export const SearchBar: FC = () => {
     <div className="bss-search__container">
       <input className="bss-input" value={query} onChange={(e) => setQuery((e.target as any).value) } type="text" placeholder="Meklēt kategoriju..." />
 
-      {results.length > 0 && (
-        <div className="bss-search__results">
-          <div className="bss-search__results-head">
-            <span>Rezultāti ({results.length})</span>
-            <span className="bss-search__results-close" role="button" onClick={() => setQuery('')}>Aizvērt</span>
-          </div>
-          {take(results, 10).map((result, index) => {
-            const name = [result.item.parent, result.item.name].filter(Boolean).join(' - ')
-            const url = locationInfo?.lang + result.item.url
+      <Modal onClose={() => setQuery('')} title={`Rezultāti (${results.length})`} visible={query.length > 1}>
+        {take(results, 10).map((result, index) => {
+          const name = [result.item.parent, result.item.name].filter(Boolean).join(' - ')
+          const url = locationInfo?.lang + result.item.url
 
-            return <div className="bss-search__results-item" key={url}>
-              {index + 1}. <a href={url}>{name}</a>
-            </div>
-          })}
-        </div>
-      )}
+          return <div className="bss-search__results-item" key={url}>
+            {index + 1}. <a href={url}>{name}</a>
+          </div>
+        })}
+      </Modal>
     </div>
   )
 }

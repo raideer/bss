@@ -1,8 +1,13 @@
-import { getItem, registerSetting } from 'module/settings/storage'
-import { MemoButton } from './MemoButton'
-import { addButton, beforeAddButtons } from 'core/module/button-container'
-import fetchHtml from 'util/fetch-html'
-import { SettingCategory, SettingValueType } from 'module/settings/types'
+import { getItem, registerSetting } from 'core/module/settings/storage'
+import { addButton } from 'core/module/button-container'
+import { SettingCategory, SettingValueType } from 'core/module/settings/types'
+import { parseId } from './common'
+import { whenLoaded } from 'util/lifecycle'
+import store from 'core/module/global-state/store'
+import { fetchMemoItems } from './state/memo.slice'
+import { renderReact } from 'util/react'
+import { MemoButton } from './components/MemoButton'
+import { MemoCounter } from './components/MemoCounter'
 
 export const SETTING_ENABLED = 'memo-button-enabled'
 
@@ -15,54 +20,23 @@ registerSetting({
   description: 'Pievieno sludinājumu Memo'
 })
 
-function parseId(trId: string) {
-  const [, id] = trId.split('_');
-  return id
-}
-
-export async function loadMemoItems() {
-  return fetchHtml('/lv/favorites/', true)
-    .then(html => {
-    // Favorites page also shows viewed listings so we need to fetch the page
-    // that only shows memos
-      const memoLinkElement = html.querySelector('.filter_second_line_dv a[href*=favorites]')
-      const memoLink = memoLinkElement?.getAttribute('href')
-
-      return memoLink ? fetchHtml(memoLink, true) : null
-    })
-    .then(html => {
-      if (!html) {
-        return []
-      }
-
-      const items = html.querySelectorAll('[id^=tr_]')
-      const ids: string[] = []
-
-      items.forEach(item => {
-        const id = item.getAttribute('id')
-        if (id) {
-          ids.push(parseId(id))
-        }
-      })
-
-      return ids
-    })
-}
-
-let currentMemoItems: string[] | null = null
-
-beforeAddButtons(async () => {
-  currentMemoItems = await loadMemoItems()
-})
-
 addButton((row: Element) => {
   if (getItem(SETTING_ENABLED) !== 'true') return
 
-  const rowId = row.getAttribute('id');
+  const rowId = row.getAttribute('id')
 
-  if (rowId && currentMemoItems) {
+  if (rowId) {
     const id = parseId(rowId)
-    const isInMemo = currentMemoItems.indexOf(id) > -1
-    return <MemoButton id={id} isInMemo={isInMemo} />
+    return <MemoButton key="memo-button" id={id} />
   }
+})
+
+whenLoaded(() => {
+  const counter = document.querySelector('#mnu_fav_id')
+
+  if (counter) {
+    renderReact(<MemoCounter />, counter)
+  }
+
+  store.dispatch(fetchMemoItems())
 })

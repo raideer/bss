@@ -33,4 +33,21 @@
       background-color: hsl(var(--af));
     }
   }
+
+  &-warning {
+    border-color: hsl(var(--wa));
+    background-color: hsl(var(--wa));
+    color: hsl(var(--wac));
+    outline-color: hsl(var(--wa));
+
+    &.bss-button-active, &:hover {
+      border-color: hsl(var(--wa) / 0.8);
+      background-color: hsl(var(--wa) / 0.8);
+    }
+  }
+
+  &-md {
+    padding: 6px 15px;
+    font-size: 14px;
+  }
 }

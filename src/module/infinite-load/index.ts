@@ -2,10 +2,10 @@ import { CallbackFunction, whenLoaded } from 'util/lifecycle'
 import fetchHtml from 'util/fetch-html'
 
 import { dom, isElementInViewport } from 'util/dom'
-import { getItem, registerSetting } from 'module/settings/storage'
+import { getItem, registerSetting } from 'core/module/settings/storage'
 import { timeout } from 'util/async'
 import { AdType, getPageInfo } from 'util/page-info'
-import { SettingCategory, SettingValueType } from 'module/settings/types'
+import { SettingCategory, SettingValueType } from 'core/module/settings/types'
 
 let loading = false
 
@@ -47,9 +47,9 @@ async function loadNextPage () {
   if (!loading && nextLink?.tagName === 'A' && !nextLink.isEqualNode(lastLink)) {
     showLoader()
 
-    await timeout(1000);
+    await timeout(1000)
 
-    const nextLinkHref = (nextLink as HTMLAnchorElement).href;
+    const nextLinkHref = (nextLink as HTMLAnchorElement).href
     const html = await fetchHtml(nextLinkHref) as Document
     // Select and place ads
     if (pageInfo.adType === AdType.AD_TYPE_GALLERY) {
@@ -76,7 +76,7 @@ async function loadNextPage () {
 
     // Update url
     if (window.history) {
-      window.history.pushState(null, '', nextLinkHref);
+      window.history.pushState(null, '', nextLinkHref)
     }
 
     loadedListeners.forEach(listener => listener())

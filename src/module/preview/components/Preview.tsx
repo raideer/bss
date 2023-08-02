@@ -1,13 +1,11 @@
-import clsx from "clsx";
-import { useCallback, useEffect, useState } from "preact/hooks";
-import fetchHtml from "util/fetch-html";
-import { PreviewDetails } from "./PreviewDetails";
-import { PreviewGallery } from "./PreviewGallery"
-import { Loader } from "core/components/Loader";
-import { FC } from "preact/compat";
-import first from "lodash-es/first";
-import { PreviewMap } from "./PreviewMap";
-import { Button } from "core/components/Button";
+import { FC, useCallback, useEffect, useState } from 'react'
+import fetchHtml from 'util/fetch-html'
+import { PreviewDetails } from './PreviewDetails'
+import { PreviewGallery } from './PreviewGallery'
+import { Loader } from 'core/components/Loader'
+import first from 'lodash-es/first'
+import { PreviewMap } from './PreviewMap'
+import { Button } from 'core/components/Button'
 
 interface Props {
   row: Element;
@@ -26,9 +24,9 @@ const TABS = [
 ]
 
 export const Preview: FC<Props> = ({ row }) => {
-  const [html, setHtml] = useState<Document|null>(null);
-  const [showMap, setShowMap] = useState(false);
-  const [activeTab, setActiveTab] = useState(first(TABS));
+  const [html, setHtml] = useState<Document|null>(null)
+  const [showMap, setShowMap] = useState(false)
+  const [activeTab, setActiveTab] = useState(first(TABS))
 
   const loadAdPage = async () => {
     const adLink = row.querySelector('a')
@@ -58,7 +56,7 @@ export const Preview: FC<Props> = ({ row }) => {
   }, [row])
 
   if (!html) {
-    return <Loader />;
+    return <Loader />
   }
 
   return (

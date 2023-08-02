@@ -1,24 +1,25 @@
 const path = require('path')
 const webpack = require('webpack')
 const semver = require('semver')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts')
 const VERSION = semver.parse(require('./package.json').version)
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-const commitHash = require('child_process').execSync('git rev-parse HEAD').toString().trim();
+const commitHash = require('child_process').execSync('git rev-parse HEAD').toString().trim()
 const PROD = process.env.NODE_ENV === 'production'
-const version = `${VERSION.major}.${VERSION.minor}.${VERSION.patch}`;
+const version = `${VERSION.major}.${VERSION.minor}.${VERSION.patch}`
 
 module.exports = (type) => {
-  const resourceLink = type === 'chrome' ? 'chrome-extension://__MSG_@@extension_id__' : 'moz-extension://__MSG_@@extension_id__';
-  const manifest = type === 'chrome' ? 'manifest' : 'manifest-v2';
+  const resourceLink = type === 'chrome' ? 'chrome-extension://__MSG_@@extension_id__' : 'moz-extension://__MSG_@@extension_id__'
+  const manifest = type === 'chrome' ? 'manifest' : 'manifest-v2'
 
   return {
     mode: PROD ? 'production' : 'development',
     entry: {
       'bss.js': './src/bss.ts',
       'style-blocker.js': './src/style-blocker.ts',
+      'service-worker.js': './src/service-worker.ts',
       styles: './src/css/main.scss'
     },
     devtool: 'inline-source-map',
@@ -41,9 +42,9 @@ module.exports = (type) => {
           { from: 'assets', to: 'assets' },
           {
             from: `./src/${manifest}.json`,
-            to: "./manifest.json",
+            to: './manifest.json',
             transform: {
-              transformer(content, path) {
+              transformer (content, path) {
                 let manifest = content.toString()
                 manifest = manifest.replace('__VERSION__', version)
                 return Promise.resolve(manifest)
@@ -54,7 +55,7 @@ module.exports = (type) => {
       }),
       new RemoveEmptyScriptsPlugin(),
       new MiniCssExtractPlugin({
-        filename: "bss.css"
+        filename: 'bss.css'
       }),
       new webpack.DefinePlugin({
         __version_major__: VERSION.major,
@@ -87,7 +88,7 @@ module.exports = (type) => {
             {
               loader: 'string-replace-loader',
               options: {
-                search: "~@resource",
+                search: '~@resource',
                 replace: resourceLink,
                 flags: 'g'
               }

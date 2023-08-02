@@ -1,6 +1,6 @@
-import { getItem, registerSetting } from "module/settings/storage"
-import { SettingCategory, SettingValueType } from "module/settings/types"
-import { whenLoaded, whenStarting } from "util/lifecycle"
+import { getItem, registerSetting } from 'core/module/settings/storage'
+import { SettingCategory, SettingValueType } from 'core/module/settings/types'
+import { whenLoaded, whenStarting } from 'util/lifecycle'
 
 registerSetting({
   id: 'theme',
@@ -38,6 +38,10 @@ registerSetting({
     {
       value: 'retro',
       label: 'Retro'
+    },
+    {
+      value: 'valentine',
+      label: 'Valentine'
     }
   ],
   menu: SettingCategory.Appearance,
@@ -48,8 +52,8 @@ const removeInlineColors = () => {
   const elements = document.querySelectorAll('[bgcolor], [background]')
 
   elements.forEach(el => {
-    el.removeAttribute('bgcolor');
-    el.removeAttribute('background');
+    el.removeAttribute('bgcolor')
+    el.removeAttribute('background')
   })
 }
 
@@ -60,7 +64,7 @@ whenStarting(() => {
     return
   }
 
-  document.documentElement.classList.add('bss-theme', `bss-theme-${theme}`);
+  document.documentElement.classList.add('bss-theme', `bss-theme-${theme}`)
 })
 
 whenLoaded(() => {

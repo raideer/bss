@@ -1,3 +1,22 @@
+.bss-form-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.bss-label {
+  display: flex;
+  user-select: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.label-text-alt {
+  font-size: .75rem;
+  line-height: 1rem;
+  color: hsl(var(--bc));
+}
+
 .bss-input {
   border-radius: var(--border-radius);
   border-width: 1px;
@@ -7,4 +26,11 @@
   font-size: 14px;
   border-color: hsl(var(--bc) / 0.2);
   background-color: hsl(var(--b1));
+
+  &:focus {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-color: hsl(var(--bc) / .2);
+  }
 }

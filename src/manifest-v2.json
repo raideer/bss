@@ -8,6 +8,9 @@
     "128": "assets/icons/bss128.png"
   },
   "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
     "webRequest",
     "webRequestBlocking",
     "https://*.ss.com/*",
