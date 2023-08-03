@@ -1,6 +1,4 @@
-import clsx from 'clsx'
-import { FC, PropsWithChildren, useEffect, useRef } from 'react'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import { FC, PropsWithChildren, useRef } from 'react'
 import { Button } from './Button'
 
 interface Props {

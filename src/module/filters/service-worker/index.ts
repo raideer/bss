@@ -5,7 +5,8 @@ import { difference, take } from 'lodash-es'
 
 const STORAGE_ENABLED = 'bss_memory-notifications-enabled'
 const STORAGE_FILTERS = 'bss_filters'
-const STORAGE_FILTERS_PROCESSED = 'bss_filters-processed'
+
+const STORAGE_FILTERS_PROCESSED = 'filters-processed'
 
 interface Filter {
   name: string
@@ -23,7 +24,7 @@ const fetchProcessedListings = async (key: string) => {
     return []
   }
 
-  return JSON.parse(data[key])
+  return data[key]
 }
 
 const processFilter = async (filter: Filter) => {
@@ -50,7 +51,7 @@ const processFilter = async (filter: Filter) => {
   // First time
   if (processed.length === 0) {
     await browser.storage.sync.set({
-      [key]: JSON.stringify(ids)
+      [key]: ids
     })
 
     return
@@ -88,7 +89,7 @@ export const notifyNewListings = async () => {
     return
   }
 
-  const data = JSON.parse(filters[STORAGE_FILTERS])
+  const data = filters[STORAGE_FILTERS]
   const filtersWithNotifications = []
 
   for (const pageId in data) {

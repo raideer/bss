@@ -1,3 +1,4 @@
+export type WatcherCallback = (newValue: any, oldValue: any, objectPath: string) => void
 
 export enum SettingValueType {
   Checkbox,
@@ -18,6 +19,7 @@ interface BaseSetting {
   title: string,
   description?: string,
   id: string,
+  needsReload?: boolean,
 }
 
 export type TextSetting = BaseSetting & {
@@ -39,6 +41,8 @@ export type SelectSetting = BaseSetting & {
 }
 
 export type Setting = CheckboxSetting | SelectSetting | TextSetting | InformationSetting
+
+export type SettingChangeCallback = (id: SelectSetting['id'], value: string, needsReload?: boolean) => void;
 
 export interface SettingsTab {
   id: string;

@@ -1,52 +1,58 @@
-import { getItem, registerSetting } from 'core/module/settings/storage'
+import store from 'core/module/global-state/store'
+import { getSetting, subscribeToSetting } from 'core/module/settings'
+import { registerSetting } from 'core/module/settings/state/settings.thunk'
 import { SettingCategory, SettingValueType } from 'core/module/settings/types'
 import { whenLoaded, whenStarting } from 'util/lifecycle'
 
-registerSetting({
-  id: 'theme',
-  type: SettingValueType.Select,
-  defaultValue: 'light',
-  options: [
-    {
-      value: 'original',
-      label: 'SS.com'
-    },
-    {
-      value: 'light',
-      label: 'Light'
-    },
-    {
-      value: 'dark',
-      label: 'Dark'
-    },
-    {
-      value: 'lofi',
-      label: 'Lofi'
-    },
-    {
-      value: 'synthwave',
-      label: 'Synthwave'
-    },
-    {
-      value: 'black',
-      label: 'Black'
-    },
-    {
-      value: 'forest',
-      label: 'Forest'
-    },
-    {
-      value: 'retro',
-      label: 'Retro'
-    },
-    {
-      value: 'valentine',
-      label: 'Valentine'
-    }
-  ],
-  menu: SettingCategory.Appearance,
-  title: 'Motīvs'
-})
+const THEMES = [
+  {
+    value: 'original',
+    label: 'SS.com'
+  },
+  {
+    value: 'light',
+    label: 'Light'
+  },
+  {
+    value: 'dark',
+    label: 'Dark'
+  },
+  {
+    value: 'lofi',
+    label: 'Lofi'
+  },
+  {
+    value: 'synthwave',
+    label: 'Synthwave'
+  },
+  {
+    value: 'black',
+    label: 'Black'
+  },
+  {
+    value: 'forest',
+    label: 'Forest'
+  },
+  {
+    value: 'retro',
+    label: 'Retro'
+  },
+  {
+    value: 'valentine',
+    label: 'Valentine'
+  }
+]
+
+store.dispatch(
+  registerSetting({
+    id: 'theme',
+    type: SettingValueType.Select,
+    defaultValue: 'light',
+    options: THEMES,
+    menu: SettingCategory.Appearance,
+    title: 'Motīvs'
+  })
+)
 
 const removeInlineColors = () => {
   const elements = document.querySelectorAll('[bgcolor], [background]')
@@ -57,14 +63,21 @@ const removeInlineColors = () => {
   })
 }
 
-whenStarting(() => {
-  const theme = getItem('theme')
+const updateTheme = (theme: string) => {
+  const themes = THEMES.map(theme => `bss-theme-${theme.value}`)
+  document.documentElement.classList.remove('bss-theme', ...themes)
 
   if (theme === 'original') {
     return
   }
 
   document.documentElement.classList.add('bss-theme', `bss-theme-${theme}`)
+}
+
+whenStarting(() => {
+  const theme = getSetting('theme')
+  updateTheme(theme)
+  subscribeToSetting('theme', updateTheme)
 })
 
 whenLoaded(() => {

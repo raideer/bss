@@ -1,22 +1,36 @@
 import clsx from 'clsx'
 import { useEffect, useState, FC, useCallback } from 'react'
 import { Checkbox } from './components/checkbox'
-import { getSettings, setItem } from './storage'
+import browser from 'webextension-polyfill'
 
 import { BSS } from 'core/bss'
 import { SettingValueType, SettingsCategory } from './types'
 import { Select } from './components/select'
-import { Text } from './components/text'
+import { useDispatch, useSelector } from 'react-redux'
+import { GlobalState } from '../global-state/store'
+import { updateSetting } from './state/settings.thunk'
+import { Button } from 'core/components/Button'
 
 export const Settings: FC = () => {
-  const menu = getSettings()
+  const dispatch = useDispatch<any>()
   const [needsReload, setNeedsReload] = useState(false)
+  const menu = useSelector((state: GlobalState) => state.settings.settings)
   const [activeSetting, setActiveSetting] = useState<SettingsCategory|undefined>()
 
-  const handleSettingChange = useCallback((id: string, value: string) => {
-    setItem(id, value)
-    setNeedsReload(true)
-  }, [setItem, setNeedsReload])
+  const handleSettingChange = useCallback((id: string, value: string, needsReload = false) => {
+    if (needsReload) {
+      setNeedsReload(true)
+    }
+
+    dispatch(updateSetting({
+      id, value
+    }))
+  }, [])
+
+  const deleteAllSettings = async () => {
+    await browser.storage.sync.clear()
+    window.location.reload()
+  }
 
   useEffect(() => {
     if (!activeSetting) {
@@ -28,9 +42,9 @@ export const Settings: FC = () => {
     <div className="bss-settings">
       {
         needsReload && (
-          <button type="button" onClick={() => window.location.reload()} className="bss-button bss-settings-reload">
+          <Button variant='neutral' onClick={() => window.location.reload()} className="bss-settings-reload">
             Pārlādēt lapu
-          </button>
+          </Button>
         )
       }
       <div className="bss-settings-menu">
@@ -67,11 +81,6 @@ export const Settings: FC = () => {
                 {
                   item.type === SettingValueType.Select && (
                     <Select onChange={handleSettingChange} setting={item} />
-                  )
-                }
-                {
-                  item.type === SettingValueType.Text && (
-                    <Text onChange={handleSettingChange} setting={item} />
                   )
                 }
               </div>

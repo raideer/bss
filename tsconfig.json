@@ -9,6 +9,7 @@
     "lib": [ "es2015", "dom" ],                                   /* Specify library files to be included in the compilation. */
     // "allowJs": true,                             /* Allow javascript files to be compiled. */
     // "checkJs": true,                             /* Report errors in .js files. */
+    "resolveJsonModule": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",                     /* Specify JSX code generation: 'preserve', 'react-native', 'react', 'react-jsx' or 'react-jsxdev'. */
     // "declaration": true,                         /* Generates corresponding '.d.ts' file. */

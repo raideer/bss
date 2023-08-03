@@ -2,21 +2,26 @@ import { CallbackFunction, whenLoaded } from 'util/lifecycle'
 import fetchHtml from 'util/fetch-html'
 
 import { dom, isElementInViewport } from 'util/dom'
-import { getItem, registerSetting } from 'core/module/settings/storage'
 import { timeout } from 'util/async'
 import { AdType, getPageInfo } from 'util/page-info'
 import { SettingCategory, SettingValueType } from 'core/module/settings/types'
+import store from 'core/module/global-state/store'
+import { registerSetting } from 'core/module/settings/state/settings.thunk'
+import { getSetting } from 'core/module/settings'
 
 let loading = false
 
-registerSetting({
-  id: 'infinite-load-enabled',
-  type: SettingValueType.Checkbox,
-  defaultValue: 'true',
-  menu: SettingCategory.AdList,
-  title: 'Automātiska sludinājumu ielāde',
-  description: 'Automātiski ielādē un attēlo nākamās lapas sludinājumus'
-})
+store.dispatch(
+  registerSetting({
+    id: 'infinite-load-enabled',
+    type: SettingValueType.Checkbox,
+    defaultValue: true,
+    needsReload: true,
+    menu: SettingCategory.AdList,
+    title: 'Automātiska sludinājumu ielāde',
+    description: 'Automātiski ielādē un attēlo nākamās lapas sludinājumus'
+  })
+)
 
 const loadedListeners: CallbackFunction[] = []
 
@@ -86,7 +91,7 @@ async function loadNextPage () {
 }
 
 whenLoaded(() => {
-  if (getItem('infinite-load-enabled') !== 'true') return
+  if (!getSetting('infinite-load-enabled')) return
 
   window.addEventListener('scroll', () => {
     const menuButtonEl = document.querySelector('button.navia')

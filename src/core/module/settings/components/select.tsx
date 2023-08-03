@@ -1,25 +1,26 @@
-import { useEffect, useState, FC, useCallback } from 'react'
-import { getItem } from '../storage'
+import { FC, useCallback } from 'react'
 
-import { SelectSetting } from '../types'
+import { SelectSetting, SettingChangeCallback } from '../types'
+import { useDispatch, useSelector } from 'react-redux'
+import { GlobalState } from 'core/module/global-state/store'
+import { updateSetting } from '../state/settings.thunk'
 
 interface Props {
   setting: SelectSetting;
-  onChange: (id: SelectSetting['id'], value: string) => void;
+  onChange: SettingChangeCallback;
 }
 
 export const Select: FC<Props> = ({ setting, onChange }) => {
-  const [settingValue, setSettingValue] = useState<string | null>(null)
+  const dispatch = useDispatch<any>()
+  const settingValue = useSelector((state: GlobalState) => state.settings.values[setting.id])
 
   const updateValue = useCallback((event: any) => {
-    onChange(setting.id, event.target.value)
-    setSettingValue(event.target.value)
+    onChange(setting.id, event.target.value, setting.needsReload)
+    dispatch(updateSetting({
+      id: setting.id,
+      value: event.target.value
+    }))
   }, [onChange, setting.id])
-
-  useEffect(() => {
-    const val = getItem(setting.id, true)
-    setSettingValue(val)
-  }, [setting])
 
   if (!settingValue) return null
 

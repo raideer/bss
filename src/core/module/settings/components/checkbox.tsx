@@ -1,25 +1,26 @@
-import { useEffect, useState, FC, useCallback } from 'react'
-import { getItem } from '../storage'
+import { FC, useCallback } from 'react'
 
-import { CheckboxSetting } from '../types'
+import { CheckboxSetting, SettingChangeCallback } from '../types'
+import { useDispatch, useSelector } from 'react-redux'
+import { GlobalState } from 'core/module/global-state/store'
+import { updateSetting } from '../state/settings.thunk'
 
 interface Props {
   setting: CheckboxSetting;
-  onChange: (id: CheckboxSetting['id'], value: string) => void;
+  onChange: SettingChangeCallback;
 }
 
 export const Checkbox: FC<Props> = ({ setting, onChange }) => {
-  const [settingValue, setSettingValue] = useState(false)
+  const dispatch = useDispatch<any>()
+  const settingValue = useSelector((state: GlobalState) => state.settings.values[setting.id])
 
   const updateValue = useCallback((event: any) => {
-    onChange(setting.id, event.target.checked ? 'true' : 'false')
-    setSettingValue(event.target.checked)
+    onChange(setting.id, event.target.checked, setting.needsReload)
+    dispatch(updateSetting({
+      id: setting.id,
+      value: event.target.checked
+    }))
   }, [onChange, setting.id])
-
-  useEffect(() => {
-    const val = getItem(setting.id, true)
-    setSettingValue(val === 'true')
-  }, [setting])
 
   return (
     <div className="bss-settings__checkbox">

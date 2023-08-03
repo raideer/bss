@@ -1,4 +1,3 @@
-import { getItem, registerSetting } from 'core/module/settings/storage'
 import { addButton } from 'core/module/button-container'
 import { SettingCategory, SettingValueType } from 'core/module/settings/types'
 import { parseId } from './common'
@@ -8,20 +7,25 @@ import { fetchMemoItems } from './state/memo.slice'
 import { renderReact } from 'util/react'
 import { MemoButton } from './components/MemoButton'
 import { MemoCounter } from './components/MemoCounter'
+import { registerSetting } from 'core/module/settings/state/settings.thunk'
+import { getSetting } from 'core/module/settings'
 
 export const SETTING_ENABLED = 'memo-button-enabled'
 
-registerSetting({
-  id: SETTING_ENABLED,
-  type: SettingValueType.Checkbox,
-  defaultValue: 'true',
-  menu: SettingCategory.AdList,
-  title: 'Memo poga',
-  description: 'Pievieno sludinājumu Memo'
-})
+store.dispatch(
+  registerSetting({
+    id: SETTING_ENABLED,
+    type: SettingValueType.Checkbox,
+    defaultValue: true,
+    needsReload: true,
+    menu: SettingCategory.AdList,
+    title: 'Memo poga',
+    description: 'Pievieno sludinājumu Memo'
+  })
+)
 
 addButton((row: Element) => {
-  if (getItem(SETTING_ENABLED) !== 'true') return
+  if (!getSetting(SETTING_ENABLED)) return
 
   const rowId = row.getAttribute('id')
 

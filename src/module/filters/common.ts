@@ -2,17 +2,24 @@
 import unique from 'unique-selector'
 import md5 from 'js-md5'
 import { STORAGE_MEMORY } from '.'
-import { getItem, setItem } from 'core/module/settings/storage'
+import store from 'core/module/global-state/store'
+import { updateSetting } from 'core/module/settings/state/settings.thunk'
+import { getSetting } from 'core/module/settings'
 
 export function saveFilters (filters: {[key: string]: any}) {
-  setItem(STORAGE_MEMORY, JSON.stringify(filters))
+  store.dispatch(
+    updateSetting({
+      id: STORAGE_MEMORY,
+      value: filters
+    })
+  )
 }
 
 export function getSavedFilters () {
-  const data = getItem(STORAGE_MEMORY)
+  const data = getSetting(STORAGE_MEMORY)
 
   if (data) {
-    return JSON.parse(data)
+    return data
   }
 
   return {}

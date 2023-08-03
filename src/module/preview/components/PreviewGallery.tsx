@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import SimpleBar from 'core/components/Simplebar'
+import SimpleBar from 'simplebar-react'
 import { useEffect, useState } from 'react'
 import { GalleryImage } from './GalleryImage'
 interface Props {

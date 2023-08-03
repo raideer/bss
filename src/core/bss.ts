@@ -8,4 +8,4 @@ export const BSS = {
     commit: __git_commit__,
     full: `${__version_major__}.${__version_minor__}.${__version_patch__}`
   }
-};
+}
