@@ -1,14 +1,18 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { dom } from 'util/dom'
 import { AdType, getPageInfo } from 'util/page-info'
 import { Preview } from './Preview'
 import { Button } from 'core/components/Button'
 import { renderReact } from 'util/react'
+import { useSelector } from 'react-redux'
+import { GlobalState } from 'core/module/global-state/store'
+import { SETTING_ENABLED } from '..'
 interface Props {
   row: any;
 }
 
-export const PreviewButton = ({ row }: Props) => {
+export const PreviewButton: FC<Props> = ({ row }) => {
+  const enabled = useSelector((state: GlobalState) => state.settings.values[SETTING_ENABLED])
   const pageInfo = getPageInfo()
   const isGallery = pageInfo.adType === AdType.AD_TYPE_GALLERY
   const [container, setContainer] = useState<HTMLElement | null>(null)
@@ -43,6 +47,10 @@ export const PreviewButton = ({ row }: Props) => {
         renderReact(<Preview row={row} />, col, 'append')
       }
     }
+  }
+
+  if (!enabled) {
+    return null
   }
 
   return (

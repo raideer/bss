@@ -1,3 +1,11 @@
+import browser from 'webextension-polyfill'
+
+declare global {
+  interface Window {
+    BSS: typeof BSS;
+  }
+}
+
 export const BSS = {
   version: {
     major: __version_major__,

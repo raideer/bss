@@ -3,23 +3,25 @@ import browser from 'webextension-polyfill'
 import { Setting } from '../types'
 import { SettingsState } from './settings.slice'
 import { log } from 'util/logger'
+import { runMigrations } from '../migrations'
 
 export const loadSettings = createAsyncThunk('settings/load', () => {
   return browser.storage.sync.get()
 })
 
 export const updateSetting = createAsyncThunk('settings/update', async (payload: { id: string, value: any }) => {
-  // No await - optimistic update
-  browser.storage.sync.set({
+  await browser.storage.sync.set({
     [payload.id]: payload.value
   })
 
-  log(`Updated setting '${payload.id}' to '${payload.value}'`)
+  log(`Updated setting '${payload.id}' to '${JSON.stringify(payload.value)}'`)
 
   return payload
 })
 
 export const registerSetting = createAsyncThunk('settings/register', async (payload: Setting & { menu: string, defaultValue: any }, api) => {
+  await runMigrations()
+
   const state: any = api.getState()
 
   const { menu, defaultValue, ...values } = payload

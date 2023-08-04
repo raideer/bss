@@ -17,7 +17,6 @@ store.dispatch(
     id: SETTING_ENABLED,
     type: SettingValueType.Checkbox,
     defaultValue: true,
-    needsReload: true,
     menu: SettingCategory.AdList,
     title: 'Memo poga',
     description: 'Pievieno sludinājumu Memo'
@@ -25,8 +24,6 @@ store.dispatch(
 )
 
 addButton((row: Element) => {
-  if (!getSetting(SETTING_ENABLED)) return
-
   const rowId = row.getAttribute('id')
 
   if (rowId) {

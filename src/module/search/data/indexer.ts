@@ -5,16 +5,7 @@ import { log } from 'util/logger'
 import { SearchCategory } from '../types'
 import defaultIndex from './defaultIndex.json'
 
-let progressMax = 0
-let progressCurrent = 0
-
 const INDEX_LIFETIME = 1000 * 60 * 60 * 24 * 30
-
-const updateProgress = () => {
-  progressCurrent++
-
-  // console.log(`Progress: ${progressCurrent}/${progressMax}`);
-}
 
 const trimUrl = (url: string) => {
   return trimEnd(url.slice(3), '/')
@@ -28,8 +19,6 @@ const indexChildCategories = async (url: string): Promise<SearchCategory[]> => {
     return []
   }
 
-  progressMax += elements.length
-
   const promises = Array.from(elements).map(async (categoryLink: Element) => {
     const href = categoryLink.getAttribute('href')!
 
@@ -38,8 +27,6 @@ const indexChildCategories = async (url: string): Promise<SearchCategory[]> => {
       url: trimUrl(href!),
       children: []
     }
-
-    updateProgress()
 
     return category
   })
@@ -54,8 +41,6 @@ const getSubcategories = async (categoryLink: Element): Promise<SearchCategory[]
     return []
   }
 
-  progressMax += elements.length
-
   const promises = Array.from(elements).map(async (subcategoryLink: Element) => {
     const href = subcategoryLink.getAttribute('href')!
 
@@ -64,8 +49,6 @@ const getSubcategories = async (categoryLink: Element): Promise<SearchCategory[]
       url: trimUrl(href!),
       children: await indexChildCategories(href)
     }
-
-    updateProgress()
 
     return category
   })
@@ -76,16 +59,12 @@ const getSubcategories = async (categoryLink: Element): Promise<SearchCategory[]
 const getMainCategories = (html: Document): Promise<SearchCategory[]> => {
   const elements = html.querySelectorAll('#main_img_div .a1')
 
-  progressMax += elements.length
-
   const promises = Array.from(elements).map(async (categoryLink: Element) => {
     const category = {
       name: categoryLink.textContent!,
       url: trimUrl(categoryLink.getAttribute('href')!),
       children: await getSubcategories(categoryLink)
     }
-
-    updateProgress()
 
     return category
   })

@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "cheerio": "^1.0.0-rc.12",
     "clsx": "^1.2.1",
+    "compare-versions": "^6.0.0",
     "fuse.js": "^6.6.2",
     "js-event-bus": "^1.1.1",
     "js-md5": "^0.7.3",

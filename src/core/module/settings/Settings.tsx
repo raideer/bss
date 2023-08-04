@@ -28,8 +28,10 @@ export const Settings: FC = () => {
   }, [])
 
   const deleteAllSettings = async () => {
-    await browser.storage.sync.clear()
-    window.location.reload()
+    if (window.confirm('Vai tiešām vēlaties dzēst visus iestatījumus?')) {
+      await browser.storage.sync.clear()
+      window.location.reload()
+    }
   }
 
   useEffect(() => {
@@ -61,6 +63,9 @@ export const Settings: FC = () => {
             )
           })
         }
+        </div>
+        <div className="bss-settings-reset">
+          <span onClick={deleteAllSettings}>Dzēst visus iestatījumus</span>
         </div>
         <div className="bss-settings-version">
           <div>Versija: { BSS.version.full }</div>

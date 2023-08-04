@@ -64,6 +64,20 @@
     }
   }
 
+  &-reset {
+    padding: 12px;
+
+    span {
+      cursor: pointer;
+      font-size: 10px;
+      color: hsl(var(--nc) / 0.7);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   &__settings {
     padding: 10px;
     width: 100%;

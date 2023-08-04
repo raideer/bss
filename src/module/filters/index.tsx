@@ -1,5 +1,5 @@
 import { dom } from 'util/dom'
-import { whenLoaded } from 'util/lifecycle'
+import { whenLoaded, whenStarting } from 'util/lifecycle'
 import { SettingCategory, SettingValueType } from 'core/module/settings/types'
 import { renderReact } from 'util/react'
 import { Filters } from './components/Filters'
@@ -7,6 +7,7 @@ import store from 'core/module/global-state/store'
 import { registerSetting } from 'core/module/settings/state/settings.thunk'
 import { getSetting, subscribeToSetting } from 'core/module/settings'
 import { Provider } from 'react-redux'
+import { applyFilter, getSaveKey } from './common'
 
 export const SETTING_ENABLED = 'memory-enabled'
 export const SETTING_NOTIFICATIONS_ENABLED = 'memory-notifications-enabled'
@@ -49,8 +50,29 @@ const renderFilters = () => {
   renderReact(<Provider store={store}><Filters /></Provider>, container)
 }
 
+const applyUrlFilter = () => {
+  const url = new URL(window.location.href)
+  const filterId = url.searchParams.get('bss-filter')
+
+  if (filterId) {
+    const filters = getSetting(STORAGE_MEMORY, {})
+    const filterKey = getSaveKey()
+    const pageFilters = filters[filterKey] || {}
+
+    for (const name in pageFilters) {
+      const filter = pageFilters[name]
+
+      if (filter.id === filterId) {
+        applyFilter(filter)
+        return
+      }
+    }
+  }
+}
+
 whenLoaded(() => {
   if (!getSetting(SETTING_ENABLED)) return
 
+  applyUrlFilter()
   renderFilters()
 })

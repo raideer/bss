@@ -1,23 +1,23 @@
 import { Button } from 'core/components/Button'
 import { Modal } from 'core/components/Modal'
 import { FC } from 'react'
-import { getCurrentFilterData, getDataHash, getSavedFilters, saveFilters } from '../common'
-import { get, take } from 'lodash-es'
-import { getLocationPath } from 'util/page-info'
+import { getCurrentFilterData, getDataHash, getSaveKey, saveFilters } from '../common'
+import { get } from 'lodash-es'
 import { useForm } from 'react-hook-form'
 import { error } from 'util/logger'
+import { useSelector } from 'react-redux'
+import { GlobalState } from 'core/module/global-state/store'
+import { STORAGE_MEMORY } from '..'
 
 interface Props {
   filter: string | null;
   visible: boolean;
   onClose: () => void;
-  onSave: () => void;
 }
 
-export const FilterModal: FC<Props> = ({ filter, visible, onClose, onSave }) => {
-  const pageInfo = take(getLocationPath().filter((part: string) => !['filter'].includes(part)), 2)
-  const saveKey = pageInfo.join('_')
-  const savedFilters = getSavedFilters()
+export const FilterModal: FC<Props> = ({ filter, visible, onClose }) => {
+  const savedFilters = useSelector((state: GlobalState) => state.settings.values[STORAGE_MEMORY] || {})
+  const saveKey = getSaveKey()
   const existingFilter = filter && get(savedFilters, `${saveKey}.${filter}`)
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -29,12 +29,10 @@ export const FilterModal: FC<Props> = ({ filter, visible, onClose, onSave }) => 
 
   const saveAndClose = (savedFilters: any) => {
     saveFilters(savedFilters)
-    setTimeout(() => onSave(), 100)
     onClose()
   }
 
   const saveCurrentFilters = async (values: any) => {
-    const savedFilters = await getSavedFilters()
     const form = document.querySelector('#filter_frm') as HTMLFormElement
 
     if (!form) {
@@ -46,15 +44,18 @@ export const FilterModal: FC<Props> = ({ filter, visible, onClose, onSave }) => 
     const data = getCurrentFilterData(form)
     const formData = new URLSearchParams((new FormData(form) as any))
 
-    if (!savedFilters[saveKey]) {
-      savedFilters[saveKey] = {}
+    // savedFilters is immutable, so we need to create a new object
+    const newFilters = JSON.parse(JSON.stringify(savedFilters))
+
+    if (!newFilters[saveKey]) {
+      newFilters[saveKey] = {}
     }
 
     if (filter) {
-      delete savedFilters[saveKey][filter]
+      delete newFilters[saveKey][filter]
     }
 
-    savedFilters[saveKey][values.name] = {
+    newFilters[saveKey][values.name] = {
       data,
       formData: formData.toString(),
       path,
@@ -62,15 +63,14 @@ export const FilterModal: FC<Props> = ({ filter, visible, onClose, onSave }) => 
       id: getDataHash(data)
     }
 
-    saveAndClose(savedFilters)
+    saveAndClose(newFilters)
   }
 
   const deleteFilter = async () => {
-    const savedFilters = await getSavedFilters()
-
     if (filter && savedFilters[saveKey]) {
-      delete savedFilters[saveKey][filter]
-      saveAndClose(savedFilters)
+      const newFilters = { ...savedFilters }
+      newFilters[saveKey][filter] = undefined
+      saveAndClose(newFilters)
     }
   }
 

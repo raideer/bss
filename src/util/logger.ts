@@ -1,9 +1,9 @@
 import { BSS } from 'core/bss'
 
-export function log (message: string) {
-  console.log(`%c[BSS ${BSS.version.full}]`, 'color: green;', message)
+export function log (...messages: any[]) {
+  console.log(`%c[BSS ${BSS.version.full}]`, 'color: green;', ...messages)
 }
 
-export function error (message: string) {
-  console.error(`%c[BSS ${BSS.version.full}]`, 'color: red;', message)
+export function error (...messages: any[]) {
+  console.error(`%c[BSS ${BSS.version.full}]`, 'color: red;', ...messages)
 }
