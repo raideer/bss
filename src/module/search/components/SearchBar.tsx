@@ -4,6 +4,9 @@ import Fuse from 'fuse.js'
 import { each, take } from 'lodash-es'
 import { getLocationInfo } from 'util/page-info'
 import { Modal } from 'core/components/Modal'
+import { useSelector } from 'react-redux'
+import { GlobalState } from 'core/module/global-state/store'
+import { SETTING_ENABLED } from '..'
 
 const flattenCategories = (categories: SearchCategory[], parent?: string, flattened: FlatSearchCategory[] = []) => {
   each(categories, (category: SearchCategory) => {
@@ -24,6 +27,7 @@ const flattenCategories = (categories: SearchCategory[], parent?: string, flatte
 }
 
 export const SearchBar: FC = () => {
+  const enabled = useSelector((state: GlobalState) => state.settings.values[SETTING_ENABLED])
   const [query, setQuery] = useState('')
   const [loaded, setLoaded] = useState(false)
   const [fuse, setFuse] = useState<Fuse<FlatSearchCategory> | null>(null)
@@ -80,12 +84,20 @@ export const SearchBar: FC = () => {
   }
 
   useEffect(() => {
+    if (!enabled) {
+      return
+    }
+
     if (query.length > 0) {
       handleSearch(query)
     } else {
       setResults([])
     }
-  }, [query])
+  }, [enabled, query])
+
+  if (!enabled) {
+    return null
+  }
 
   return (
     <div className="bss-search">

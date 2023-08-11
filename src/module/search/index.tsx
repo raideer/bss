@@ -3,13 +3,13 @@ import { SettingCategory, SettingValueType } from 'core/module/settings/types'
 import { addHtbElement } from 'core/containers/htb-container'
 import { registerSetting } from 'core/module/settings'
 
-const SETTING_ENABLED = 'search-enabled'
+export const SETTING_ENABLED = 'search-enabled'
 
 registerSetting({
   id: SETTING_ENABLED,
   type: SettingValueType.Checkbox,
   defaultValue: true,
-  needsReload: true,
+  needsReload: false,
   menu: SettingCategory.Search,
   title: 'Ieslēgts'
 })
