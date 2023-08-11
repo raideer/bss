@@ -5,11 +5,13 @@ import { difference, take, uniq } from 'lodash-es'
 import { getStorageItem } from 'core/module/global-state/storage.helper'
 import { FilterPreset } from '../types'
 import localStorage from 'core/module/global-state/local-storage'
-import { SETTING_ENABLED, SW_FILTERS_NEW, SW_FILTERS_PROCESSED, SW_MAX_SCAN_PAGES } from '../constants'
+import { SETTING_ENABLED, SETTING_NOTIFICATION_INTERVAL, SW_FILTERS_NEW, SW_FILTERS_PROCESSED, SW_MAX_SCAN_PAGES } from '../constants'
 import { getSettingFromStorage } from 'core/module/settings/settings.helper'
 
-browser.alarms.create('notify-new-listings', {
-  periodInMinutes: 30
+getSettingFromStorage(SETTING_NOTIFICATION_INTERVAL).then(value => {
+  browser.alarms.create('notify-new-listings', {
+    periodInMinutes: value ? Number(value) : 30
+  })
 })
 
 export const notifyNewListings = async () => {

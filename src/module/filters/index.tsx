@@ -78,9 +78,8 @@ const applyUrlFilter = async () => {
 
     if (filter) {
       applyFilter(filter)
+      return true
     }
-
-    return true
   }
 
   return false
@@ -128,10 +127,10 @@ const showNewListings = async () => {
 
 addHtbElement(<HomeFilterList key="home-filter-list" />)
 
-whenLoaded(() => {
+whenLoaded(async () => {
   if (!getSetting(SETTING_ENABLED)) return
 
-  const willRedirect = applyUrlFilter()
+  const willRedirect = await applyUrlFilter()
 
   if (!willRedirect) {
     renderFilters()
