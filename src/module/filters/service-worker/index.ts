@@ -9,8 +9,10 @@ import { SETTING_ENABLED, SETTING_NOTIFICATION_INTERVAL, SW_FILTERS_NEW, SW_FILT
 import { getSettingFromStorage } from 'core/module/settings/settings.helper'
 
 getSettingFromStorage(SETTING_NOTIFICATION_INTERVAL).then(value => {
+  const periodInMinutes = value ? Number(value) : 30
+  log('Setting notification interval to', periodInMinutes, 'minutes')
   browser.alarms.create('notify-new-listings', {
-    periodInMinutes: value ? Number(value) : 30
+    periodInMinutes
   })
 })
 

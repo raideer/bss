@@ -52,7 +52,7 @@ registerSetting({
   ],
   menu: SettingCategory.Filters,
   title: 'Paziņojumu intervāls',
-  description: 'Cik bieži pārbaudīt jaunus sludinājumus'
+  description: 'Cik bieži pārbaudīt jaunus sludinājumus. Lai stātos spēkā, nepieciešams aizvērt un atvērt interneta pārlūku'
 })
 
 const renderFilters = () => {

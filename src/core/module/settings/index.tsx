@@ -23,7 +23,7 @@ export const SETTINGS_CATEGORIES: SettingsCategory[] = [
   },
   {
     id: SettingCategory.Search,
-    title: 'Meklēšana'
+    title: 'Kategoriju meklētājs'
   }
 ]
 
