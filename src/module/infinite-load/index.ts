@@ -2,17 +2,18 @@ import { CallbackFunction, whenLoaded } from 'util/lifecycle'
 import fetchHtml from 'util/fetch-html'
 
 import { dom, isElementInViewport } from 'util/dom'
-import { getItem, registerSetting } from 'module/settings/storage'
 import { timeout } from 'util/async'
-import { AdType, getPageInfo } from 'util/page-info'
-import { SettingCategory, SettingValueType } from 'module/settings/types'
+import { AdType, getListingPageInfo } from 'util/page-info'
+import { SettingCategory, SettingValueType } from 'core/module/settings/types'
+import { getSetting, registerSetting } from 'core/module/settings'
 
 let loading = false
 
 registerSetting({
   id: 'infinite-load-enabled',
   type: SettingValueType.Checkbox,
-  defaultValue: 'true',
+  defaultValue: true,
+  needsReload: true,
   menu: SettingCategory.AdList,
   title: 'Automātiska sludinājumu ielāde',
   description: 'Automātiski ielādē un attēlo nākamās lapas sludinājumus'
@@ -36,7 +37,7 @@ function hideLoader () {
 }
 
 async function loadNextPage () {
-  const pageInfo = getPageInfo()
+  const pageInfo = getListingPageInfo()
   const lastLink = document.querySelector('a[rel="next"].navi:last-child') as HTMLAnchorElement
   const activeLink = document.querySelector('button.navia') as HTMLButtonElement
 
@@ -47,9 +48,9 @@ async function loadNextPage () {
   if (!loading && nextLink?.tagName === 'A' && !nextLink.isEqualNode(lastLink)) {
     showLoader()
 
-    await timeout(1000);
+    await timeout(1000)
 
-    const nextLinkHref = (nextLink as HTMLAnchorElement).href;
+    const nextLinkHref = (nextLink as HTMLAnchorElement).href
     const html = await fetchHtml(nextLinkHref) as Document
     // Select and place ads
     if (pageInfo.adType === AdType.AD_TYPE_GALLERY) {
@@ -76,7 +77,7 @@ async function loadNextPage () {
 
     // Update url
     if (window.history) {
-      window.history.pushState(null, '', nextLinkHref);
+      window.history.pushState(null, '', nextLinkHref)
     }
 
     loadedListeners.forEach(listener => listener())
@@ -86,12 +87,12 @@ async function loadNextPage () {
 }
 
 whenLoaded(() => {
-  if (getItem('infinite-load-enabled') !== 'true') return
+  if (!getSetting('infinite-load-enabled')) return
 
   window.addEventListener('scroll', () => {
     const menuButtonEl = document.querySelector('button.navia')
     if (!loading && menuButtonEl && isElementInViewport(menuButtonEl)) {
       loadNextPage()
     }
-  })
+  }, { passive: true })
 })

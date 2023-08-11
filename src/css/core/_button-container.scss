@@ -1,7 +1,7 @@
-.bss-button-container {
+.bss-container-button {
   position: absolute;
   left: 5px;
-  bottom: 7px;
+  bottom: 2px;
   display: flex;
   align-items: flex-end;
   gap: 10px;
@@ -9,9 +9,13 @@
   .bss-button {
     padding: 2px 5px;
   }
+
+  @media screen and (min-width:1280px) {
+    bottom: 7px;
+  }
 }
 
-.bss-button-container--has-buttons {
+.bss-container-button--has-buttons {
   .msg2, .d7, .d7p {
     position: relative;
   }
@@ -19,7 +23,7 @@
   .d7, .d7p {
     margin-bottom: 30px;
 
-    .bss-button-container {
+    .bss-container-button {
       bottom: -25px;
     }
   }

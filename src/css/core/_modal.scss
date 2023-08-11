@@ -1,0 +1,34 @@
+.bss-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: hsl(var(--b1));
+  border-radius: var(--border-radius);
+  border: 1px solid hsl(var(--b2));
+  z-index: 9999;
+  min-width: 550px;
+}
+
+.bss-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-weight: 700;
+  background-color: hsl(var(--b2));
+}
+
+.bss-modal-content {
+  padding: 10px;
+}
+
+.bss-modal-backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsl(var(--b1) / 0.8);
+  z-index: 9998;
+}

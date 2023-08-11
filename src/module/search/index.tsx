@@ -1,32 +1,17 @@
-import { render } from "preact"
-import { whenLoaded } from "util/lifecycle"
-import { SearchBar } from "./SearchBar"
-import { loadDefaultIndex } from "./indexer"
-import { getItem, registerSetting } from "module/settings/storage"
-import { SettingCategory, SettingValueType } from "module/settings/types"
+import { SearchBar } from './components/SearchBar'
+import { SettingCategory, SettingValueType } from 'core/module/settings/types'
+import { addHtbElement } from 'core/containers/htb-container'
+import { registerSetting } from 'core/module/settings'
 
 const SETTING_ENABLED = 'search-enabled'
 
 registerSetting({
   id: SETTING_ENABLED,
   type: SettingValueType.Checkbox,
-  defaultValue: 'true',
+  defaultValue: true,
+  needsReload: true,
   menu: SettingCategory.Search,
   title: 'Ieslēgts'
 })
 
-whenLoaded(() => {
-  if (getItem(SETTING_ENABLED) !== 'true') return
-
-  const insertPoint = document.querySelector('#page_main_full')
-
-  if (!insertPoint) {
-    return
-  }
-
-  loadDefaultIndex()
-
-  if (insertPoint) {
-    render(<SearchBar />, insertPoint)
-  }
-})
+addHtbElement(<SearchBar key="search" />)

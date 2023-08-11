@@ -1,5 +1,5 @@
-import { waitFor } from "./async"
-import { waitForChild } from "./dom"
+import { waitFor } from './async'
+import { waitForChild } from './dom'
 
 export enum Lifecycle {
   End,

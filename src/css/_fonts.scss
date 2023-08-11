@@ -53,6 +53,21 @@ body, td, font, p, input, select, textarea, ul, li, h4 {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-notifications-outline:before {
+  content: "\e908";
+}
+.icon-notification:before {
+  content: "\e909";
+}
+.icon-edit-pencil:before {
+  content: "\e906";
+}
+.icon-coin-euro:before {
+  content: "\e907";
+}
+.icon-add:before {
+  content: "\e905";
+}
 .icon-search:before {
   content: "\e904";
 }

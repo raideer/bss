@@ -1,19 +1,23 @@
-import { memoize, trimStart } from "lodash-es"
-import { error } from "./logger"
+import { memoize, trimStart } from 'lodash-es'
+import { error } from './logger'
 
 export enum AdType {
   AD_TYPE_TABLE = 'table',
   AD_TYPE_GALLERY = 'gallery'
 }
 
-export interface PageInfo {
+export interface ListingPageInfo {
   adType: AdType
 }
 
-export const getPageInfo = memoize(() => {
+export const isListingPage = memoize(() => {
+  return !!document.querySelector('[id^=tr_')
+})
+
+export const getListingPageInfo = memoize(() => {
   const paths = getLocationPath()
 
-  const pageInfo: PageInfo = {
+  const pageInfo: ListingPageInfo = {
     adType: AdType.AD_TYPE_TABLE
   }
 
@@ -24,11 +28,11 @@ export const getPageInfo = memoize(() => {
   return pageInfo
 })
 
-export const getLocationInfo = memoize(() => {
+export const getLocationInfo = memoize((path?: string) => {
   const location = window.location
 
-  const currentUrl = window.location.pathname
-  const match = currentUrl.match(/(\/msg)?((?<lang>\/lv|\/ru|\/en))?\/(?<path>[a-zA-Z0-9-\/]*)+/)
+  const currentPath = path || window.location.pathname
+  const match = currentPath.match(/(\/msg)?((?<lang>\/lv|\/ru|\/en))?\/(?<path>[a-zA-Z0-9-/]*)+/)
 
   if (!match) {
     return null
@@ -41,8 +45,8 @@ export const getLocationInfo = memoize(() => {
   }
 })
 
-export function getLocationPath() {
-  const info = getLocationInfo()
+export function getLocationPath (path?: string) {
+  const info = getLocationInfo(path)
 
   if (!info) {
     error('Could not match pathname regex')

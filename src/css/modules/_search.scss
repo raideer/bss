@@ -1,0 +1,9 @@
+.bss-search {
+  &-item {
+    &:not(:last-child) {
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid hsl(var(--bc) / 0.2);
+    }
+  }
+}

@@ -1,0 +1,48 @@
+
+.bss-checkbox {
+  flex-shrink: 0;
+  --chkbg: var(--bc);
+  --chkfg: var(--b1);
+  height: 1.25rem;
+  width: 1.25rem;
+  cursor: pointer;
+  appearance: none;
+  border-width: 1px;
+  border-color: hsl(var(--bc)/ 0.2);
+  border-radius: var(--border-radius,.5rem)
+}
+
+.bss-checkbox:focus-visible {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: 2px;
+  outline-color: hsl(var(--bc)/1)
+}
+
+.bss-checkbox:checked,.bss-checkbox[checked=true],.bss-checkbox[aria-checked=true] {
+  background-color: hsl(var(--bc));
+  background-repeat: no-repeat;
+  animation: checkmark var(--animation-input,.2s) ease-out;
+  background-image: linear-gradient(-45deg,transparent 65%,hsl(var(--chkbg)) 65.99%),linear-gradient(45deg,transparent 75%,hsl(var(--chkbg)) 75.99%),linear-gradient(-45deg,hsl(var(--chkbg)) 40%,transparent 40.99%),linear-gradient(45deg,hsl(var(--chkbg)) 30%,hsl(var(--chkfg)) 30.99%,hsl(var(--chkfg)) 40%,transparent 40.99%),linear-gradient(-45deg,hsl(var(--chkfg)) 50%,hsl(var(--chkbg)) 50.99%)
+}
+
+.bss-checkbox:indeterminate {
+  background-color: hsl(var(--bc));
+  background-repeat: no-repeat;
+  animation: checkmark var(--animation-input,.2s) ease-out;
+  background-image: linear-gradient(90deg,transparent 80%,hsl(var(--chkbg)) 80%),linear-gradient(-90deg,transparent 80%,hsl(var(--chkbg)) 80%),linear-gradient(0deg,hsl(var(--chkbg)) 43%,hsl(var(--chkfg)) 43%,hsl(var(--chkfg)) 57%,hsl(var(--chkbg)) 57%)
+}
+
+@keyframes checkmark {
+  0% {
+      background-position-y: 5px
+  }
+
+  50% {
+      background-position-y: -2px
+  }
+
+  to {
+      background-position-y: 0
+  }
+}

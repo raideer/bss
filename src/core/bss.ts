@@ -1,3 +1,11 @@
+import browser from 'webextension-polyfill'
+
+declare global {
+  interface Window {
+    BSS: typeof BSS;
+  }
+}
+
 export const BSS = {
   version: {
     major: __version_major__,
@@ -8,4 +16,4 @@ export const BSS = {
     commit: __git_commit__,
     full: `${__version_major__}.${__version_minor__}.${__version_patch__}`
   }
-};
+}
