@@ -9,6 +9,7 @@ import { getFormInputs } from '../form'
 import slugify from 'slugify'
 import { FilterPreset } from '../types'
 import { addPreset, deletePreset } from '../state/filter.slice'
+import { trimEnd } from 'lodash-es'
 
 interface Props {
   preset?: FilterPreset;
@@ -63,12 +64,18 @@ export const FilterModal: FC<Props> = ({ preset, visible, onClose }) => {
       params[key] = values.params[slug]
     })
 
+    let path = trimEnd(window.location.pathname, '/')
+
+    if (!path.endsWith('/filter')) {
+      path += '/filter'
+    }
+
     const newPreset: FilterPreset = {
-      id: filterParamsToId(params),
+      id: filterParamsToId(values.params),
       params: params,
       notifications: values.notifications,
       name: values.name,
-      path: window.location.pathname,
+      path: `${path}/`,
       filters: filterInputs
     }
 

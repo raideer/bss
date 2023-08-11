@@ -64,6 +64,10 @@ export const getCurrentFilterData = (form: HTMLFormElement) => {
 }
 
 export const filterParamsToId = (data: FilterPreset['params']) => {
+  if (data.sid) {
+    delete data.sid
+  }
+
   const values = Object.values(data).sort()
   return md5(JSON.stringify(values))
 }
