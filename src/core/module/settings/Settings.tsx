@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useEffect, useState, FC, useCallback } from 'react'
+import { useEffect, useState, FC, useCallback, useMemo } from 'react'
 import { Checkbox } from './components/checkbox'
 import browser from 'webextension-polyfill'
 
@@ -8,13 +8,14 @@ import { SettingValueType, SettingsCategory } from './types'
 import { Select } from './components/select'
 import { useDispatch, useSelector } from 'react-redux'
 import { GlobalState } from '../global-state/store'
-import { updateSetting } from './state/settings.thunk'
 import { Button } from 'core/components/Button'
+import { updateSetting } from './state/settings.slice'
+import { SETTINGS_CATEGORIES } from '.'
 
 export const Settings: FC = () => {
   const dispatch = useDispatch<any>()
   const [needsReload, setNeedsReload] = useState(false)
-  const menu = useSelector((state: GlobalState) => state.settings.settings)
+  const settings = useSelector((state: GlobalState) => state.settings.settings || [])
   const [activeSetting, setActiveSetting] = useState<SettingsCategory|undefined>()
 
   const handleSettingChange = useCallback((id: string, value: string, needsReload = false) => {
@@ -27,18 +28,23 @@ export const Settings: FC = () => {
     }))
   }, [])
 
+  const activeSettingItems = useMemo(() => {
+    return settings.filter((item: any) => item.menu === activeSetting?.id)
+  }, [settings, activeSetting])
+
   const deleteAllSettings = async () => {
     if (window.confirm('Vai tiešām vēlaties dzēst visus iestatījumus?')) {
       await browser.storage.sync.clear()
+      await browser.storage.local.clear()
       window.location.reload()
     }
   }
 
   useEffect(() => {
     if (!activeSetting) {
-      setActiveSetting(menu[0])
+      setActiveSetting(SETTINGS_CATEGORIES[0])
     }
-  }, [activeSetting, menu])
+  }, [activeSetting])
 
   return (
     <div className="bss-settings">
@@ -52,7 +58,7 @@ export const Settings: FC = () => {
       <div className="bss-settings-menu">
         <div className="bss-settings-menu-items">
         {
-          menu.map(item => {
+          SETTINGS_CATEGORIES.map(item => {
             return (
               <button key={item.id} onClick={() => setActiveSetting(item)} className={clsx({
                 'bss-settings-menu-item': true,
@@ -74,8 +80,8 @@ export const Settings: FC = () => {
       </div>
       <div className="bss-settings__settings">
         <div className="bss-settings__settings-title">{ activeSetting && activeSetting.title }</div>
-        { activeSetting && (
-          activeSetting.items.map(item => {
+        { activeSettingItems && (
+          activeSettingItems.map((item: any) => {
             return (
               <div className="bss-settings__settings-item" key={item.id}>
                 {

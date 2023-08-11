@@ -3,8 +3,7 @@ export type WatcherCallback = (newValue: any, oldValue: any, objectPath: string)
 export enum SettingValueType {
   Checkbox,
   Select,
-  Text,
-  Information
+  Number
 }
 
 export const SettingCategory = {
@@ -19,39 +18,26 @@ interface BaseSetting {
   title: string,
   description?: string,
   id: string,
+  menu: string,
   needsReload?: boolean,
-}
-
-export type TextSetting = BaseSetting & {
-  type: SettingValueType.Text
-  disabled?: boolean
-}
-
-export type InformationSetting = BaseSetting & {
-  type: SettingValueType.Information
 }
 
 export type CheckboxSetting = BaseSetting & {
   type: SettingValueType.Checkbox
+  defaultValue: boolean
 }
 
 export type SelectSetting = BaseSetting & {
   type: SettingValueType.Select,
+  defaultValue: string,
   options: { label: string, value: string }[]
 }
 
-export type Setting = CheckboxSetting | SelectSetting | TextSetting | InformationSetting
+export type Setting = CheckboxSetting | SelectSetting
 
 export type SettingChangeCallback = (id: SelectSetting['id'], value: string, needsReload?: boolean) => void;
 
-export interface SettingsTab {
-  id: string;
-  title: string;
-}
-
 export interface SettingsCategory {
   id: string;
-  tab?: SettingsTab,
   title: string;
-  items: Setting[];
 }

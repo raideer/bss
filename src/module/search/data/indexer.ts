@@ -1,15 +1,11 @@
 import { getLocationInfo } from 'util/page-info'
 import fetchHtml from 'util/fetch-html'
-import { trimEnd } from 'lodash-es'
 import { log } from 'util/logger'
 import { SearchCategory } from '../types'
 import defaultIndex from './defaultIndex.json'
+import { trimUrl } from 'util/url'
 
 const INDEX_LIFETIME = 1000 * 60 * 60 * 24 * 30
-
-const trimUrl = (url: string) => {
-  return trimEnd(url.slice(3), '/')
-}
 
 const indexChildCategories = async (url: string): Promise<SearchCategory[]> => {
   const html = await fetchHtml(url)

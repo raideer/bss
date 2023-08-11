@@ -1,6 +1,6 @@
-import store from 'core/module/global-state/store'
+import { StateProvider } from 'core/module/global-state/Provider'
 import { FC } from 'react'
-import { Provider, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const Inner: FC = () => {
   const items = useSelector((state: any) => state.memo.items)
@@ -11,7 +11,7 @@ const Inner: FC = () => {
 }
 
 export const MemoCounter: FC = () => {
-  return <Provider store={store}>
+  return <StateProvider>
     <Inner />
-  </Provider>
+  </StateProvider>
 }

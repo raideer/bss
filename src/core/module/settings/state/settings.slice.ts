@@ -1,73 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { SettingCategory, SettingsCategory } from '../types'
-import { loadSettings, registerSetting, updateSetting } from './settings.thunk'
+import { Setting } from '../types'
+import { log } from 'util/logger'
 
 export interface SettingsState {
   loaded: boolean,
   values: Record<string, any>,
-  settings: SettingsCategory[]
+  settings: Setting[]
 }
 
 const initialState: SettingsState = {
   loaded: false,
   values: {},
-  settings: [
-    {
-      id: SettingCategory.AdList,
-      title: 'Sludinājumu saraksts',
-      items: []
-    },
-    {
-      id: SettingCategory.Appearance,
-      title: 'Izskats',
-      items: []
-    },
-    {
-      id: SettingCategory.Filters,
-      title: 'Filtri',
-      items: []
-    },
-    {
-      id: SettingCategory.Search,
-      title: 'Kategoriju meklētājs',
-      items: []
-    }
-  ]
+  settings: []
 }
 
 export const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-  },
-  extraReducers: (builder) => {
-    builder.addCase(loadSettings.fulfilled, (state, action) => {
-      for (const id in action.payload) {
-        state.values[id] = action.payload[id]
-      }
-
-      state.loaded = true
-    })
-
-    builder.addCase(updateSetting.fulfilled, (state, action) => {
+    updateSetting: (state, action) => {
+      log('Updating setting', action.payload.id, 'to', action.payload.value)
       state.values[action.payload.id] = action.payload.value
-    })
+    },
+    registerSetting: (state, action: { payload: Setting }) => {
+      const settings = state.settings.filter((setting) => setting.id !== action.payload.id)
+      settings.push(action.payload)
+      state.settings = settings
 
-    builder.addCase(registerSetting.fulfilled, (state, action) => {
-      if (!action.payload) {
-        return
+      if (state.values[action.payload.id] === undefined) {
+        state.values[action.payload.id] = action.payload.defaultValue
       }
-
-      const setting = state.settings.find(setting => setting.id === action.payload!.menu)
-
-      if (setting) {
-        setting.items.push({
-          ...action.payload!.values
-        })
-      }
-    })
+    }
   }
 })
+
+export const { updateSetting, registerSetting } = settingsSlice.actions
 
 export default settingsSlice.reducer

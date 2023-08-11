@@ -3,7 +3,7 @@ import { FC, useCallback } from 'react'
 import { SelectSetting, SettingChangeCallback } from '../types'
 import { useDispatch, useSelector } from 'react-redux'
 import { GlobalState } from 'core/module/global-state/store'
-import { updateSetting } from '../state/settings.thunk'
+import { updateSetting } from '../state/settings.slice'
 
 interface Props {
   setting: SelectSetting;

@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { Provider } from 'react-redux'
 import { renderReact } from 'util/react'
 import WinBox from 'winbox/src/js/winbox'
 import { Settings } from './Settings'
-import store from '../global-state/store'
 import { Button } from 'core/components/Button'
+import { StateProvider } from '../global-state/Provider'
 
 export const SettingsButton = () => {
   const [settingsWindow, setWindow] = useState<any>(null)
@@ -27,7 +26,7 @@ export const SettingsButton = () => {
     })
 
     setWindow(wb)
-    renderReact(<Provider store={store}><Settings /></Provider>, wb.body, 'append')
+    renderReact(<StateProvider><Settings /></StateProvider>, wb.body, 'append')
   }
 
   return (<Button variant='neutral' className="bss-settings-button" onClick={onClick}>BSS</Button>)

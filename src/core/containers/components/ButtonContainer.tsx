@@ -1,8 +1,7 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
-import { Provider } from 'react-redux'
-import store from 'core/module/global-state/store'
+import { StateProvider } from 'core/module/global-state/Provider'
 
-export const Container: FC<PropsWithChildren> = ({ children }) => {
+export const ButtonContainer: FC<PropsWithChildren> = ({ children }) => {
   const ref = useRef<HTMLSpanElement | null>(null)
 
   useEffect(() => {
@@ -13,8 +12,8 @@ export const Container: FC<PropsWithChildren> = ({ children }) => {
   }, [ref])
 
   return (
-    <Provider store={store}>
-      <span ref={ref} className="bss-button-container">{children}</span>
-    </Provider>
+    <StateProvider>
+      <span ref={ref} className="bss-container-button">{children}</span>
+    </StateProvider>
   )
 }

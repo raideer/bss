@@ -1,26 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import browser from 'webextension-polyfill'
 import { Setting } from '../types'
-import { SettingsState } from './settings.slice'
+import { SettingsState, updateSetting } from './settings.slice'
 import { log } from 'util/logger'
-import { runMigrations } from '../migrations'
-
-export const loadSettings = createAsyncThunk('settings/load', () => {
-  return browser.storage.sync.get()
-})
-
-export const updateSetting = createAsyncThunk('settings/update', async (payload: { id: string, value: any }) => {
-  await browser.storage.sync.set({
-    [payload.id]: payload.value
-  })
-
-  log(`Updated setting '${payload.id}' to '${JSON.stringify(payload.value)}'`)
-
-  return payload
-})
 
 export const registerSetting = createAsyncThunk('settings/register', async (payload: Setting & { menu: string, defaultValue: any }, api) => {
-  await runMigrations()
+  // await runMigrations()
 
   const state: any = api.getState()
 
@@ -29,9 +14,11 @@ export const registerSetting = createAsyncThunk('settings/register', async (payl
   const setting = (state.settings as SettingsState).settings.find(setting => setting.id === menu)
 
   if (setting) {
-    const data = await browser.storage.sync.get([values.id])
+    const storage = await browser.storage.sync.get(['persist:bss'])
+    const data = JSON.parse(storage['persist:bss'])
+    const settings = JSON.parse(data.settings)
 
-    if (data[values.id] === undefined) {
+    if (settings.values[values.id] === undefined) {
       api.dispatch(updateSetting({
         id: values.id,
         value: defaultValue

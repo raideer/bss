@@ -11,7 +11,7 @@
   padding: 10px 0;
 }
 
-.label-text-alt {
+.bss-label-text-alt {
   font-size: .75rem;
   line-height: 1rem;
   color: hsl(var(--bc));
@@ -26,6 +26,12 @@
   font-size: 14px;
   border-color: hsl(var(--bc) / 0.2);
   background-color: hsl(var(--b1));
+
+  &[disabled] {
+    background-color: hsl(var(--b1) / 0.5);
+    color: hsl(var(--bc) / 0.5);
+    cursor: not-allowed;
+  }
 
   &:focus {
     outline-style: solid;

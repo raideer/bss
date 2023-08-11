@@ -7,7 +7,7 @@ interface Props {
   active?: boolean
   type?: 'button' | 'submit'
   variant?: 'default' | 'neutral' | 'accent' | 'warning'
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
 }
 
 export const Button: FC<PropsWithChildren<Props>> = ({ onClick, children, className, active, type = 'button', size = 'sm', variant = 'default' }) => {

@@ -88,7 +88,7 @@ export const SearchBar: FC = () => {
   }, [query])
 
   return (
-    <div className="bss-search__container">
+    <div className="bss-search">
       <input className="bss-input" value={query} onChange={(e) => setQuery((e.target as any).value) } type="text" placeholder="Meklēt kategoriju..." />
 
       <Modal onClose={() => setQuery('')} title={`Rezultāti (${results.length})`} visible={query.length > 1}>
@@ -96,7 +96,7 @@ export const SearchBar: FC = () => {
           const name = [result.item.parent, result.item.name].filter(Boolean).join(' - ')
           const url = locationInfo?.lang + result.item.url
 
-          return <div className="bss-search__results-item" key={url}>
+          return <div className="bss-search-item" key={url}>
             {index + 1}. <a href={url}>{name}</a>
           </div>
         })}

@@ -1,7 +1,7 @@
 import { log } from 'util/logger'
 
 import 'core/bss'
-import 'core/module/button-container'
+import 'core/containers'
 import 'core/module/settings'
 
 import 'module/theme'

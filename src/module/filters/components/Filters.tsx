@@ -1,78 +1,57 @@
 import { Button } from 'core/components/Button'
-import { applyFilter, getCurrentFilterData, getDataHash, getSaveKey } from '../common'
+import { applyFilter, filterParamsToId, getCurrentFilterParams, getFilterLocationKey } from '../common'
 import { FC, useMemo, useState } from 'react'
 import { FilterModal } from './FilterModal'
 import { useSelector } from 'react-redux'
 import { GlobalState } from 'core/module/global-state/store'
-import { STORAGE_MEMORY } from '..'
-import { FilterPreset } from './FilterPreset'
+import { FilterPreset as Preset } from './FilterPreset'
+import { FilterPreset } from '../types'
+import { isListingPage } from 'util/page-info'
+import { startsWith } from 'lodash-es'
 
 export const Filters: FC = () => {
-  const savedFilters = useSelector((state: GlobalState) => {
-    return state.settings.values[STORAGE_MEMORY] || {}
-  })
-  const [modalFilter, setModalFilter] = useState<string | null>(null)
+  const [modalPreset, setModalPreset] = useState<FilterPreset | undefined>()
   const [modalOpen, setModalOpen] = useState(false)
-  const saveKey = getSaveKey()
 
-  const editFilter = (key: string) => {
-    setModalFilter(key)
+  const editFilter = (preset: FilterPreset) => {
+    setModalPreset(preset)
     setModalOpen(true)
   }
 
-  const presets = useMemo(() => {
-    const form = document.querySelector('#filter_frm') as HTMLFormElement
-    const currentHash = getDataHash(getCurrentFilterData(form))
-    const items: { name: string; isActive: boolean, filter: any }[] = []
+  const presets = useSelector((state: GlobalState) => {
+    return (state.filter.presets || []).filter(preset => {
+      return getFilterLocationKey(preset.path) === getFilterLocationKey()
+    })
+  })
 
-    if (savedFilters[saveKey]) {
-      for (const name in savedFilters[saveKey]) {
-        if (!savedFilters[saveKey][name]) {
-          continue
-        }
-
-        const isActive = currentHash === savedFilters[saveKey][name].id
-
-        items.push({
-          name: name,
-          isActive: isActive,
-          filter: savedFilters[saveKey][name]
-        })
-      }
-    }
-
-    return items
-  }, [savedFilters])
-
-  const canSave = useMemo(() => {
-    return !!document.querySelector('[id^=tr_')
+  const currentId = useMemo(() => {
+    const params = getCurrentFilterParams()
+    return filterParamsToId(params)
   }, [])
 
-  const handleClose = () => {
-    setModalFilter(null)
-    setModalOpen(false)
-  }
+  const canSave = isListingPage()
 
-  if (!canSave && !presets.length) {
-    return null
+  const handleClose = () => {
+    setModalPreset(undefined)
+    setModalOpen(false)
   }
 
   return (
     <div className="bss-fm-container">
       <div className="bss-fm-presets">
-        {presets.map(preset => {
+        {presets.map((preset) => {
           return (
-            <FilterPreset
-              onEdit={() => editFilter(preset.name)}
-              onApply={() => applyFilter(savedFilters[saveKey][preset.name])}
-              key={preset.name}
+            <Preset
+              onEdit={() => editFilter(preset)}
+              onApply={() => applyFilter(preset)}
+              key={preset.id}
               name={preset.name}
-              active={preset.isActive} />
+              active={currentId === preset.id} />
           )
         })}
       </div>
-      <FilterModal key={modalFilter || 'new'} filter={modalFilter} visible={modalOpen} onClose={handleClose} />
-      {canSave && <Button variant="neutral" className="bss-fm-btn" onClick={() => setModalOpen(true)}>Saglabāt filtrus</Button>}
+      <FilterModal key={modalPreset?.id || 'new'} preset={modalPreset} visible={modalOpen} onClose={handleClose} />
+      {canSave && <Button variant="neutral" className="bss-fm-btn" onClick={() => setModalOpen(true)}>Izveidot filtru</Button>}
     </div>
   )
 }

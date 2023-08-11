@@ -2,14 +2,42 @@ import { whenLoaded } from 'util/lifecycle'
 
 import { renderReact } from 'util/react'
 import store from '../global-state/store'
-import { loadSettings } from './state/settings.thunk'
 import watch from 'redux-watch'
-import { WatcherCallback } from './types'
+import { Setting, SettingCategory, SettingsCategory, WatcherCallback } from './types'
 import { SettingsButton } from './SettingsButton'
+import { whenPersisted } from '../global-state/lifecycle'
+import { registerSetting as registerSettingAction } from 'core/module/settings/state/settings.slice'
+
+export const SETTINGS_CATEGORIES: SettingsCategory[] = [
+  {
+    id: SettingCategory.AdList,
+    title: 'Sludinājumu saraksts'
+  },
+  {
+    id: SettingCategory.Appearance,
+    title: 'Izskats'
+  },
+  {
+    id: SettingCategory.Filters,
+    title: 'Filtri'
+  },
+  {
+    id: SettingCategory.Search,
+    title: 'Meklēšana'
+  }
+]
 
 export const getSetting = (key: string, defaultValue: any = undefined) => {
   const state = store.getState()
   return state.settings.values[key] || defaultValue
+}
+
+export const registerSetting = (setting: Setting) => {
+  whenPersisted(() => {
+    store.dispatch(
+      registerSettingAction(setting)
+    )
+  })
 }
 
 const watchers: { watcher: any, callback: WatcherCallback }[] = []
@@ -27,8 +55,6 @@ store.subscribe(() => {
     watcher(callback)()
   })
 })
-
-store.dispatch(loadSettings())
 
 whenLoaded(() => {
   const insertPoint = document.querySelector('.menu_lang')

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { dom } from 'util/dom'
-import { AdType, getPageInfo } from 'util/page-info'
+import { AdType, getListingPageInfo } from 'util/page-info'
 import { Preview } from './Preview'
 import { Button } from 'core/components/Button'
 import { renderReact } from 'util/react'
@@ -13,7 +13,7 @@ interface Props {
 
 export const PreviewButton: FC<Props> = ({ row }) => {
   const enabled = useSelector((state: GlobalState) => state.settings.values[SETTING_ENABLED])
-  const pageInfo = getPageInfo()
+  const pageInfo = getListingPageInfo()
   const isGallery = pageInfo.adType === AdType.AD_TYPE_GALLERY
   const [container, setContainer] = useState<HTMLElement | null>(null)
 
