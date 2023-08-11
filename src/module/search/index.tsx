@@ -9,7 +9,7 @@ registerSetting({
   id: SETTING_ENABLED,
   type: SettingValueType.Checkbox,
   defaultValue: true,
-  needsReload: true,
+  needsReload: false,
   menu: SettingCategory.Search,
   title: 'Ieslēgts'
 })

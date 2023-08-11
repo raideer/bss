@@ -4,11 +4,18 @@ import { useSelector } from 'react-redux'
 import { Button } from 'core/components/Button'
 import { applyFilter } from '../common'
 import { FilterPreset } from '../types'
+import { SETTING_ENABLED } from '../constants'
 
 export const HomeFilterList: FC = () => {
+  const enabled = useSelector((state: GlobalState) => state.settings.values[SETTING_ENABLED])
+
   const presets = useSelector((state: GlobalState) => {
     return state.filter.presets || []
   })
+
+  if (!enabled) {
+    return null
+  }
 
   return <div className='bss-fm-home-list'>
     {presets.map((preset: FilterPreset) => {
