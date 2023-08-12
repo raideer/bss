@@ -1,4 +1,4 @@
-import { log } from 'util/logger';
+import { log } from 'util/logger'
 import browser from 'webextension-polyfill'
 
 log('Style blocker loaded')
@@ -17,4 +17,4 @@ browser.webRequest.onBeforeRequest.addListener(() => {
   types: [
     'stylesheet'
   ]
-}, ['blocking']);
+}, ['blocking'])

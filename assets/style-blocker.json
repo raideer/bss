@@ -4,7 +4,7 @@
     "priority": 1,
     "action": { "type": "block" },
     "condition": {
-      "urlFilter": "https://i.ss.com/w_inc/style.css",
+      "urlFilter": "https://i.ss.*/w_inc/style.css",
       "resourceTypes": ["stylesheet"]
     }
   }
