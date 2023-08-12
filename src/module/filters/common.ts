@@ -1,73 +1,57 @@
+// Common functionality between background and content script
 
-import unique from 'unique-selector'
-import md5 from 'js-md5'
-import { mapKeys, memoize, snakeCase, take } from 'lodash-es'
-import { getLocationPath } from 'util/page-info'
+import { take, uniq } from 'lodash-es'
 import { FilterPreset } from './types'
-import { dom } from 'util/dom'
-import slugify from 'slugify'
+import localStorage from 'core/module/global-state/local-storage'
 
-export const applyFilter = (filter: FilterPreset) => {
-  const form = dom('form', {
-    action: filter.path,
-    method: 'POST'
-  }) as HTMLFormElement
+// Settings
+export const SETTING_NOTIFICATIONS_ENABLED = 'notifications-enabled'
+export const SETTING_NOTIFICATION_INTERVAL = 'notification-interval'
+export const SETTING_ENABLED = 'memory-enabled'
 
-  for (const key in filter.params) {
-    const value = filter.params[key]
-    const input = dom('input', {
-      type: 'hidden',
-      name: key,
-      value
-    })
+// Storage
+export const STORAGE_MEMORY = 'presets'
 
-    form.appendChild(input)
+// Service worker
+export const SW_FILTERS_PROCESSED = 'filters-processed'
+export const SW_FILTERS_NEW = 'filters-new'
+export const SW_MAX_SCAN_PAGES = 5
+
+/**
+ * returns list of listing IDs that we have already looked at
+ */
+export const fetchProcessedListings = async (preset: FilterPreset) => {
+  const data = await localStorage.getItem(`${SW_FILTERS_PROCESSED}/${preset.id}`)
+
+  if (!data) {
+    return []
   }
 
-  document.body.appendChild(form)
-  form.submit()
+  return data as string[]
 }
 
-export const getCurrentFilterParams = (preset?: FilterPreset) => {
-  if (preset) {
-    return mapKeys(preset.params, (value, key) => {
-      return slugify(key)
-    })
+/**
+ * save list of listing IDs that we have already looked at
+ */
+export const saveProcessedListings = async (preset: FilterPreset, ids: string[]) => {
+  await localStorage.setItem(`${SW_FILTERS_PROCESSED}/${preset.id}`, take(uniq(ids), 500))
+}
+
+/**
+ * returns list of listing IDs that the user has not seen yet
+ */
+export const fetchUnseenListings = async (preset: FilterPreset) => {
+  const data = await localStorage.getItem(`${SW_FILTERS_NEW}/${preset.id}`)
+
+  if (!data) {
+    return []
   }
 
-  const formData = new FormData(document.querySelector('#filter_frm') as HTMLFormElement)
-
-  // Convert form data to object
-  const currentFormData: Record<string, string> = {}
-
-  formData.forEach((value, key) => {
-    currentFormData[slugify(key)] = value.toString()
-  })
-
-  return currentFormData
+  return data as string[]
 }
-
-export const getFilterLocationKey = memoize((path?: string) => {
-  const pathParts = getLocationPath(path)
-  const pageInfo = take(pathParts.filter((part: string) => !['filter'].includes(part)), 2)
-  return snakeCase(pageInfo.join('_'))
-})
-
-export const getCurrentFilterData = (form: HTMLFormElement) => {
-  const data: Record<string, string> = {}
-
-  form.querySelectorAll('select, input:not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([class="bss-input"])').forEach((input: any) => {
-    data[unique(input)] = input.value
-  })
-
-  return data
-}
-
-export const filterParamsToId = (data: FilterPreset['params']) => {
-  if (data.sid) {
-    delete data.sid
-  }
-
-  const values = Object.values(data).sort()
-  return md5(JSON.stringify(values))
+/**
+ * save list of listing IDs that the user has not seen yet
+ */
+export const saveUnseenListings = async (preset: FilterPreset, ids: string[]) => {
+  await localStorage.setItem(`${SW_FILTERS_NEW}/${preset.id}`, take(uniq(ids), 500))
 }

@@ -15,8 +15,14 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "unused-imports"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "globals": {
 		"__webpack_hash__": false,
 		"__git_commit__": false,
@@ -28,6 +34,11 @@
 	},
   "rules": {
     "no-unused-vars": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+		"unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{ "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+		]
   }
 }

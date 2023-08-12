@@ -1,5 +1,5 @@
 import { Button } from 'core/components/Button'
-import { applyFilter, filterParamsToId, getCurrentFilterParams, getFilterLocationKey } from '../common'
+import { applyFilter, filterParamsToId, getCurrentFilterParams, getFilterLocationKey } from '../helpers'
 import { FC, useMemo, useState } from 'react'
 import { FilterModal } from './FilterModal'
 import { useSelector } from 'react-redux'
@@ -7,7 +7,6 @@ import { GlobalState } from 'core/module/global-state/store'
 import { FilterPreset as Preset } from './FilterPreset'
 import { FilterPreset } from '../types'
 import { isListingPage } from 'util/page-info'
-import { startsWith } from 'lodash-es'
 
 export const Filters: FC = () => {
   const [modalPreset, setModalPreset] = useState<FilterPreset | undefined>()

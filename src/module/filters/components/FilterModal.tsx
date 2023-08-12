@@ -1,7 +1,7 @@
 import { Button } from 'core/components/Button'
 import { Modal } from 'core/components/Modal'
 import { FC, useMemo } from 'react'
-import { getCurrentFilterParams, filterParamsToId, applyFilter } from '../common'
+import { getCurrentFilterParams, filterParamsToId, applyFilter } from '../helpers'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { FilterForm } from './FilterForm'

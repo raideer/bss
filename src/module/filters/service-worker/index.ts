@@ -1,11 +1,10 @@
 import browser from 'webextension-polyfill'
 import { log } from 'util/logger'
 import * as cheerio from 'cheerio'
-import { difference, take, uniq } from 'lodash-es'
+import { difference } from 'lodash-es'
 import { getStorageItem } from 'core/module/global-state/storage.helper'
 import { FilterPreset } from '../types'
-import localStorage from 'core/module/global-state/local-storage'
-import { SETTING_ENABLED, SETTING_NOTIFICATION_INTERVAL, SW_FILTERS_NEW, SW_FILTERS_PROCESSED, SW_MAX_SCAN_PAGES } from '../constants'
+import { SETTING_ENABLED, SETTING_NOTIFICATION_INTERVAL, SW_MAX_SCAN_PAGES, fetchProcessedListings, fetchUnseenListings, saveProcessedListings, saveUnseenListings } from '../common'
 import { getSettingFromStorage } from 'core/module/settings/settings.helper'
 
 getSettingFromStorage(SETTING_NOTIFICATION_INTERVAL).then(value => {
@@ -49,14 +48,13 @@ export const notifyNewListings = async () => {
 const processPreset = async (preset: FilterPreset) => {
   log('Processing preset:', preset.id)
 
-  const key = `${SW_FILTERS_PROCESSED}/${preset.id}`
-  const processed = await fetchProcessedListings(key)
+  const processed = await fetchProcessedListings(preset)
 
   // First time
   if (processed.length === 0) {
     const ids = await getPageListings(preset)
 
-    await localStorage.setItem(key, ids)
+    await saveProcessedListings(preset, ids)
 
     log('Processed first scan for', preset.id)
     return
@@ -81,27 +79,13 @@ const processPreset = async (preset: FilterPreset) => {
   })
 
   // Keep track of listings we have processed
-  await localStorage.setItem(key, take([...diff, ...processed], 500))
+  await saveProcessedListings(preset, [...diff, ...processed])
 
   // This tacks listings that the user has not seen yet
-  const newListingsKey = `${SW_FILTERS_NEW}/${preset.id}`
-  const newListings = await localStorage.getItem(newListingsKey) || []
-  await localStorage.setItem(newListingsKey, uniq([...diff, ...newListings]))
+  const newListings = await fetchUnseenListings(preset)
+  await saveUnseenListings(preset, [...diff, ...newListings])
 
   log(`Found ${diff.length} new listings for preset '${preset.id}'`)
-}
-
-/**
- * returns list of listing IDs that we have already looked at
- */
-const fetchProcessedListings = async (key: string) => {
-  const data = await localStorage.getItem(key)
-
-  if (!data) {
-    return []
-  }
-
-  return data as string[]
 }
 
 const getPageListings = async (preset: FilterPreset, page = 1) => {
