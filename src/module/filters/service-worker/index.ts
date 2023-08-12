@@ -4,8 +4,9 @@ import * as cheerio from 'cheerio'
 import { difference } from 'lodash-es'
 import { getStorageItem } from 'core/module/global-state/storage.helper'
 import { FilterPreset } from '../types'
-import { SETTING_ENABLED, SETTING_NOTIFICATION_INTERVAL, SW_MAX_SCAN_PAGES, fetchProcessedListings, fetchUnseenListings, saveProcessedListings, saveUnseenListings } from '../common'
+import { SETTING_ENABLED, SETTING_NOTIFICATION_INTERVAL, SW_MAX_SCAN_PAGES, addProcessedListings, addUnseenListings, fetchProcessedListings, saveProcessedListings } from '../common'
 import { getSettingFromStorage } from 'core/module/settings/settings.helper'
+import { pluralize } from 'util/text'
 
 getSettingFromStorage(SETTING_NOTIFICATION_INTERVAL).then(value => {
   const periodInMinutes = value ? Number(value) : 30
@@ -71,19 +72,21 @@ const processPreset = async (preset: FilterPreset) => {
 
   const limitReached = diff.length >= 30 * SW_MAX_SCAN_PAGES
 
+  const titleCount = `${diff.length}${limitReached ? '+' : ''}`
+  const title = `${titleCount} ${pluralize(diff.length, 'jauns sludinājums', 'jauni sludinājumi')}`
+
   browser.notifications.create(`https://www.ss.com${preset.path}?bss-filter=${preset.id}`, {
     type: 'basic',
     iconUrl: 'assets/icons/bss128.png',
-    title: `[BSS] ${diff.length} jauni sludinājumi`,
-    message: `Atrasti ${diff.length}${limitReached ? '+' : ''} jauni sludinājumi, kas atbilst filtram "${preset.name}"`
+    title: `[BSS] ${title}`,
+    message: `${pluralize(diff.length, 'Atrasts', 'Atrasti')} ${title}, kas atbilst filtram "${preset.name}"`
   })
 
   // Keep track of listings we have processed
-  await saveProcessedListings(preset, [...diff, ...processed])
+  await addProcessedListings(preset, diff)
 
   // This tacks listings that the user has not seen yet
-  const newListings = await fetchUnseenListings(preset)
-  await saveUnseenListings(preset, [...diff, ...newListings])
+  await addUnseenListings(preset, diff)
 
   log(`Found ${diff.length} new listings for preset '${preset.id}'`)
 }

@@ -71,7 +71,7 @@ export const FilterModal: FC<Props> = ({ preset, visible, onClose }) => {
     }
 
     const newPreset: FilterPreset = {
-      id: filterParamsToId(values.params),
+      id: filterParamsToId(params),
       params: params,
       notifications: values.notifications,
       name: values.name,

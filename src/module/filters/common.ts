@@ -37,6 +37,11 @@ export const saveProcessedListings = async (preset: FilterPreset, ids: string[])
   await localStorage.setItem(`${SW_FILTERS_PROCESSED}/${preset.id}`, take(uniq(ids), 500))
 }
 
+export const addProcessedListings = async (preset: FilterPreset, ids: string[]) => {
+  const current = await fetchProcessedListings(preset)
+  await saveProcessedListings(preset, [...ids, ...current])
+}
+
 /**
  * returns list of listing IDs that the user has not seen yet
  */
@@ -49,9 +54,15 @@ export const fetchUnseenListings = async (preset: FilterPreset) => {
 
   return data as string[]
 }
+
 /**
  * save list of listing IDs that the user has not seen yet
  */
 export const saveUnseenListings = async (preset: FilterPreset, ids: string[]) => {
   await localStorage.setItem(`${SW_FILTERS_NEW}/${preset.id}`, take(uniq(ids), 500))
+}
+
+export const addUnseenListings = async (preset: FilterPreset, ids: string[]) => {
+  const current = await fetchUnseenListings(preset)
+  await saveUnseenListings(preset, [...ids, ...current])
 }

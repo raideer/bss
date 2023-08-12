@@ -4,14 +4,13 @@ import { SettingCategory, SettingValueType } from 'core/module/settings/types'
 import { renderReact } from 'util/react'
 import { Filters } from './components/Filters'
 import { getSetting, registerSetting } from 'core/module/settings'
-import { SETTING_ENABLED, SETTING_NOTIFICATIONS_ENABLED, SETTING_NOTIFICATION_INTERVAL, STORAGE_MEMORY, SW_FILTERS_NEW } from './common'
+import { SETTING_ENABLED, SETTING_NOTIFICATIONS_ENABLED, SETTING_NOTIFICATION_INTERVAL, STORAGE_MEMORY, addProcessedListings, fetchUnseenListings, saveUnseenListings } from './common'
 import { addHtbElement } from 'core/containers/htb-container'
 import { HomeFilterList } from './components/HomeFilterList'
 import { StateProvider } from 'core/module/global-state/Provider'
 import { FilterPreset } from './types'
 import { applyFilter, filterParamsToId, getCurrentFilterParams } from './helpers'
 import { getStorageItem } from 'core/module/global-state/storage.helper'
-import localStorage from 'core/module/global-state/local-storage'
 import { isListingPage } from 'util/page-info'
 
 registerSetting({
@@ -94,8 +93,7 @@ const showNewListings = async () => {
   const activePreset = presets.find(preset => currentId === preset.id)
 
   if (activePreset) {
-    const key = `${SW_FILTERS_NEW}/${activePreset.id}`
-    const newListings = await localStorage.getItem(key) as string[]
+    const newListings = await fetchUnseenListings(activePreset)
 
     if (!newListings || !newListings.length) {
       return
@@ -109,9 +107,12 @@ const showNewListings = async () => {
 
     // Find oldest unseen listing and then mark all other as new
     let isNew = false
-    listings.reverse().forEach((listing, index) => {
+    const ids: string[] = []
+    listings.reverse().forEach((listing) => {
+      const id = listing.id
+      ids.push(id)
+
       if (!isNew) {
-        const id = listing.id
         isNew = newListings.includes(id)
       }
 
@@ -121,7 +122,8 @@ const showNewListings = async () => {
       }
     })
 
-    localStorage.removeItem(key)
+    addProcessedListings(activePreset, ids)
+    saveUnseenListings(activePreset, [])
   }
 }
 
