@@ -12,7 +12,7 @@ const version = `${VERSION.major}.${VERSION.minor}.${VERSION.patch}`
 
 module.exports = (type) => {
   const resourceLink = type === 'chrome' ? 'chrome-extension://__MSG_@@extension_id__' : 'moz-extension://__MSG_@@extension_id__'
-  const manifest = type === 'chrome' ? 'manifest' : 'manifest-v2'
+  const manifest = `manifest-${type}`
 
   return {
     mode: PROD ? 'production' : 'development',
