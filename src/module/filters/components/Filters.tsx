@@ -35,6 +35,10 @@ export const Filters: FC = () => {
     setModalOpen(false)
   }
 
+  if (!canSave && !presets.length) {
+    return null
+  }
+
   return (
     <div className="bss-fm-container">
       <div className="bss-fm-presets">

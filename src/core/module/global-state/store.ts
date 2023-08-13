@@ -7,14 +7,33 @@ import localStorage from './local-storage'
 import syncStorage from './sync-storage'
 import { hydrateMiddleware } from './lifecycle'
 import { KEY_PREFIX, STORAGE_LOCAL, STORAGE_SYNC } from './constants'
-import { runMigrations } from './migrations/runner'
+import { isString } from 'lodash-es'
+import { log } from 'util/logger'
+
+const serialize = (data: any) => {
+  return data
+}
+
+const deserialize = (data: any) => {
+  if (isString(data)) {
+    try {
+      const parsedData = JSON.parse(data)
+      log('Parsed data', parsedData)
+      return parsedData
+    } catch (e) {
+      log('Error parsing data', e)
+    }
+  }
+
+  return data
+}
 
 const commonConfig = {
-  serialize: false,
-  deserialize: false,
+  serialize: serialize as any,
+  deserialize: deserialize as any,
   keyPrefix: KEY_PREFIX,
-  version: 1,
-  migrate: runMigrations
+  version: 1
+  // migrate: runMigrations
 }
 
 const localPersistConfig = {

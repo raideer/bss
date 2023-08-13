@@ -1,6 +1,6 @@
-export const KEY_PREFIX = 'bss:'
+export const KEY_PREFIX = 'persist:'
 
-export const STORAGE_SYNC = 'sync'
-export const STORAGE_LOCAL = 'local'
+export const STORAGE_SYNC = 'bss-sync'
+export const STORAGE_LOCAL = 'bss-local'
 
-export type StorageType = 'local' | 'sync'
+export type StorageType = 'bss-local' | 'bss-sync'

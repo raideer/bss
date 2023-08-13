@@ -7,6 +7,7 @@ import { Setting, SettingCategory, SettingsCategory, WatcherCallback } from './t
 import { SettingsButton } from './SettingsButton'
 import { whenHydrated } from '../global-state/lifecycle'
 import { registerSetting as registerSettingAction } from 'core/module/settings/state/settings.slice'
+import { STORAGE_SYNC } from '../global-state/constants'
 
 export const SETTINGS_CATEGORIES: SettingsCategory[] = [
   {
@@ -33,7 +34,7 @@ export const getSetting = (key: string, defaultValue: any = undefined) => {
 }
 
 export const registerSetting = (setting: Setting) => {
-  whenHydrated('sync', () => {
+  whenHydrated(STORAGE_SYNC, () => {
     store.dispatch(
       registerSettingAction(setting)
     )
