@@ -2,15 +2,15 @@ import { PageLocation, getPageInfo } from 'util/context'
 import { whenLoaded } from 'util/lifecycle'
 import { HistoryItem } from './types'
 import localStorage from 'core/module/global-state/local-storage'
-import { STORAGE_HISTORY } from './constants'
-import { uniqBy } from 'lodash-es'
+import { HISTORY_SIZE, STORAGE_HISTORY } from './constants'
+import { take, uniqBy } from 'lodash-es'
 import { log } from 'util/logger'
 
 export const addPageToHistory = async (item: HistoryItem) => {
   const currentHistory = (await localStorage.getItem(STORAGE_HISTORY) || []) as HistoryItem[]
-  const newHistory = [item, ...currentHistory]
+  const newHistory = uniqBy([item, ...currentHistory], 'id')
   log('Adding page to history', item)
-  await localStorage.setItem(STORAGE_HISTORY, uniqBy(newHistory, 'id'))
+  await localStorage.setItem(STORAGE_HISTORY, take(newHistory, HISTORY_SIZE))
 }
 
 whenLoaded(() => {
