@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { GlobalState } from 'core/module/global-state/store'
 import { FilterPreset as Preset } from './FilterPreset'
 import { FilterPreset } from '../types'
-import { isListingPage } from 'util/page-info'
+import { PageLocation, getPageInfo } from 'util/context'
 
 export const Filters: FC = () => {
   const [modalPreset, setModalPreset] = useState<FilterPreset | undefined>()
@@ -28,7 +28,8 @@ export const Filters: FC = () => {
     return filterParamsToId(params)
   }, [])
 
-  const canSave = isListingPage()
+  const pageInfo = getPageInfo()
+  const canSave = pageInfo.location === PageLocation.AdList
 
   const handleClose = () => {
     setModalPreset(undefined)

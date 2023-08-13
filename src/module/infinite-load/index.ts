@@ -3,9 +3,9 @@ import fetchHtml from 'util/fetch-html'
 
 import { dom, isElementInViewport } from 'util/dom'
 import { timeout } from 'util/async'
-import { AdType, getListingPageInfo } from 'util/page-info'
 import { SettingCategory, SettingValueType } from 'core/module/settings/types'
 import { getSetting, registerSetting } from 'core/module/settings'
+import { AdListPageInfo, PageLocation, getPageInfo } from 'util/context'
 
 let loading = false
 
@@ -37,7 +37,7 @@ function hideLoader () {
 }
 
 async function loadNextPage () {
-  const pageInfo = getListingPageInfo()
+  const pageInfo = getPageInfo() as AdListPageInfo
   const lastLink = document.querySelector('a[rel="next"].navi:last-child') as HTMLAnchorElement
   const activeLink = document.querySelector('button.navia') as HTMLButtonElement
 
@@ -53,7 +53,7 @@ async function loadNextPage () {
     const nextLinkHref = (nextLink as HTMLAnchorElement).href
     const html = await fetchHtml(nextLinkHref) as Document
     // Select and place ads
-    if (pageInfo.adType === AdType.AD_TYPE_GALLERY) {
+    if (pageInfo.listingType === 'gallery') {
       const items = html.querySelector('.ads_album_td')?.closest('tbody')?.querySelectorAll(':scope > tr')
       const tbody = document.querySelector('.ads_album_td')?.closest('tbody')
 
@@ -88,6 +88,12 @@ async function loadNextPage () {
 
 whenLoaded(() => {
   if (!getSetting('infinite-load-enabled')) return
+
+  const pageInfo = getPageInfo()
+
+  if (pageInfo.location !== PageLocation.AdList) {
+    return
+  }
 
   window.addEventListener('scroll', () => {
     const menuButtonEl = document.querySelector('button.navia')

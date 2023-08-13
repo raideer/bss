@@ -1,20 +1,20 @@
 import { FC, useState } from 'react'
 import { dom } from 'util/dom'
-import { AdType, getListingPageInfo } from 'util/page-info'
 import { Preview } from './Preview'
 import { Button } from 'core/components/Button'
 import { renderReact } from 'util/react'
 import { useSelector } from 'react-redux'
 import { GlobalState } from 'core/module/global-state/store'
 import { SETTING_ENABLED } from '..'
+import { AdListPageInfo, getPageInfo } from 'util/context'
 interface Props {
   row: any;
 }
 
 export const PreviewButton: FC<Props> = ({ row }) => {
   const enabled = useSelector((state: GlobalState) => state.settings.values[SETTING_ENABLED])
-  const pageInfo = getListingPageInfo()
-  const isGallery = pageInfo.adType === AdType.AD_TYPE_GALLERY
+  const pageInfo = getPageInfo() as AdListPageInfo
+  const isGallery = pageInfo.listingType === 'gallery'
   const [container, setContainer] = useState<HTMLElement | null>(null)
 
   const onClick = (e: any) => {

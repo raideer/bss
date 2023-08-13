@@ -11,8 +11,8 @@ import { StateProvider } from 'core/module/global-state/Provider'
 import { FilterPreset } from './types'
 import { applyFilter, filterParamsToId, getCurrentFilterParams } from './helpers'
 import { getStorageItem } from 'core/module/global-state/storage.helper'
-import { isListingPage } from 'util/page-info'
 import { STORAGE_LOCAL } from 'core/module/global-state/constants'
+import { PageLocation, getPageInfo } from 'util/context'
 
 registerSetting({
   id: SETTING_ENABLED,
@@ -133,13 +133,11 @@ addHtbElement(<HomeFilterList key="home-filter-list" />)
 whenLoaded(async () => {
   if (!getSetting(SETTING_ENABLED)) return
 
+  const pageInfo = getPageInfo()
   const willRedirect = await applyUrlFilter()
 
-  if (!willRedirect) {
+  if (pageInfo.location === PageLocation.AdList && !willRedirect) {
     renderFilters()
-
-    if (isListingPage()) {
-      showNewListings()
-    }
+    showNewListings()
   }
 })

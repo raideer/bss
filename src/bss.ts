@@ -11,5 +11,6 @@ import 'module/preview'
 import 'module/filters'
 import 'module/memo'
 import 'module/search'
+import 'module/history'
 
 log('Modules loaded')

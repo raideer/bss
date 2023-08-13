@@ -6,6 +6,7 @@ import { Loader } from 'core/components/Loader'
 import first from 'lodash-es/first'
 import { PreviewMap } from './PreviewMap'
 import { Button } from 'core/components/Button'
+import { addPageToHistory } from 'module/history'
 
 interface Props {
   row: Element;
@@ -44,6 +45,23 @@ export const Preview: FC<Props> = ({ row }) => {
     }
   }, [])
 
+  const addRowToHistory = () => {
+    const id = row.id.replace('tr_', '')
+    const adLink = row.querySelector('a[id^="dm_"]') as HTMLAnchorElement
+
+    if (!id || !adLink) {
+      return
+    }
+
+    const url = new URL(adLink.href)
+
+    addPageToHistory({
+      id,
+      url: url.pathname,
+      title: adLink.textContent || ''
+    })
+  }
+
   useEffect(() => {
     if (html) {
       const map = html.querySelector('#google_map')
@@ -53,6 +71,7 @@ export const Preview: FC<Props> = ({ row }) => {
 
   useEffect(() => {
     loadAdPage()
+    addRowToHistory()
   }, [row])
 
   if (!html) {
