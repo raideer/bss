@@ -12,6 +12,7 @@ import { FilterPreset } from './types'
 import { applyFilter, filterParamsToId, getCurrentFilterParams } from './helpers'
 import { getStorageItem } from 'core/module/global-state/storage.helper'
 import { isListingPage } from 'util/page-info'
+import { STORAGE_LOCAL } from 'core/module/global-state/constants'
 
 registerSetting({
   id: SETTING_ENABLED,
@@ -71,7 +72,7 @@ const applyUrlFilter = async () => {
   const filterId = url.searchParams.get('bss-filter')
 
   if (filterId) {
-    const filters = await getStorageItem('local', STORAGE_MEMORY) || []
+    const filters = await getStorageItem(STORAGE_LOCAL, STORAGE_MEMORY) || []
 
     const filter = filters.find((f: FilterPreset) => f.id === filterId)
 
@@ -89,7 +90,7 @@ const showNewListings = async () => {
   const currentParams = getCurrentFilterParams()
   const currentId = filterParamsToId(currentParams)
 
-  const presets = (await getStorageItem('local', STORAGE_MEMORY) || []) as FilterPreset[]
+  const presets = (await getStorageItem(STORAGE_LOCAL, STORAGE_MEMORY) || []) as FilterPreset[]
   const activePreset = presets.find(preset => currentId === preset.id)
 
   if (activePreset) {

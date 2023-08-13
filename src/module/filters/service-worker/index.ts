@@ -7,6 +7,7 @@ import { FilterPreset } from '../types'
 import { SETTING_ENABLED, SETTING_NOTIFICATION_INTERVAL, SW_MAX_SCAN_PAGES, addProcessedListings, addUnseenListings, fetchProcessedListings, saveProcessedListings } from '../common'
 import { getSettingFromStorage } from 'core/module/settings/settings.helper'
 import { pluralize } from 'util/text'
+import { STORAGE_LOCAL } from 'core/module/global-state/constants'
 
 getSettingFromStorage(SETTING_NOTIFICATION_INTERVAL).then(value => {
   const periodInMinutes = value ? Number(value) : 30
@@ -26,7 +27,7 @@ export const notifyNewListings = async () => {
     return
   }
 
-  const presets = await getStorageItem('local', 'presets') as FilterPreset[]
+  const presets = await getStorageItem(STORAGE_LOCAL, 'presets') as FilterPreset[]
 
   if (!presets) {
     log('No presets')

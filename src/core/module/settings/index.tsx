@@ -5,7 +5,7 @@ import store from '../global-state/store'
 import watch from 'redux-watch'
 import { Setting, SettingCategory, SettingsCategory, WatcherCallback } from './types'
 import { SettingsButton } from './SettingsButton'
-import { whenPersisted } from '../global-state/lifecycle'
+import { whenHydrated } from '../global-state/lifecycle'
 import { registerSetting as registerSettingAction } from 'core/module/settings/state/settings.slice'
 
 export const SETTINGS_CATEGORIES: SettingsCategory[] = [
@@ -33,7 +33,7 @@ export const getSetting = (key: string, defaultValue: any = undefined) => {
 }
 
 export const registerSetting = (setting: Setting) => {
-  whenPersisted(() => {
+  whenHydrated('sync', () => {
     store.dispatch(
       registerSettingAction(setting)
     )

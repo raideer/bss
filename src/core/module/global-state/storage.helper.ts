@@ -1,16 +1,16 @@
+import { KEY_PREFIX, STORAGE_LOCAL, STORAGE_SYNC, StorageType } from './constants'
 import localStorage from './local-storage'
 import syncStorage from './sync-storage'
 
-export const getStorageItem = async (storage: 'local' | 'sync', key: string) => {
+export const getStorageItem = async (storage: StorageType, key: string) => {
   const data = await getPersistStorage(storage)
-  const parsedData = JSON.parse(data)
-  return parsedData[key] ? JSON.parse(parsedData[key]) : null
+  return data[key] ? data[key] : null
 }
 
-const getPersistStorage = (storage: 'local' | 'sync') => {
-  if (storage === 'local') {
-    return localStorage.getItem('persist:bss-local')
+const getPersistStorage = (storage: StorageType) => {
+  if (storage === STORAGE_LOCAL) {
+    return localStorage.getItem(`${KEY_PREFIX}${STORAGE_LOCAL}`)
   }
 
-  return syncStorage.getItem('persist:bss-sync')
+  return syncStorage.getItem(`${KEY_PREFIX}${STORAGE_SYNC}`)
 }

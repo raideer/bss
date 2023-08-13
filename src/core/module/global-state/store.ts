@@ -5,16 +5,28 @@ import filterReducer from 'module/filters/state/filter.slice'
 import { persistStore, persistReducer } from 'redux-persist'
 import localStorage from './local-storage'
 import syncStorage from './sync-storage'
-import { persistMiddleware } from './lifecycle'
+import { hydrateMiddleware } from './lifecycle'
+import { KEY_PREFIX, STORAGE_LOCAL, STORAGE_SYNC } from './constants'
+import { runMigrations } from './migrations/runner'
+
+const commonConfig = {
+  serialize: false,
+  deserialize: false,
+  keyPrefix: KEY_PREFIX,
+  version: 1,
+  migrate: runMigrations
+}
 
 const localPersistConfig = {
-  key: 'bss-local',
-  storage: localStorage
+  key: STORAGE_LOCAL,
+  storage: localStorage,
+  ...commonConfig
 }
 
 const syncPersistConfig = {
-  key: 'bss-sync',
-  storage: syncStorage
+  key: STORAGE_SYNC,
+  storage: syncStorage,
+  ...commonConfig
 }
 
 const rootReducer = combineReducers({
@@ -28,7 +40,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false
   }),
-  enhancers: [applyMiddleware(persistMiddleware)]
+  enhancers: [applyMiddleware(hydrateMiddleware)]
 })
 
 export const persistor = persistStore(store)

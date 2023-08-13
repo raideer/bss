@@ -11,6 +11,7 @@ import { GlobalState } from '../global-state/store'
 import { Button } from 'core/components/Button'
 import { updateSetting } from './state/settings.slice'
 import { SETTINGS_CATEGORIES } from '.'
+import { isDev } from 'util/env'
 
 export const Settings: FC = () => {
   const dispatch = useDispatch<any>()
@@ -70,9 +71,9 @@ export const Settings: FC = () => {
           })
         }
         </div>
-        {/* <div className="bss-settings-reset">
+        {isDev && <div className="bss-settings-reset">
           <span onClick={deleteAllSettings}>Dzēst visus iestatījumus</span>
-        </div> */}
+        </div>}
         <div className="bss-settings-version">
           <div>Versija: { BSS.version.full }</div>
           <a target='_blank' href="https://bmc.link/raideer" rel="noreferrer"><span className="icon-coin-euro"></span></a>
