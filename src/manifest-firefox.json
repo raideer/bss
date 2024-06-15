@@ -40,6 +40,11 @@
   "background": {
     "scripts": ["service-worker.js"]
   },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{4015ef04-67e5-4166-8221-f2c731101288}"
+    }
+  },
   "web_accessible_resources": [
     {
       "resources": [
