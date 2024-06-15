@@ -2,6 +2,7 @@ import { SearchBar } from './components/SearchBar'
 import { SettingCategory, SettingValueType } from 'core/module/settings/types'
 import { addHtbElement } from 'core/containers/htb-container'
 import { registerSetting } from 'core/module/settings'
+import { loadDefaultIndex } from './data/indexer'
 
 export const SETTING_ENABLED = 'search-enabled'
 
@@ -15,3 +16,5 @@ registerSetting({
 })
 
 addHtbElement(<SearchBar key="search" />)
+
+loadDefaultIndex()
