@@ -21,13 +21,16 @@ export interface AdListPageInfo {
 type PageInfo = BasePageInfo | AdListPageInfo
 
 export const getPageInfo = memoize((): PageInfo => {
-  if (lifecycleState.status !== Lifecycle.End && lifecycleState.status !== Lifecycle.Idle) {
+  if (
+    lifecycleState.status !== Lifecycle.End &&
+    lifecycleState.status !== Lifecycle.Idle
+  ) {
     throw new Error('Cannot get page info before page has loaded')
   }
 
   const url = trim(window.location.pathname, '/')
   const parts = url.split('/')
-  const partsWithoutLocale = parts.filter(part => {
+  const partsWithoutLocale = parts.filter((part) => {
     return ['en', 'lv', 'ru'].indexOf(part) === -1
   })
 
@@ -54,12 +57,12 @@ const getLocation = (parts: string[]): PageLocation => {
     return PageLocation.Home
   }
 
-  if (document.querySelector('[id^=sc_]')) {
-    return PageLocation.Category
-  }
-
   if (document.querySelector('[id^=tr_]')) {
     return PageLocation.AdList
+  }
+
+  if (document.querySelector('[id^=sc_]')) {
+    return PageLocation.Category
   }
 
   return PageLocation.Unknown

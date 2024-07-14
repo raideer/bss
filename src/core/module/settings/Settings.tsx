@@ -76,7 +76,6 @@ export const Settings: FC = () => {
         </div>}
         <div className="bss-settings-version">
           <div>Versija: { BSS.version.full }</div>
-          <a target='_blank' href="https://bmc.link/raideer" rel="noreferrer"><span className="icon-coin-euro"></span></a>
         </div>
       </div>
       <div className="bss-settings__settings">
